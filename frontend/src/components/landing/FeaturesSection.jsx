@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { Shield, MapPin, Users } from 'lucide-react';
 import { motion, useMotionTemplate, useMotionValue, useSpring } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const FeatureCard = ({ icon, title, description, delay }) => {
     const ref = useRef(null);
@@ -60,6 +61,8 @@ const FeatureCard = ({ icon, title, description, delay }) => {
 };
 
 const FeaturesSection = () => {
+    const { t } = useTranslation();
+    
     return (
         <section className="py-24 bg-black relative">
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-900/20 via-black to-black"></div>
@@ -71,7 +74,7 @@ const FeaturesSection = () => {
                         viewport={{ once: true }}
                         className="text-4xl font-bold text-white mb-4"
                     >
-                        Pourquoi Link2Act ?
+                        {t('landing.features.title')}
                     </motion.h2>
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
@@ -80,27 +83,27 @@ const FeaturesSection = () => {
                         transition={{ delay: 0.2 }}
                         className="text-slate-400 text-lg max-w-2xl mx-auto"
                     >
-                        Une plateforme conçue pour la confiance et l'efficacité.
+                        {t('landing.features.subtitle')}
                     </motion.p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-6xl mx-auto">
                     <FeatureCard
                         icon={<Shield className="w-12 h-12 text-cyan-400" />}
-                        title="100% Vérifié"
-                        description="Chaque bénévole et demandeur est vérifié pour garantir la sécurité de tous."
+                        title={t('landing.features.secure.title')}
+                        description={t('landing.features.secure.description')}
                         delay={0}
                     />
                     <FeatureCard
                         icon={<MapPin className="w-12 h-12 text-purple-400" />}
-                        title="Ultra Local"
-                        description="Trouvez de l'aide ou des missions à deux pas de chez vous grâce à la géolocalisation."
+                        title={t('landing.features.geolocation.title')}
+                        description={t('landing.features.geolocation.description')}
                         delay={0.2}
                     />
                     <FeatureCard
                         icon={<Users className="w-12 h-12 text-green-400" />}
-                        title="Communauté Active"
-                        description="Rejoignez un mouvement grandissant de citoyens engagés pour le bien commun."
+                        title={t('landing.features.community.title')}
+                        description={t('landing.features.community.description')}
                         delay={0.4}
                     />
                 </div>

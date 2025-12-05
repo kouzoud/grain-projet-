@@ -1,0 +1,483 @@
+{
+  "common": {
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "save": "Enregistrer",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "close": "Fermer",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "submit": "Soumettre",
+    "yes": "Oui",
+    "no": "Non",
+    "or": "ou",
+    "and": "et",
+    "all": "Tous",
+    "none": "Aucun",
+    "viewMore": "Voir plus",
+    "viewLess": "Voir moins"
+  },
+  
+  "navbar": {
+    "home": "Accueil",
+    "dashboard": "Tableau de bord",
+    "newRequest": "Nouvelle demande",
+    "map": "Carte",
+    "profile": "Mon profil",
+    "login": "Se connecter",
+    "logout": "Se déconnecter",
+    "volunteer": "Bénévole",
+    "citizen": "Citoyen",
+    "admin": "Administration",
+    "myInterventions": "Mes Interventions",
+    "settings": "Paramètres"
+  },
+  
+  "hero": {
+    "badge": "Plateforme d'Entraide 2.0",
+    "title": {
+      "line1": "Solidarité et Entraide",
+      "line2": "Au Cœur de Nos Villes"
+    },
+    "subtitle": "Rejoignez Link2Act, la plateforme qui connecte ceux qui ont besoin d'aide avec ceux prêts à agir.",
+    "searchPlaceholder": "De quoi avez-vous besoin ? (ex: Repas, Aide, Paris...)",
+    "ctaButton": "Je veux aider",
+    "howItWorks": "Comment ça marche"
+  },
+  
+  "landing": {
+    "hero": {
+      "title": "Solidarité et Entraide",
+      "subtitle": "Au Cœur de Nos Villes",
+      "description": "Rejoignez SolidarLink, la plateforme qui connecte ceux qui ont besoin d'aide avec ceux prêts à agir.",
+      "ctaPrimary": "Je veux aider",
+      "ctaSecondary": "Comment ça marche ?",
+      "ctaRequest": "Demander de l'aide"
+    },
+    "stats": {
+      "volunteers": "Bénévoles actifs",
+      "cities": "Villes couvertes",
+      "missions": "Missions complétées",
+      "satisfaction": "Satisfaction"
+    },
+    "features": {
+      "title": "Pourquoi SolidarLink ?",
+      "subtitle": "Une plateforme pensée pour simplifier l'entraide",
+      "geolocation": {
+        "title": "Géolocalisation précise",
+        "description": "Trouvez les demandes d'aide proches de vous en temps réel"
+      },
+      "realtime": {
+        "title": "Temps réel",
+        "description": "Notifications instantanées pour ne manquer aucune mission"
+      },
+      "secure": {
+        "title": "Sécurisé",
+        "description": "Vérification des profils et système de confiance"
+      },
+      "simple": {
+        "title": "Simple d'utilisation",
+        "description": "Interface intuitive accessible à tous"
+      },
+      "community": {
+        "title": "Communauté Active",
+        "description": "Rejoignez un mouvement grandissant de citoyens engagés pour le bien commun."
+      }
+    },
+    "howItWorks": {
+      "title": "Comment ça marche ?",
+      "step1": {
+        "title": "Inscrivez-vous",
+        "description": "Créez votre compte en quelques clics"
+      },
+      "step2": {
+        "title": "Publiez ou trouvez",
+        "description": "Publiez une demande d'aide ou consultez celles à proximité"
+      },
+      "step3": {
+        "title": "Connectez-vous",
+        "description": "Entrez en contact et coordonnez l'aide"
+      },
+      "step4": {
+        "title": "Aidez",
+        "description": "Réalisez la mission et changez une vie"
+      }
+    },
+    "cta": {
+      "title": "Prêt à faire la différence ?",
+      "subtitle": "Rejoignez notre communauté de solidarité",
+      "button": "Commencer maintenant"
+    },
+    "impact": {
+      "title": "Notre Impact en Temps Réel",
+      "subtitle": "Chaque action compte. Voici ce que notre communauté a accompli ensemble.",
+      "thisMonth": "ce mois",
+      "successRate": "de succès"
+    },
+    "missions": {
+      "badge": "Success Stories",
+      "title": "Dernières Victoires",
+      "viewAll": "Voir toutes les missions"
+    }
+  },
+  
+  "auth": {
+    "login": {
+      "title": "Connexion",
+      "subtitle": "Bienvenue sur SolidarLink",
+      "email": "Adresse email",
+      "emailPlaceholder": "votre@email.com",
+      "password": "Mot de passe",
+      "passwordPlaceholder": "••••••••",
+      "rememberMe": "Se souvenir de moi",
+      "forgotPassword": "Mot de passe oublié ?",
+      "submit": "Se connecter",
+      "noAccount": "Pas encore de compte ?",
+      "signUp": "S'inscrire",
+      "register": "S'inscrire",
+      "orContinueWith": "Ou continuer avec"
+    },
+    "register": {
+      "title": "Inscription",
+      "subtitle": "Rejoignez la communauté SolidarLink",
+      "firstName": "Prénom",
+      "firstNamePlaceholder": "Votre prénom",
+      "lastName": "Nom",
+      "lastNamePlaceholder": "Votre nom",
+      "email": "Email",
+      "emailPlaceholder": "votre@email.com",
+      "phone": "Téléphone",
+      "phonePlaceholder": "+212 6XX XXX XXX",
+      "password": "Mot de passe",
+      "passwordPlaceholder": "Minimum 8 caractères",
+      "confirmPassword": "Confirmer le mot de passe",
+      "confirmPasswordPlaceholder": "Répétez le mot de passe",
+      "role": "Je m'inscris en tant que",
+      "citizen": "Citoyen",
+      "citizenDesc": "Je souhaite demander de l'aide",
+      "volunteer": "Bénévole",
+      "volunteerDesc": "Je souhaite aider les autres",
+      "submit": "Créer mon compte",
+      "hasAccount": "Déjà inscrit ?",
+      "login": "Se connecter",
+      "terms": "En vous inscrivant, vous acceptez nos",
+      "termsLink": "Conditions d'utilisation",
+      "privacyLink": "Politique de confidentialité",
+      "success": "Compte créé avec succès ! En attente de validation."
+    },
+    "errors": {
+      "emailRequired": "L'email est requis",
+      "emailInvalid": "Adresse email invalide",
+      "passwordRequired": "Le mot de passe est requis",
+      "invalidCredentials": "Identifiants incorrects. Veuillez réessayer.",
+      "accessDenied": "Accès refusé. Vérifiez vos identifiants ou si votre compte est validé.",
+      "accountNotValidated": "Votre compte n'est pas encore validé",
+      "emailExists": "Cet email est déjà utilisé",
+      "passwordMismatch": "Les mots de passe ne correspondent pas",
+      "weakPassword": "Le mot de passe doit contenir au moins 8 caractères"
+    },
+    "validation": {
+      "required": "Ce champ est requis",
+      "invalidEmail": "Email invalide",
+      "minLength": "Minimum {{count}} caractères",
+      "maxLength": "Maximum {{count}} caractères"
+    }
+  },
+  
+  "dashboard": {
+    "citizen": {
+      "title": "Tableau de Bord",
+      "subtitle": "Gérez vos demandes d'aide et suivez leur avancement en temps réel",
+      "welcome": "Bienvenue, {{name}} !",
+      "myRequests": "Mes Demandes",
+      "newRequest": "Nouvelle Demande",
+      "searchPlaceholder": "Rechercher par titre ou description...",
+      "requestCount": "{{count}} demande(s) trouvée(s)",
+      "noResultsFiltered": "Aucune demande ne correspond à vos critères",
+      "noResultsFilteredDesc": "Essayez de modifier vos filtres de recherche pour trouver ce que vous cherchez",
+      "clearFilters": "Effacer les filtres",
+      "clear": "Effacer",
+      "filtered": "filtrées",
+      "pagination": "Page {{current}} sur {{total}}",
+      "stats": {
+        "total": "Total demandes",
+        "pending": "En attente",
+        "inProgress": "En cours",
+        "completed": "Complétées",
+        "rejected": "Refusées"
+      },
+      "emptyState": {
+        "title": "Aucune demande",
+        "description": "Vous n'avez pas encore créé de demande d'aide",
+        "cta": "Créer ma première demande",
+        "noResults": "Aucune demande trouvée",
+        "noResultsDesc": "Aucune demande ne correspond à vos critères de recherche",
+        "clearFilters": "Effacer les filtres"
+      },
+      "requestCard": {
+        "postedOn": "Publié le",
+        "category": "Catégorie",
+        "status": "Statut",
+        "volunteer": "Bénévole",
+        "viewDetails": "Voir détails",
+        "edit": "Modifier",
+        "delete": "Supprimer"
+      }
+    },
+    "volunteer": {
+      "title": "Tableau de Bord Bénévole",
+      "subtitle": "Trouvez des missions près de chez vous",
+      "welcome": "Bienvenue, {{name}} !",
+      "availableMissions": "Missions Disponibles",
+      "myMissions": "Mes Interventions",
+      "nearbyMissions": "Missions à proximité",
+      "stats": {
+        "completed": "Missions complétées",
+        "inProgress": "En cours",
+        "totalHours": "Heures de bénévolat",
+        "rating": "Note moyenne"
+      },
+      "missionCard": {
+        "distance": "{{distance}} km",
+        "urgent": "Urgent",
+        "takeCharge": "Prendre en charge",
+        "viewDetails": "Voir détails",
+        "postedBy": "Publié par",
+        "postedOn": "Le"
+      },
+      "emptyState": {
+        "title": "Aucune mission disponible",
+        "description": "Il n'y a pas de mission dans votre zone actuellement",
+        "cta": "Élargir la recherche"
+      }
+    },
+    "admin": {
+      "title": "Administration",
+      "subtitle": "Gérez la plateforme SolidarLink",
+      "dashboard": {
+        "title": "Tableau de Bord Admin",
+        "subtitle": "Vue d'ensemble et analytique",
+        "strategicMap": "Carte Stratégique",
+        "totalRequests": "Total Demandes",
+        "pending": "En Attente",
+        "resolved": "Résolues",
+        "rejected": "Rejetées",
+        "activeVolunteers": "Bénévoles Actifs",
+        "categoryDistribution": "Répartition par Catégorie",
+        "evolution": "Évolution (7 derniers jours)",
+        "recentRequests": "Dernières Demandes Reçues",
+        "noRecentRequests": "Aucune demande récente."
+      },
+      "users": "Utilisateurs",
+      "requests": "Demandes",
+      "statistics": "Statistiques",
+      "settings": "Paramètres",
+      "validation": {
+        "title": "Validation des comptes",
+        "pending": "En attente de validation",
+        "validate": "Valider",
+        "reject": "Refuser",
+        "validated": "Compte validé avec succès"
+      },
+      "userManagement": {
+        "title": "Gestion des Utilisateurs",
+        "subtitle": "Gérez les comptes utilisateurs",
+        "searchPlaceholder": "Rechercher un utilisateur...",
+        "allRoles": "Tous les rôles",
+        "allStatus": "Tous les statuts",
+        "active": "Actif",
+        "inactive": "Inactif",
+        "role": "Rôle",
+        "status": "Statut",
+        "actions": "Actions",
+        "noUsers": "Aucun utilisateur trouvé"
+      },
+      "kanban": {
+        "title": "Gestion Kanban",
+        "subtitle": "Gérez les demandes par statut"
+      },
+      "cases": {
+        "title": "Gestion des Cas",
+        "subtitle": "Consultez et gérez tous les cas"
+      },
+      "map": {
+        "title": "Carte Stratégique",
+        "subtitle": "Visualisation géographique des demandes"
+      },
+      "identity": {
+        "title": "Vérification d'Identité",
+        "subtitle": "Validez les documents d'identité"
+      }
+    }
+  },
+  
+  "newRequest": {
+    "title": "Nouvelle Demande d'Aide",
+    "subtitle": "Détaillez votre besoin pour alerter les bénévoles à proximité",
+    "editTitle": "Modifier la Demande",
+    "steps": {
+      "info": "Informations",
+      "description": "Description",
+      "location": "Localisation",
+      "photos": "Photos"
+    },
+    "fields": {
+      "title": "Titre de votre demande",
+      "titlePlaceholder": "Ex: Besoin urgent de denrées alimentaires",
+      "titleHelper": "Un titre clair et précis attire plus de bénévoles",
+      "category": "Catégorie de la demande",
+      "categoryPlaceholder": "Sélectionnez une catégorie",
+      "description": "Description détaillée",
+      "descriptionPlaceholder": "Décrivez votre situation et vos besoins en détail...",
+      "descriptionHelper": "Plus votre description est précise, plus les bénévoles pourront vous aider efficacement",
+      "location": "Localisation du besoin",
+      "locationSelected": "Position sélectionnée",
+      "photos": "Photos (optionnel, max 4)",
+      "photosHelper": "Les photos aident les bénévoles à mieux comprendre votre situation"
+    },
+    "categories": {
+      "ALIMENTAIRE": "Alimentaire",
+      "MEDICAL": "Médical",
+      "LOGISTIQUE": "Logistique",
+      "AUTRE": "Autre"
+    },
+    "templates": {
+      "title": "Choisissez un modèle",
+      "food": "Aide alimentaire",
+      "medical": "Assistance médicale",
+      "logistics": "Aide logistique",
+      "custom": "Description libre"
+    },
+    "certification": {
+      "title": "Certification et engagement",
+      "subtitle": "Veuillez confirmer les informations suivantes",
+      "accuracy": "Je certifie que les informations fournies sont exactes et véridiques",
+      "realNeed": "Cette demande correspond à un besoin réel et actuel",
+      "terms": "J'accepte les conditions d'utilisation et la politique de confidentialité"
+    },
+    "actions": {
+      "next": "Suivant",
+      "previous": "Précédent",
+      "saveDraft": "Brouillon",
+      "saved": "Sauvegardé !",
+      "submit": "Publier",
+      "update": "Mettre à jour",
+      "cancel": "Annuler"
+    },
+    "tips": {
+      "step1": "Un titre clair et précis attire plus de bénévoles. Mentionnez le type d'aide recherché.",
+      "step2": "Détaillez votre situation : nombre de personnes, urgence, contraintes particulières...",
+      "step3": "Indiquez précisément l'adresse où l'aide est nécessaire pour faciliter l'intervention.",
+      "step4": "Les photos aident les bénévoles à mieux comprendre votre situation et à se préparer."
+    },
+    "errors": {
+      "titleRequired": "Le titre est requis",
+      "categoryRequired": "La catégorie est requise",
+      "descriptionRequired": "La description est requise",
+      "descriptionMinLength": "Minimum 50 caractères requis",
+      "locationRequired": "Veuillez sélectionner une position sur la carte",
+      "certificationRequired": "Veuillez confirmer toutes les certifications",
+      "submitError": "Erreur lors de l'enregistrement"
+    },
+    "success": {
+      "created": "Demande créée avec succès !",
+      "updated": "Demande mise à jour avec succès !"
+    }
+  },
+  
+  "map": {
+    "title": "Carte des Demandes",
+    "filters": "Filtres",
+    "allCategories": "Toutes les catégories",
+    "allStatuses": "Tous les statuts",
+    "searchPlaceholder": "Rechercher une adresse...",
+    "myLocation": "Ma position",
+    "locateMe": "Me localiser",
+    "urgent": "Urgent",
+    "normal": "Normal",
+    "distance": "Distance : {{distance}} km",
+    "zoomIn": "Zoom avant",
+    "zoomOut": "Zoom arrière",
+    "noResults": "Aucune demande trouvée dans cette zone"
+  },
+  
+  "status": {
+    "EN_ATTENTE": "En attente",
+    "VALIDE": "Validé",
+    "EN_COURS": "En cours",
+    "RESOLU": "Résolu",
+    "REFUSE": "Refusé",
+    "ANNULE": "Annulé"
+  },
+  
+  "profile": {
+    "title": "Mon Profil",
+    "subtitle": "Gérez vos informations personnelles",
+    "personalInfo": "Informations personnelles",
+    "security": "Sécurité",
+    "notifications": "Notifications",
+    "changePassword": "Changer le mot de passe",
+    "currentPassword": "Mot de passe actuel",
+    "newPassword": "Nouveau mot de passe",
+    "confirmNewPassword": "Confirmer le nouveau mot de passe",
+    "updateProfile": "Mettre à jour le profil",
+    "deleteAccount": "Supprimer mon compte",
+    "deleteWarning": "Cette action est irréversible",
+    "skills": "Compétences",
+    "availability": "Disponibilités",
+    "verification": "Vérification d'identité",
+    "verificationDesc": "Pour garantir la confiance au sein de la communauté, nous vérifions l'identité de chaque membre.",
+    "idDocument": "Pièce d'identité (CNI ou Passeport)"
+  },
+  
+  "notifications": {
+    "title": "Notifications",
+    "markAllRead": "Tout marquer comme lu",
+    "noNotifications": "Aucune notification",
+    "newRequest": "Nouvelle demande près de vous",
+    "requestAccepted": "Votre demande a été acceptée",
+    "missionCompleted": "Mission terminée avec succès"
+  },
+  
+  "footer": {
+    "about": "À propos de SolidarLink",
+    "aboutText": "SolidarLink connecte les citoyens en besoin avec les bénévoles prêts à aider.",
+    "quickLinks": "Liens rapides",
+    "contact": "Contact",
+    "privacy": "Politique de confidentialité",
+    "terms": "Conditions d'utilisation",
+    "description": "La plateforme d'entraide citoyenne nouvelle génération. Connectez-vous, aidez, partagez.",
+    "platform": "Plateforme",
+    "howItWorks": "Comment ça marche",
+    "becomeVolunteer": "Devenir Bénévole",
+    "requestHelp": "Demander de l'aide",
+    "legal": "Légal",
+    "cookies": "Cookies",
+    "madeWith": "Fait avec",
+    "forCommunity": "pour la communauté",
+    "help": "Centre d'aide",
+    "rights": "© {{year}} SolidarLink. Tous droits réservés."
+  },
+  
+  "errors": {
+    "generic": "Une erreur s'est produite",
+    "network": "Erreur de connexion. Vérifiez votre connexion internet.",
+    "unauthorized": "Session expirée. Veuillez vous reconnecter.",
+    "notFound": "Page non trouvée",
+    "serverError": "Erreur serveur. Réessayez plus tard.",
+    "forbidden": "Accès non autorisé"
+  },
+  
+  "language": {
+    "select": "Choisir la langue",
+    "fr": "Français",
+    "ar": "العربية"
+  }
+}

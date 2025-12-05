@@ -36,7 +36,7 @@ public class CasHumanitaire {
     @Column(columnDefinition = "geometry(Point,4326)")
     private Point location;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> photos;
 
     @Enumerated(EnumType.STRING)

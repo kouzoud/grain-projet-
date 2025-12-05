@@ -10,17 +10,20 @@ import com.solidarlink.backend.repository.CasHumanitaireRepository;
 import com.solidarlink.backend.repository.SignalementRepository;
 import com.solidarlink.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AdminService {
 
     private final UserRepository userRepository;
     private final CasHumanitaireRepository casRepository;
     private final SignalementRepository signalementRepository;
+    private final EmailService emailService;
 
     public List<User> getPendingUsers() {
         return userRepository.findByIsValidatedFalse();
@@ -30,6 +33,20 @@ public class AdminService {
         User user = userRepository.findById(userId).orElseThrow();
         user.setValidated(true);
         userRepository.save(user);
+        
+        // Envoi de l'email de confirmation (asynchrone, fire and forget)
+        // Si l'email échoue, la validation reste valide
+        try {
+            emailService.sendAccountValidatedEmail(
+                user.getEmail(),
+                user.getPrenom(),
+                user.getRole().name()
+            );
+            log.info("📧 Email de validation envoyé à l'utilisateur : {} {}", user.getPrenom(), user.getNom());
+        } catch (Exception e) {
+            // On log l'erreur mais on ne fait pas échouer la validation
+            log.warn("⚠️ Impossible d'envoyer l'email de validation à {} : {}", user.getEmail(), e.getMessage());
+        }
     }
 
     public void rejectUser(Long userId) {

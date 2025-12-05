@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, LayersControl } from 'react-leaflet';
 import MarkerClusterGroup from 'react-leaflet-cluster';
+import { useTranslation } from 'react-i18next';
 import { Layers, Map as MapIcon, Activity } from 'lucide-react';
 import HeatmapLayer from '../../components/admin/HeatmapLayer';
 import casService from '../../services/casService';
@@ -41,6 +42,8 @@ const createPulsingIcon = (category) => {
 };
 
 const AdminMap = () => {
+    const { t, i18n } = useTranslation();
+    const isRTL = i18n.language === 'ar';
     const [requests, setRequests] = useState([]);
     const [mode, setMode] = useState('MARKERS'); // 'MARKERS' or 'HEATMAP'
     const [heatmapPoints, setHeatmapPoints] = useState([]);
@@ -68,10 +71,10 @@ const AdminMap = () => {
     return (
         <div className="h-screen flex flex-col relative bg-slate-900">
             {/* Control Panel (Glassmorphism) */}
-            <div className="absolute top-4 left-4 z-[1000] bg-slate-900/80 backdrop-blur-md border border-slate-700 rounded-xl p-4 shadow-2xl w-64">
+            <div className={`absolute top-4 ${isRTL ? 'right-4' : 'left-4'} z-[1000] bg-slate-900/80 backdrop-blur-md border border-slate-700 rounded-xl p-4 shadow-2xl w-64`}>
                 <div className="flex items-center gap-2 mb-4 border-b border-slate-700 pb-2">
                     <Activity className="w-5 h-5 text-cyan-400 animate-pulse" />
-                    <h2 className="text-white font-bold text-lg tracking-wider uppercase">Live Monitor</h2>
+                    <h2 className="text-white font-bold text-lg tracking-wider uppercase">{isRTL ? 'مراقبة مباشرة' : 'Live Monitor'}</h2>
                 </div>
 
                 {/* Toggle Switch */}
@@ -84,7 +87,7 @@ const AdminMap = () => {
                             }`}
                     >
                         <MapIcon className="w-3 h-3" />
-                        MARKERS
+                        {isRTL ? 'علامات' : 'MARKERS'}
                     </button>
                     <button
                         onClick={() => setMode('HEATMAP')}
@@ -94,23 +97,23 @@ const AdminMap = () => {
                             }`}
                     >
                         <Layers className="w-3 h-3" />
-                        HEATMAP
+                        {isRTL ? 'خريطة حرارية' : 'HEATMAP'}
                     </button>
                 </div>
 
                 {/* Legend */}
                 <div className="space-y-2">
-                    <p className="text-xs font-semibold text-slate-400 uppercase mb-2">Légende</p>
+                    <p className="text-xs font-semibold text-slate-400 uppercase mb-2">{isRTL ? 'المفتاح' : 'Légende'}</p>
                     {mode === 'MARKERS' ? (
                         <>
                             <div className="flex items-center gap-2 text-xs text-slate-300">
-                                <span className="w-2 h-2 rounded-full bg-orange-500 shadow-[0_0_8px_rgba(249,115,22,0.6)]"></span> Alimentaire
+                                <span className="w-2 h-2 rounded-full bg-orange-500 shadow-[0_0_8px_rgba(249,115,22,0.6)]"></span> {t('newRequest.categories.ALIMENTAIRE')}
                             </div>
                             <div className="flex items-center gap-2 text-xs text-slate-300">
-                                <span className="w-2 h-2 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.6)]"></span> Médical
+                                <span className="w-2 h-2 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.6)]"></span> {t('newRequest.categories.MEDICAL')}
                             </div>
                             <div className="flex items-center gap-2 text-xs text-slate-300">
-                                <span className="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.6)]"></span> Logement
+                                <span className="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.6)]"></span> {isRTL ? 'سكن' : 'Logement'}
                             </div>
                         </>
                     ) : (

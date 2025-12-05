@@ -1,0 +1,483 @@
+{
+  "common": {
+    "loading": "جاري التحميل...",
+    "error": "خطأ",
+    "success": "نجاح",
+    "cancel": "إلغاء",
+    "confirm": "تأكيد",
+    "save": "حفظ",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "close": "إغلاق",
+    "search": "بحث",
+    "filter": "تصفية",
+    "back": "رجوع",
+    "next": "التالي",
+    "previous": "السابق",
+    "submit": "إرسال",
+    "yes": "نعم",
+    "no": "لا",
+    "or": "أو",
+    "and": "و",
+    "all": "الكل",
+    "none": "لا شيء",
+    "viewMore": "عرض المزيد",
+    "viewLess": "عرض أقل"
+  },
+  
+  "navbar": {
+    "home": "الرئيسية",
+    "dashboard": "لوحة التحكم",
+    "newRequest": "طلب جديد",
+    "map": "الخريطة",
+    "profile": "ملفي الشخصي",
+    "login": "تسجيل الدخول",
+    "logout": "تسجيل الخروج",
+    "volunteer": "متطوع",
+    "citizen": "مواطن",
+    "admin": "الإدارة",
+    "myInterventions": "تدخلاتي",
+    "settings": "الإعدادات"
+  },
+  
+  "hero": {
+    "badge": "منصة التضامن 2.0",
+    "title": {
+      "line1": "التضامن والتعاون",
+      "line2": "في قلب مدننا"
+    },
+    "subtitle": "انضم إلى Link2Act، المنصة التي تربط المحتاجين للمساعدة مع المستعدين للعمل.",
+    "searchPlaceholder": "ماذا تحتاج؟ (مثال: طعام، مساعدة، الرباط...)",
+    "ctaButton": "أريد المساعدة",
+    "howItWorks": "كيف يعمل"
+  },
+  
+  "landing": {
+    "hero": {
+      "title": "التضامن والتعاون",
+      "subtitle": "في قلب مدننا",
+      "description": "انضم إلى SolidarLink، المنصة التي تربط المحتاجين للمساعدة مع المستعدين للعمل.",
+      "ctaPrimary": "أريد المساعدة",
+      "ctaSecondary": "كيف يعمل؟",
+      "ctaRequest": "طلب المساعدة"
+    },
+    "stats": {
+      "volunteers": "متطوعون نشطون",
+      "cities": "مدن مغطاة",
+      "missions": "مهام مكتملة",
+      "satisfaction": "نسبة الرضا"
+    },
+    "features": {
+      "title": "لماذا SolidarLink؟",
+      "subtitle": "منصة مصممة لتبسيط التضامن",
+      "geolocation": {
+        "title": "تحديد موقع دقيق",
+        "description": "ابحث عن طلبات المساعدة القريبة منك في الوقت الفعلي"
+      },
+      "realtime": {
+        "title": "في الوقت الفعلي",
+        "description": "إشعارات فورية حتى لا تفوتك أي مهمة"
+      },
+      "secure": {
+        "title": "آمن",
+        "description": "التحقق من الملفات الشخصية ونظام الثقة"
+      },
+      "simple": {
+        "title": "سهل الاستخدام",
+        "description": "واجهة بديهية في متناول الجميع"
+      },
+      "community": {
+        "title": "مجتمع نشط",
+        "description": "انضم إلى حركة متنامية من المواطنين الملتزمين بالصالح العام."
+      }
+    },
+    "howItWorks": {
+      "title": "كيف يعمل؟",
+      "step1": {
+        "title": "سجل",
+        "description": "أنشئ حسابك في بضع نقرات"
+      },
+      "step2": {
+        "title": "انشر أو ابحث",
+        "description": "انشر طلب مساعدة أو استشر الطلبات القريبة"
+      },
+      "step3": {
+        "title": "تواصل",
+        "description": "تواصل ونسق المساعدة"
+      },
+      "step4": {
+        "title": "ساعد",
+        "description": "أنجز المهمة وغير حياة شخص"
+      }
+    },
+    "cta": {
+      "title": "مستعد لإحداث الفرق؟",
+      "subtitle": "انضم إلى مجتمعنا التضامني",
+      "button": "ابدأ الآن"
+    },
+    "impact": {
+      "title": "تأثيرنا في الوقت الفعلي",
+      "subtitle": "كل عمل مهم. إليك ما حققه مجتمعنا معًا.",
+      "thisMonth": "هذا الشهر",
+      "successRate": "نجاح"
+    },
+    "missions": {
+      "badge": "قصص النجاح",
+      "title": "آخر الإنجازات",
+      "viewAll": "عرض جميع المهام"
+    }
+  },
+  
+  "auth": {
+    "login": {
+      "title": "تسجيل الدخول",
+      "subtitle": "مرحبًا بك في SolidarLink",
+      "email": "البريد الإلكتروني",
+      "emailPlaceholder": "بريدك@الإلكتروني.com",
+      "password": "كلمة المرور",
+      "passwordPlaceholder": "••••••••",
+      "rememberMe": "تذكرني",
+      "forgotPassword": "نسيت كلمة المرور؟",
+      "submit": "تسجيل الدخول",
+      "noAccount": "ليس لديك حساب؟",
+      "signUp": "سجل الآن",
+      "register": "سجل الآن",
+      "orContinueWith": "أو تابع عبر"
+    },
+    "register": {
+      "title": "التسجيل",
+      "subtitle": "انضم إلى مجتمع SolidarLink",
+      "firstName": "الاسم الأول",
+      "firstNamePlaceholder": "اسمك الأول",
+      "lastName": "اسم العائلة",
+      "lastNamePlaceholder": "اسم عائلتك",
+      "email": "البريد الإلكتروني",
+      "emailPlaceholder": "بريدك@الإلكتروني.com",
+      "phone": "رقم الهاتف",
+      "phonePlaceholder": "+212 6XX XXX XXX",
+      "password": "كلمة المرور",
+      "passwordPlaceholder": "8 أحرف على الأقل",
+      "confirmPassword": "تأكيد كلمة المرور",
+      "confirmPasswordPlaceholder": "أعد كتابة كلمة المرور",
+      "role": "أسجل كـ",
+      "citizen": "مواطن",
+      "citizenDesc": "أريد طلب المساعدة",
+      "volunteer": "متطوع",
+      "volunteerDesc": "أريد مساعدة الآخرين",
+      "submit": "إنشاء حسابي",
+      "hasAccount": "لديك حساب بالفعل؟",
+      "login": "تسجيل الدخول",
+      "terms": "بالتسجيل، أنت توافق على",
+      "termsLink": "شروط الاستخدام",
+      "privacyLink": "سياسة الخصوصية",
+      "success": "تم إنشاء الحساب بنجاح! في انتظار التحقق."
+    },
+    "errors": {
+      "emailRequired": "البريد الإلكتروني مطلوب",
+      "emailInvalid": "بريد إلكتروني غير صالح",
+      "passwordRequired": "كلمة المرور مطلوبة",
+      "invalidCredentials": "بيانات الاعتماد غير صحيحة. يرجى المحاولة مرة أخرى.",
+      "accessDenied": "تم رفض الوصول. تحقق من بيانات الاعتماد أو إذا كان حسابك مفعلاً.",
+      "accountNotValidated": "لم يتم تفعيل حسابك بعد",
+      "emailExists": "هذا البريد الإلكتروني مستخدم بالفعل",
+      "passwordMismatch": "كلمات المرور غير متطابقة",
+      "weakPassword": "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل"
+    },
+    "validation": {
+      "required": "هذا الحقل مطلوب",
+      "invalidEmail": "بريد إلكتروني غير صالح",
+      "minLength": "{{count}} أحرف على الأقل",
+      "maxLength": "{{count}} حرف كحد أقصى"
+    }
+  },
+  
+  "dashboard": {
+    "citizen": {
+      "title": "لوحة التحكم",
+      "subtitle": "إدارة طلبات المساعدة الخاصة بك ومتابعة تقدمها في الوقت الفعلي",
+      "welcome": "مرحبًا، {{name}}!",
+      "myRequests": "طلباتي",
+      "newRequest": "طلب جديد",
+      "searchPlaceholder": "البحث حسب العنوان أو الوصف...",
+      "requestCount": "تم العثور على {{count}} طلب(ات)",
+      "noResultsFiltered": "لا توجد طلبات تطابق معاييرك",
+      "noResultsFilteredDesc": "حاول تعديل فلاتر البحث للعثور على ما تبحث عنه",
+      "clearFilters": "مسح الفلاتر",
+      "clear": "مسح",
+      "filtered": "مُصَفّى",
+      "pagination": "الصفحة {{current}} من {{total}}",
+      "stats": {
+        "total": "إجمالي الطلبات",
+        "pending": "قيد الانتظار",
+        "inProgress": "قيد التنفيذ",
+        "completed": "مكتملة",
+        "rejected": "مرفوضة"
+      },
+      "emptyState": {
+        "title": "لا توجد طلبات",
+        "description": "لم تقم بإنشاء أي طلب مساعدة بعد",
+        "cta": "إنشاء طلبي الأول",
+        "noResults": "لم يتم العثور على طلبات",
+        "noResultsDesc": "لا توجد طلبات تطابق معايير البحث الخاصة بك",
+        "clearFilters": "مسح الفلاتر"
+      },
+      "requestCard": {
+        "postedOn": "نُشر في",
+        "category": "الفئة",
+        "status": "الحالة",
+        "volunteer": "المتطوع",
+        "viewDetails": "عرض التفاصيل",
+        "edit": "تعديل",
+        "delete": "حذف"
+      }
+    },
+    "volunteer": {
+      "title": "لوحة تحكم المتطوع",
+      "subtitle": "ابحث عن مهام قريبة منك",
+      "welcome": "مرحبًا، {{name}}!",
+      "availableMissions": "المهام المتاحة",
+      "myMissions": "تدخلاتي",
+      "nearbyMissions": "المهام القريبة",
+      "stats": {
+        "completed": "المهام المكتملة",
+        "inProgress": "قيد التنفيذ",
+        "totalHours": "ساعات التطوع",
+        "rating": "متوسط التقييم"
+      },
+      "missionCard": {
+        "distance": "{{distance}} كم",
+        "urgent": "عاجل",
+        "takeCharge": "أخذ المهمة",
+        "viewDetails": "عرض التفاصيل",
+        "postedBy": "نشره",
+        "postedOn": "في"
+      },
+      "emptyState": {
+        "title": "لا توجد مهام متاحة",
+        "description": "لا توجد مهام في منطقتك حاليًا",
+        "cta": "توسيع البحث"
+      }
+    },
+    "admin": {
+      "title": "الإدارة",
+      "subtitle": "إدارة منصة SolidarLink",
+      "dashboard": {
+        "title": "لوحة تحكم المسؤول",
+        "subtitle": "نظرة عامة وتحليلات",
+        "strategicMap": "الخريطة الاستراتيجية",
+        "totalRequests": "إجمالي الطلبات",
+        "pending": "قيد الانتظار",
+        "resolved": "تم حلها",
+        "rejected": "مرفوضة",
+        "activeVolunteers": "المتطوعون النشطون",
+        "categoryDistribution": "التوزيع حسب الفئة",
+        "evolution": "التطور (آخر 7 أيام)",
+        "recentRequests": "آخر الطلبات المستلمة",
+        "noRecentRequests": "لا توجد طلبات حديثة."
+      },
+      "users": "المستخدمون",
+      "requests": "الطلبات",
+      "statistics": "الإحصائيات",
+      "settings": "الإعدادات",
+      "validation": {
+        "title": "التحقق من الحسابات",
+        "pending": "في انتظار التحقق",
+        "validate": "تحقق",
+        "reject": "رفض",
+        "validated": "تم التحقق من الحساب بنجاح"
+      },
+      "userManagement": {
+        "title": "إدارة المستخدمين",
+        "subtitle": "إدارة حسابات المستخدمين",
+        "searchPlaceholder": "البحث عن مستخدم...",
+        "allRoles": "جميع الأدوار",
+        "allStatus": "جميع الحالات",
+        "active": "نشط",
+        "inactive": "غير نشط",
+        "role": "الدور",
+        "status": "الحالة",
+        "actions": "الإجراءات",
+        "noUsers": "لم يتم العثور على مستخدمين"
+      },
+      "kanban": {
+        "title": "إدارة كانبان",
+        "subtitle": "إدارة الطلبات حسب الحالة"
+      },
+      "cases": {
+        "title": "إدارة الحالات",
+        "subtitle": "عرض وإدارة جميع الحالات"
+      },
+      "map": {
+        "title": "الخريطة الاستراتيجية",
+        "subtitle": "التصور الجغرافي للطلبات"
+      },
+      "identity": {
+        "title": "التحقق من الهوية",
+        "subtitle": "التحقق من وثائق الهوية"
+      }
+    }
+  },
+  
+  "newRequest": {
+    "title": "طلب مساعدة جديد",
+    "subtitle": "صف احتياجك لتنبيه المتطوعين القريبين",
+    "editTitle": "تعديل الطلب",
+    "steps": {
+      "info": "المعلومات",
+      "description": "الوصف",
+      "location": "الموقع",
+      "photos": "الصور"
+    },
+    "fields": {
+      "title": "عنوان طلبك",
+      "titlePlaceholder": "مثال: حاجة عاجلة للمواد الغذائية",
+      "titleHelper": "عنوان واضح ودقيق يجذب المزيد من المتطوعين",
+      "category": "فئة الطلب",
+      "categoryPlaceholder": "اختر فئة",
+      "description": "وصف تفصيلي",
+      "descriptionPlaceholder": "صف وضعك واحتياجاتك بالتفصيل...",
+      "descriptionHelper": "كلما كان وصفك أدق، كلما تمكن المتطوعون من مساعدتك بشكل أفضل",
+      "location": "موقع الاحتياج",
+      "locationSelected": "تم تحديد الموقع",
+      "photos": "الصور (اختياري، الحد الأقصى 4)",
+      "photosHelper": "الصور تساعد المتطوعين على فهم وضعك بشكل أفضل"
+    },
+    "categories": {
+      "ALIMENTAIRE": "غذائي",
+      "MEDICAL": "طبي",
+      "LOGISTIQUE": "لوجستي",
+      "AUTRE": "أخرى"
+    },
+    "templates": {
+      "title": "اختر نموذجًا",
+      "food": "مساعدة غذائية",
+      "medical": "مساعدة طبية",
+      "logistics": "مساعدة لوجستية",
+      "custom": "وصف حر"
+    },
+    "certification": {
+      "title": "الشهادة والالتزام",
+      "subtitle": "يرجى تأكيد المعلومات التالية",
+      "accuracy": "أشهد بأن المعلومات المقدمة صحيحة وحقيقية",
+      "realNeed": "هذا الطلب يتوافق مع حاجة حقيقية وحالية",
+      "terms": "أوافق على شروط الاستخدام وسياسة الخصوصية"
+    },
+    "actions": {
+      "next": "التالي",
+      "previous": "السابق",
+      "saveDraft": "مسودة",
+      "saved": "تم الحفظ!",
+      "submit": "نشر",
+      "update": "تحديث",
+      "cancel": "إلغاء"
+    },
+    "tips": {
+      "step1": "عنوان واضح ودقيق يجذب المزيد من المتطوعين. اذكر نوع المساعدة المطلوبة.",
+      "step2": "فصّل وضعك: عدد الأشخاص، الاستعجال، القيود الخاصة...",
+      "step3": "حدد بدقة العنوان الذي تحتاج فيه المساعدة لتسهيل التدخل.",
+      "step4": "الصور تساعد المتطوعين على فهم وضعك بشكل أفضل والاستعداد."
+    },
+    "errors": {
+      "titleRequired": "العنوان مطلوب",
+      "categoryRequired": "الفئة مطلوبة",
+      "descriptionRequired": "الوصف مطلوب",
+      "descriptionMinLength": "50 حرفًا على الأقل مطلوبة",
+      "locationRequired": "يرجى تحديد موقع على الخريطة",
+      "certificationRequired": "يرجى تأكيد جميع الشهادات",
+      "submitError": "خطأ أثناء الحفظ"
+    },
+    "success": {
+      "created": "تم إنشاء الطلب بنجاح!",
+      "updated": "تم تحديث الطلب بنجاح!"
+    }
+  },
+  
+  "map": {
+    "title": "خريطة الطلبات",
+    "filters": "التصفية",
+    "allCategories": "جميع الفئات",
+    "allStatuses": "جميع الحالات",
+    "searchPlaceholder": "البحث عن عنوان...",
+    "myLocation": "موقعي",
+    "locateMe": "تحديد موقعي",
+    "urgent": "عاجل",
+    "normal": "عادي",
+    "distance": "المسافة: {{distance}} كم",
+    "zoomIn": "تكبير",
+    "zoomOut": "تصغير",
+    "noResults": "لم يتم العثور على طلبات في هذه المنطقة"
+  },
+  
+  "status": {
+    "EN_ATTENTE": "قيد الانتظار",
+    "VALIDE": "تم التحقق",
+    "EN_COURS": "قيد التنفيذ",
+    "RESOLU": "تم الحل",
+    "REFUSE": "مرفوض",
+    "ANNULE": "ملغى"
+  },
+  
+  "profile": {
+    "title": "ملفي الشخصي",
+    "subtitle": "إدارة معلوماتك الشخصية",
+    "personalInfo": "المعلومات الشخصية",
+    "security": "الأمان",
+    "notifications": "الإشعارات",
+    "changePassword": "تغيير كلمة المرور",
+    "currentPassword": "كلمة المرور الحالية",
+    "newPassword": "كلمة المرور الجديدة",
+    "confirmNewPassword": "تأكيد كلمة المرور الجديدة",
+    "updateProfile": "تحديث الملف الشخصي",
+    "deleteAccount": "حذف حسابي",
+    "deleteWarning": "هذا الإجراء لا رجعة فيه",
+    "skills": "المهارات",
+    "availability": "التوفر",
+    "verification": "التحقق من الهوية",
+    "verificationDesc": "لضمان الثقة داخل المجتمع، نتحقق من هوية كل عضو.",
+    "idDocument": "بطاقة الهوية (CNI أو جواز السفر)"
+  },
+  
+  "notifications": {
+    "title": "الإشعارات",
+    "markAllRead": "تحديد الكل كمقروء",
+    "noNotifications": "لا توجد إشعارات",
+    "newRequest": "طلب جديد بالقرب منك",
+    "requestAccepted": "تم قبول طلبك",
+    "missionCompleted": "تم إنجاز المهمة بنجاح"
+  },
+  
+  "footer": {
+    "about": "حول SolidarLink",
+    "aboutText": "SolidarLink تربط المواطنين المحتاجين بالمتطوعين المستعدين للمساعدة.",
+    "quickLinks": "روابط سريعة",
+    "contact": "اتصل بنا",
+    "privacy": "سياسة الخصوصية",
+    "terms": "شروط الاستخدام",
+    "description": "منصة التضامن المواطني من الجيل الجديد. تواصل، ساعد، شارك.",
+    "platform": "المنصة",
+    "howItWorks": "كيف تعمل",
+    "becomeVolunteer": "كن متطوعًا",
+    "requestHelp": "اطلب المساعدة",
+    "legal": "قانوني",
+    "cookies": "ملفات تعريف الارتباط",
+    "madeWith": "صنع بـ",
+    "forCommunity": "للمجتمع",
+    "help": "مركز المساعدة",
+    "rights": "© {{year}} SolidarLink. جميع الحقوق محفوظة."
+  },
+  
+  "errors": {
+    "generic": "حدث خطأ",
+    "network": "خطأ في الاتصال. تحقق من اتصالك بالإنترنت.",
+    "unauthorized": "انتهت الجلسة. يرجى تسجيل الدخول مجددًا.",
+    "notFound": "الصفحة غير موجودة",
+    "serverError": "خطأ في الخادم. حاول مرة أخرى لاحقًا.",
+    "forbidden": "الوصول غير مصرح به"
+  },
+  
+  "language": {
+    "select": "اختر اللغة",
+    "fr": "Français",
+    "ar": "العربية"
+  }
+}

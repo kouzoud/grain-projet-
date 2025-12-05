@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Users, CheckCircle, MapPin, TrendingUp, ArrowUpRight } from 'lucide-react';
 import CountUp from 'react-countup';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import publicService from '../../services/publicService';
 
 const Skeleton = ({ className }) => (
@@ -51,6 +52,7 @@ const BentoCard = ({ title, value, icon, subtext, delay, loading, colSpan = "col
 );
 
 const ImpactSection = () => {
+    const { t } = useTranslation();
     const [stats, setStats] = useState({
         activeVolunteers: 0,
         volunteerGrowth: 0,
@@ -83,19 +85,19 @@ const ImpactSection = () => {
 
             <div className="container mx-auto px-4 relative z-10">
                 <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Notre Impact en Temps Réel</h2>
+                    <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">{t('landing.impact.title')}</h2>
                     <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-                        Chaque action compte. Voici ce que notre communauté a accompli ensemble.
+                        {t('landing.impact.subtitle')}
                     </p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
                     {/* Large Card - Volunteers */}
                     <BentoCard
-                        title="Bénévoles Actifs"
+                        title={t('landing.stats.volunteers')}
                         value={stats.activeVolunteers}
                         icon={<Users className="w-8 h-8 text-cyan-400" />}
-                        subtext={stats.volunteerGrowth > 0 ? `+${stats.volunteerGrowth}% ce mois` : null}
+                        subtext={stats.volunteerGrowth > 0 ? `+${stats.volunteerGrowth}% ${t('landing.impact.thisMonth')}` : null}
                         delay={0}
                         loading={loading}
                         colSpan="md:col-span-2"
@@ -103,7 +105,7 @@ const ImpactSection = () => {
 
                     {/* Standard Card - Cities */}
                     <BentoCard
-                        title="Villes Couvertes"
+                        title={t('landing.stats.cities')}
                         value={stats.coveredCities}
                         icon={<MapPin className="w-8 h-8 text-purple-400" />}
                         delay={0.2}
@@ -112,10 +114,10 @@ const ImpactSection = () => {
 
                     {/* Standard Card - Missions */}
                     <BentoCard
-                        title="Missions Accomplies"
+                        title={t('landing.stats.missions')}
                         value={stats.completedMissions}
                         icon={<CheckCircle className="w-8 h-8 text-green-400" />}
-                        subtext={`${stats.successRate}% de succès`}
+                        subtext={`${stats.successRate}% ${t('landing.impact.successRate')}`}
                         delay={0.4}
                         loading={loading}
                     />
@@ -129,11 +131,11 @@ const ImpactSection = () => {
                         transition={{ duration: 0.5, delay: 0.6 }}
                     >
                         <div>
-                            <div className="text-2xl font-bold text-white mb-2">Rejoignez le mouvement</div>
-                            <p className="text-slate-400">Devenez le prochain héros de votre quartier.</p>
+                            <div className="text-2xl font-bold text-white mb-2">{t('landing.cta.title')}</div>
+                            <p className="text-slate-400">{t('landing.cta.subtitle')}</p>
                         </div>
                         <Link to="/register" className="px-6 py-3 bg-cyan-500 hover:bg-cyan-400 text-white rounded-full font-bold transition-colors shadow-lg shadow-cyan-500/20">
-                            Commencer
+                            {t('landing.cta.button')}
                         </Link>
                     </motion.div>
                 </div>

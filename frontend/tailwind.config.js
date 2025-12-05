@@ -4,16 +4,11 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: 'class', // Activer le dark mode avec la stratégie 'class'
   theme: {
     extend: {
       colors: {
-        // Fond global (Deep Space Blue)
-        background: '#0b1120',
-        // Fond des cartes (Légèrement plus clair)
-        surface: '#1e293b',
-        // Bordures (Cyan électrique mais subtil)
-        border: '#334155',
-        // Accents pour les graphiques
+        // Couleurs primaires SolidarLink
         primary: {
           DEFAULT: '#06b6d4',   // Cyan
           dark: '#0891b2',
@@ -21,6 +16,7 @@ export default {
         },
         secondary: {
           DEFAULT: '#8b5cf6', // Violet
+          dark: '#7c3aed',
           light: '#a78bfa',
         },
         accent: '#f59e0b',    // Or/Ambre
@@ -28,7 +24,14 @@ export default {
         danger: '#ef4444',    // Rouge
         warning: '#f59e0b',   // Jaune
 
-        // Keeping legacy names mapped to new theme or safe fallbacks to avoid breaking other pages too much
+        // Fond global (Deep Space Blue) - Conservé pour compatibilité
+        background: '#0b1120',
+        // Fond des cartes (Légèrement plus clair)
+        surface: '#1e293b',
+        // Bordures
+        border: '#334155',
+
+        // Keeping legacy names mapped for other pages
         page: {
           DEFAULT: '#0b1120',
           card: '#1e293b',
@@ -36,11 +39,33 @@ export default {
       },
       boxShadow: {
         'neon': '0 0 5px theme("colors.primary.DEFAULT"), 0 0 20px theme("colors.primary.DEFAULT")',
+        'glow': '0 0 20px rgba(6, 182, 212, 0.3)',
+        'glow-lg': '0 0 40px rgba(6, 182, 212, 0.4)',
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+      },
+      animation: {
+        'shimmer': 'shimmer 2s ease-in-out infinite',
+        'glow-pulse': 'glow-pulse 2s ease-in-out infinite',
+      },
+      keyframes: {
+        shimmer: {
+          '0%': { backgroundPosition: '200% 0' },
+          '100%': { backgroundPosition: '-200% 0' },
+        },
+        'glow-pulse': {
+          '0%, 100%': { boxShadow: '0 0 20px rgba(6, 182, 212, 0.3)' },
+          '50%': { boxShadow: '0 0 40px rgba(6, 182, 212, 0.6)' },
+        },
       },
     },
   },
-  plugins: [],
+  plugins: [
+    // Plugin RTL pour le support de l'arabe
+    function ({ addVariant }) {
+      addVariant('rtl', '[dir="rtl"] &');
+      addVariant('ltr', '[dir="ltr"] &');
+    }
+  ],
 }

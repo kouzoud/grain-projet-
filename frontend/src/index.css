@@ -5,9 +5,52 @@
 @tailwind utilities;
 
 @layer base {
+  /* Light mode defaults */
+  html {
+    @apply bg-gray-50 text-gray-900;
+    color-scheme: light;
+  }
+  
+  /* Dark mode */
+  html.dark {
+    @apply bg-slate-950 text-gray-100;
+    color-scheme: dark;
+  }
+  
   body {
-    background-color: theme('colors.page.DEFAULT');
-    @apply text-secondary font-sans;
+    @apply font-sans antialiased transition-colors duration-200;
+  }
+  
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100 dark:bg-slate-800;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 dark:bg-slate-600 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400 dark:bg-slate-500;
+  }
+  
+  /* Selection */
+  ::selection {
+    @apply bg-cyan-500/30 text-cyan-900 dark:text-cyan-100;
+  }
+  
+  /* Focus ring */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-cyan-500/50 ring-offset-2 ring-offset-white dark:ring-offset-slate-900;
   }
 }
 

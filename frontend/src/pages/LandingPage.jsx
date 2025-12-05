@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Heart, HeartHandshake } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import publicService from '../services/publicService';
 
 // Components
@@ -10,6 +11,8 @@ import LatestMissions from '../components/landing/LatestMissions';
 import FeaturesSection from '../components/landing/FeaturesSection';
 
 const LandingPage = () => {
+    const { t, i18n } = useTranslation();
+    const isRTL = i18n.language === 'ar';
     const [successStories, setSuccessStories] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -29,7 +32,7 @@ const LandingPage = () => {
     }, []);
 
     return (
-        <div className="min-h-screen bg-page font-sans">
+        <div className="min-h-screen bg-page font-sans" dir={isRTL ? 'rtl' : 'ltr'}>
             <HeroSection />
             <ImpactSection />
             <LatestMissions successStories={successStories} />
@@ -44,30 +47,30 @@ const LandingPage = () => {
                                 Link<span className="text-cyan-400">2</span>Act
                             </h3>
                             <p className="text-slate-400 leading-relaxed">
-                                La plateforme d'entraide citoyenne nouvelle génération. Connectez-vous, aidez, partagez.
+                                {t('footer.description')}
                             </p>
                         </div>
 
                         <div>
-                            <h4 className="text-white font-bold mb-6 uppercase tracking-wider text-sm">Plateforme</h4>
+                            <h4 className="text-white font-bold mb-6 uppercase tracking-wider text-sm">{t('footer.platform')}</h4>
                             <ul className="space-y-4">
-                                <li><Link to="/register" className="hover:text-cyan-400 transition-colors">Comment ça marche</Link></li>
-                                <li><Link to="/register" className="hover:text-cyan-400 transition-colors">Devenir Bénévole</Link></li>
-                                <li><Link to="/register" className="hover:text-cyan-400 transition-colors">Demander de l'aide</Link></li>
+                                <li><Link to="/register" className="hover:text-cyan-400 transition-colors">{t('footer.howItWorks')}</Link></li>
+                                <li><Link to="/register" className="hover:text-cyan-400 transition-colors">{t('footer.becomeVolunteer')}</Link></li>
+                                <li><Link to="/register" className="hover:text-cyan-400 transition-colors">{t('footer.requestHelp')}</Link></li>
                             </ul>
                         </div>
 
                         <div>
-                            <h4 className="text-white font-bold mb-6 uppercase tracking-wider text-sm">Légal</h4>
+                            <h4 className="text-white font-bold mb-6 uppercase tracking-wider text-sm">{t('footer.legal')}</h4>
                             <ul className="space-y-4">
-                                <li><a href="#" className="hover:text-cyan-400 transition-colors">Conditions d'utilisation</a></li>
-                                <li><a href="#" className="hover:text-cyan-400 transition-colors">Politique de confidentialité</a></li>
-                                <li><a href="#" className="hover:text-cyan-400 transition-colors">Cookies</a></li>
+                                <li><a href="#" className="hover:text-cyan-400 transition-colors">{t('footer.terms')}</a></li>
+                                <li><a href="#" className="hover:text-cyan-400 transition-colors">{t('footer.privacy')}</a></li>
+                                <li><a href="#" className="hover:text-cyan-400 transition-colors">{t('footer.cookies')}</a></li>
                             </ul>
                         </div>
 
                         <div>
-                            <h4 className="text-white font-bold mb-6 uppercase tracking-wider text-sm">Contact</h4>
+                            <h4 className="text-white font-bold mb-6 uppercase tracking-wider text-sm">{t('footer.contact')}</h4>
                             <ul className="space-y-4">
                                 <li>contact@link2act.org</li>
                                 <li>+33 1 23 45 67 89</li>
@@ -88,7 +91,7 @@ const LandingPage = () => {
                     </div>
 
                     <div className="pt-8 border-t border-slate-800 text-center text-slate-500 text-sm">
-                        &copy; {new Date().getFullYear()} Link2Act. Fait avec <Heart className="w-4 h-4 inline text-red-500 mx-1" /> pour la communauté.
+                        &copy; {new Date().getFullYear()} Link2Act. {t('footer.madeWith')} <Heart className="w-4 h-4 inline text-red-500 mx-1" /> {t('footer.forCommunity')}
                     </div>
                 </div>
             </footer>

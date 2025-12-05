@@ -1,10 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import RequestCard from '../RequestCard';
 import { ArrowRight } from 'lucide-react';
 
 const LatestMissions = ({ successStories }) => {
+    const { t } = useTranslation();
+    
     return (
         <section className="py-24 bg-slate-950 relative overflow-hidden">
             {/* Ambient Background Glow */}
@@ -18,11 +21,11 @@ const LatestMissions = ({ successStories }) => {
                         viewport={{ once: true }}
                         transition={{ duration: 0.6 }}
                     >
-                        <div className="text-cyan-500 font-bold tracking-wider uppercase mb-2 text-sm">Success Stories</div>
-                        <h2 className="text-4xl md:text-5xl font-bold text-white">Dernières Victoires</h2>
+                        <div className="text-cyan-500 font-bold tracking-wider uppercase mb-2 text-sm">{t('landing.missions.badge')}</div>
+                        <h2 className="text-4xl md:text-5xl font-bold text-white">{t('landing.missions.title')}</h2>
                     </motion.div>
                     <Link to="/register" className="group flex items-center gap-2 text-slate-300 hover:text-white transition-colors">
-                        Voir toutes les missions <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                        {t('landing.missions.viewAll')} <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform rtl:rotate-180" />
                     </Link>
                 </div>
 

@@ -84,9 +84,12 @@ public class AuthService {
         // Validate file type
         String contentType = file.getContentType();
         if (contentType == null || (!contentType.equals("image/jpeg") &&
+                !contentType.equals("image/jpg") &&
                 !contentType.equals("image/png") &&
+                !contentType.equals("image/webp") &&
+                !contentType.equals("image/gif") &&
                 !contentType.equals("application/pdf"))) {
-            throw new IllegalArgumentException("Format de fichier non supporté. Utilisez JPG, PNG ou PDF.");
+            throw new IllegalArgumentException("Format de fichier non supporté. Utilisez JPG, PNG, WebP, GIF ou PDF.");
         }
 
         if (!Files.exists(rootLocation)) {

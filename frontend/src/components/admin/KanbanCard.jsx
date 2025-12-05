@@ -26,23 +26,23 @@ const KanbanCard = ({ request, onClick }) => {
     return (
         <div
             onClick={() => onClick(request)}
-            className="bg-gray-800/50 border border-gray-700 rounded-lg p-4 cursor-pointer hover:bg-gray-800 hover:border-cyan-500/50 transition-all duration-300 shadow-sm hover:shadow-md group"
+            className="bg-gray-50 dark:bg-slate-800/50 border border-gray-200 dark:border-slate-700 rounded-xl p-4 cursor-pointer hover:bg-white dark:hover:bg-slate-800 hover:border-cyan-300 dark:hover:border-cyan-500/50 transition-all duration-300 shadow-sm hover:shadow-md group"
         >
             <div className="flex justify-between items-start mb-3">
-                <span className={`text-xs font-medium px-2 py-1 rounded border ${getCategoryColor(request.categorie)}`}>
+                <span className={`text-xs font-medium px-2 py-1 rounded-lg border ${getCategoryColor(request.categorie)}`}>
                     {request.categorie}
                 </span>
-                <span className="text-xs text-gray-500 flex items-center gap-1">
+                <span className="text-xs text-gray-500 dark:text-gray-500 flex items-center gap-1">
                     <Clock className="w-3 h-3" />
                     {formatDate(request.dateCreation)}
                 </span>
             </div>
 
-            <h4 className="text-gray-200 font-medium mb-2 line-clamp-2 group-hover:text-cyan-400 transition-colors">
+            <h4 className="text-gray-900 dark:text-gray-200 font-medium mb-2 line-clamp-2 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
                 {request.titre}
             </h4>
 
-            <div className="flex items-center justify-between text-xs text-gray-400 mt-3 pt-3 border-t border-gray-700/50">
+            <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mt-3 pt-3 border-t border-gray-200 dark:border-slate-700/50">
                 <div className="flex items-center gap-1.5">
                     <User className="w-3.5 h-3.5" />
                     <span className="truncate max-w-[100px]">
@@ -59,7 +59,7 @@ const KanbanCard = ({ request, onClick }) => {
 
             {/* Volunteer Info for Intervention Column */}
             {['EN_COURS', 'PRIS_EN_CHARGE'].includes(request.statut) && request.volunteer && (
-                <div className="mt-3 pt-2 border-t border-gray-700/50 flex items-center gap-2 text-xs font-medium text-purple-300 bg-purple-500/10 p-2 rounded-md border border-purple-500/20">
+                <div className="mt-3 pt-2 border-t border-gray-200 dark:border-slate-700/50 flex items-center gap-2 text-xs font-medium text-violet-600 dark:text-purple-300 bg-violet-50 dark:bg-purple-500/10 p-2 rounded-lg border border-violet-200 dark:border-purple-500/20">
                     <UserCheck className="w-3.5 h-3.5" />
                     <span className="truncate">
                         Pris par : {request.volunteer.prenom} {request.volunteer.nom}

@@ -1,9 +1,18 @@
+const API_BASE_URL = 'http://localhost:8080';
+
 export const getSingleImageUrl = (filename) => {
     if (!filename) return null;
+    
+    // Si c'est déjà une URL complète, la retourner
     if (filename.startsWith('http://') || filename.startsWith('https://')) {
         return filename;
     }
-    return `http://localhost:8080/api/uploads/${encodeURIComponent(filename)}`;
+    
+    // Nettoyer le nom de fichier (enlever les espaces en début/fin)
+    const cleanFilename = filename.trim();
+    
+    // Construire l'URL sans double encodage
+    return `${API_BASE_URL}/api/uploads/${cleanFilename}`;
 };
 
 export const getImageUrl = (request) => {
