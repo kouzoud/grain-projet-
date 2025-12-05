@@ -1,15 +1,76 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Heart, Search, MapPin, ArrowRight } from 'lucide-react';
+import { Heart, Search, MapPin, ArrowRight, LogIn, UserPlus } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import ThemeToggle from '../common/ThemeToggle';
+import LanguageSwitcher from '../common/LanguageSwitcher';
 
 const HeroSection = () => {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+    const isRTL = i18n.language === 'ar';
     const [searchQuery, setSearchQuery] = useState("");
 
     return (
-        <header className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden bg-black">
+        <header className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden bg-black dark:bg-slate-950">
+            {/* Floating Navbar */}
+            <nav className="absolute top-0 left-0 right-0 z-50">
+                <div className="container mx-auto px-4 py-4">
+                    <div className="flex items-center justify-between">
+                        {/* Logo */}
+                        <Link to="/" className="flex items-center gap-2">
+                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-cyan-600 flex items-center justify-center shadow-lg shadow-cyan-500/25">
+                                <Heart className="w-5 h-5 text-white fill-white" />
+                            </div>
+                            <span className="text-2xl font-bold text-white">
+                                Solidar<span className="text-cyan-400">Link</span>
+                            </span>
+                        </Link>
+
+                        {/* Right Controls */}
+                        <div className="flex items-center gap-3">
+                            {/* Language Switcher */}
+                            <LanguageSwitcher variant="minimal" />
+                            
+                            {/* Theme Toggle */}
+                            <ThemeToggle variant="minimal" />
+
+                            {/* Auth Buttons */}
+                            <div className="hidden sm:flex items-center gap-2 ml-4 rtl:mr-4 rtl:ml-0">
+                                <Link
+                                    to="/login"
+                                    className="px-4 py-2 text-sm font-medium text-white/80 hover:text-white transition-colors"
+                                >
+                                    {t('navbar.login', 'Connexion')}
+                                </Link>
+                                <Link
+                                    to="/register"
+                                    className="px-4 py-2 text-sm font-medium bg-cyan-500 hover:bg-cyan-400 text-white rounded-full transition-colors shadow-lg shadow-cyan-500/25"
+                                >
+                                    {t('auth.register.title', 'S\'inscrire')}
+                                </Link>
+                            </div>
+
+                            {/* Mobile Auth Icons */}
+                            <div className="flex sm:hidden items-center gap-2 ml-2">
+                                <Link
+                                    to="/login"
+                                    className="p-2 text-white/80 hover:text-white transition-colors"
+                                >
+                                    <LogIn className="w-5 h-5" />
+                                </Link>
+                                <Link
+                                    to="/register"
+                                    className="p-2 bg-cyan-500 hover:bg-cyan-400 text-white rounded-full transition-colors"
+                                >
+                                    <UserPlus className="w-5 h-5" />
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
             {/* Background Image with Overlay */}
             <div className="absolute inset-0 z-0">
                 <img
@@ -17,7 +78,7 @@ const HeroSection = () => {
                     alt="Background"
                     className="w-full h-full object-cover grayscale brightness-[0.3]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/70 to-slate-900"></div>
+                <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/70 to-slate-900 dark:to-slate-950"></div>
 
                 {/* Aurora Effects */}
                 <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-cyan-500/10 rounded-full blur-[120px] animate-pulse"></div>

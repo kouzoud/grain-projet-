@@ -29,50 +29,50 @@ const Navbar = () => {
         <nav className="bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-800 shadow-sm transition-colors duration-200">
             <div className="container mx-auto px-4">
                 <div className="flex justify-between items-center h-16">
-                    <Link to="/" className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                    <Link to="/" className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2 shrink-0">
                         <img src="/logo.jpg" alt="Link2Act" className="h-8 w-auto rounded" />
                         <span className="bg-gradient-to-r from-cyan-500 to-cyan-600 bg-clip-text text-transparent">Link2Act</span>
                     </Link>
 
                     {/* Desktop Menu */}
-                    <div className="hidden md:flex items-center space-x-6">
+                    <div className="hidden md:flex items-center gap-6">
                         {isAuthenticated ? (
                             <>
                                 {role === 'CITOYEN' && (
                                     <>
-                                        <Link to="/citizen/dashboard" className="text-gray-600 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 font-medium transition-colors">
+                                        <Link to="/citizen/dashboard" className="text-gray-600 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 font-medium transition-colors whitespace-nowrap">
                                             {t('navbar.dashboard')}
                                         </Link>
-                                        <Link to="/citizen/declare" className="text-gray-600 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 font-medium transition-colors">
+                                        <Link to="/citizen/declare" className="text-gray-600 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 font-medium transition-colors whitespace-nowrap">
                                             {t('navbar.newRequest')}
                                         </Link>
                                     </>
                                 )}
                                 {role === 'BENEVOLE' && (
                                     <>
-                                        <Link to="/volunteer/dashboard" className="text-gray-600 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 font-medium transition-colors">
+                                        <Link to="/volunteer/dashboard" className="text-gray-600 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 font-medium transition-colors whitespace-nowrap">
                                             {t('navbar.dashboard')}
                                         </Link>
-                                        <Link to="/volunteer/map" className="text-gray-600 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 font-medium transition-colors">
+                                        <Link to="/volunteer/map" className="text-gray-600 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 font-medium transition-colors whitespace-nowrap">
                                             {t('navbar.map')}
                                         </Link>
-                                        <Link to="/volunteer/missions" className="text-gray-600 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 font-medium transition-colors">
+                                        <Link to="/volunteer/missions" className="text-gray-600 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 font-medium transition-colors whitespace-nowrap">
                                             {t('navbar.myInterventions')}
                                         </Link>
                                     </>
                                 )}
                                 {role === 'ADMIN' && (
                                     <>
-                                        <Link to="/admin/dashboard" className="text-gray-600 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 font-medium transition-colors">
+                                        <Link to="/admin/dashboard" className="text-gray-600 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 font-medium transition-colors whitespace-nowrap">
                                             {t('navbar.dashboard')}
                                         </Link>
-                                        <Link to="/admin/cases" className="text-gray-600 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 font-medium transition-colors">
+                                        <Link to="/admin/cases" className="text-gray-600 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 font-medium transition-colors whitespace-nowrap">
                                             {t('dashboard.admin.requests')}
                                         </Link>
-                                        <Link to="/admin/users" className="text-gray-600 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 font-medium transition-colors">
+                                        <Link to="/admin/users" className="text-gray-600 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 font-medium transition-colors whitespace-nowrap">
                                             {t('dashboard.admin.users')}
                                         </Link>
-                                        <Link to="/admin/verification" className="text-gray-600 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 font-medium transition-colors">
+                                        <Link to="/admin/verification" className="text-gray-600 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 font-medium transition-colors whitespace-nowrap">
                                             {t('dashboard.admin.validation.title')}
                                         </Link>
                                     </>

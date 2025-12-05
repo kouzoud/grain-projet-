@@ -238,6 +238,16 @@
       "availableMissions": "المهام المتاحة",
       "myMissions": "تدخلاتي",
       "nearbyMissions": "المهام القريبة",
+      "missions": {
+        "title": "مهامي",
+        "inProgress": "قيد التنفيذ",
+        "resolved": "تم الحل",
+        "markResolved": "تحديد كمحلول",
+        "noMissions": "ليس لديك أي مهام.",
+        "noInProgress": "لا توجد مهام قيد التنفيذ.",
+        "noResolved": "لا توجد مهام محلولة.",
+        "confirmResolve": "هل أنت متأكد أنك تريد تحديد هذه الحالة كمحلولة؟ هذا الإجراء لا رجعة فيه."
+      },
       "stats": {
         "completed": "المهام المكتملة",
         "inProgress": "قيد التنفيذ",

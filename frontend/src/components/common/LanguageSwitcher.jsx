@@ -153,6 +153,23 @@ const LanguageSwitcher = ({ variant = 'dropdown', className = '' }) => {
     );
   }
 
+  // Variante Minimal (pour landing page - style glass)
+  if (variant === 'minimal') {
+    return (
+      <motion.button
+        onClick={() => changeLanguage(i18n.language === 'fr' ? 'ar' : 'fr')}
+        className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all text-white"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        aria-label="Changer la langue"
+      >
+        <Globe className="w-4 h-4" />
+        <span className="text-xl">{currentLanguage.flag}</span>
+        <span className="text-sm font-medium">{currentLanguage.code.toUpperCase()}</span>
+      </motion.button>
+    );
+  }
+
   // Variante Icon seul (très compact)
   if (variant === 'icon') {
     return (

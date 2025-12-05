@@ -1,0 +1,8 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" rx="64" fill="#0f172a"/>
+  <circle cx="256" cy="200" r="80" fill="#06b6d4"/>
+  <path d="M256 300 C 180 300, 120 360, 120 420 L 392 420 C 392 360, 332 300, 256 300" fill="#06b6d4"/>
+  <circle cx="340" cy="340" r="60" fill="#22c55e"/>
+  <path d="M315 340 L335 360 L370 320" stroke="white" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <text x="256" y="480" text-anchor="middle" fill="#06b6d4" font-family="Arial, sans-serif" font-size="48" font-weight="bold">SolidarLink</text>
+</svg>

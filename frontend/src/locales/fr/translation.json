@@ -238,6 +238,16 @@
       "availableMissions": "Missions Disponibles",
       "myMissions": "Mes Interventions",
       "nearbyMissions": "Missions à proximité",
+      "missions": {
+        "title": "Mes Missions",
+        "inProgress": "En cours",
+        "resolved": "Résolus",
+        "markResolved": "Marquer comme Résolu",
+        "noMissions": "Vous n'avez aucune mission.",
+        "noInProgress": "Aucune mission en cours.",
+        "noResolved": "Aucune mission résolue.",
+        "confirmResolve": "Êtes-vous sûr de vouloir marquer ce cas comme résolu ? Cette action est irréversible."
+      },
       "stats": {
         "completed": "Missions complétées",
         "inProgress": "En cours",

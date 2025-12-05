@@ -8,9 +8,9 @@ export const ThemeProvider = ({ children }) => {
         // Récupérer la préférence sauvegardée
         if (typeof window !== 'undefined') {
             const savedTheme = localStorage.getItem('solidarlink-theme');
-            return savedTheme || 'system';
+            return savedTheme || 'light'; // Par défaut: light
         }
-        return 'system';
+        return 'light';
     });
 
     // Thème effectif (résolu si 'system')
