@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { MapPin, Calendar, ArrowRight, Eye, Edit, Trash2 } from 'lucide-react';
 import RequestModal from './RequestModal';
+import SocialShareButton from './common/SocialShareButton';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
@@ -55,9 +57,21 @@ const RequestCard = ({ request, isVolunteer = false, onEdit, onDelete, darkMode 
                         }}
                     />
                     <div className="absolute top-4 right-4 flex flex-col gap-2 items-end">
-                        <span className="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold text-primary-dark shadow-sm">
-                            {request.categorie}
-                        </span>
+                        <div className="flex items-center gap-2">
+                            <span className="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold text-primary-dark shadow-sm">
+                                {request.categorie}
+                            </span>
+                            {request.status !== 'RESOLU' && request.statut !== 'RESOLU' && (
+                                <div className="bg-white/90 backdrop-blur-sm rounded-full shadow-sm">
+                                    <SocialShareButton
+                                        title={request.titre}
+                                        description={request.description}
+                                        caseId={request.id}
+                                        ville={request.ville}
+                                    />
+                                </div>
+                            )}
+                        </div>
                         {request.status && (
                             <span className={`px-3 py-1 rounded-full text-xs font-bold shadow-sm ${request.status === 'EN_COURS' ? 'bg-green-100 text-green-800' :
                                 request.status === 'EN_ATTENTE' ? 'bg-yellow-100 text-yellow-800' :
@@ -167,6 +181,33 @@ const RequestCard = ({ request, isVolunteer = false, onEdit, onDelete, darkMode 
             )}
         </>
     );
+};
+
+RequestCard.propTypes = {
+    request: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        titre: PropTypes.string.isRequired,
+        description: PropTypes.string,
+        categorie: PropTypes.string,
+        statut: PropTypes.string,
+        latitude: PropTypes.number,
+        longitude: PropTypes.number,
+        createdAt: PropTypes.string,
+        photos: PropTypes.array,
+        existingPhotos: PropTypes.array,
+        photoUrl: PropTypes.string
+    }).isRequired,
+    isVolunteer: PropTypes.bool,
+    onEdit: PropTypes.func,
+    onDelete: PropTypes.func,
+    darkMode: PropTypes.bool
+};
+
+RequestCard.defaultProps = {
+    isVolunteer: false,
+    onEdit: null,
+    onDelete: null,
+    darkMode: false
 };
 
 export default RequestCard;

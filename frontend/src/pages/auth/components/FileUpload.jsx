@@ -1,8 +1,10 @@
 import React, { useState, useCallback } from 'react';
 import { Upload, X, FileText, Image as ImageIcon, CheckCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const FileUpload = ({ register, name, error, label, accept = "image/*,.pdf" }) => {
+    const { t } = useTranslation();
     const [preview, setPreview] = useState(null);
     const [isDragging, setIsDragging] = useState(false);
     const [fileName, setFileName] = useState("");
@@ -101,8 +103,8 @@ const FileUpload = ({ register, name, error, label, accept = "image/*,.pdf" }) =
                                 </div>
                             )}
                             <p className="text-sm font-medium text-gray-900 truncate max-w-[200px]">{fileName}</p>
-                            <p className="text-xs text-green-600 mt-1">Fichier sélectionné</p>
-                            <p className="text-xs text-gray-400 mt-2">Cliquez pour changer</p>
+                            <p className="text-xs text-green-600 mt-1">{t('auth.register.verification.fileSelected') || 'Fichier sélectionné'}</p>
+                            <p className="text-xs text-gray-400 mt-2">{t('auth.register.verification.clickToChange') || 'Cliquez pour changer'}</p>
                         </motion.div>
                     ) : (
                         <motion.div
@@ -115,10 +117,10 @@ const FileUpload = ({ register, name, error, label, accept = "image/*,.pdf" }) =
                                 <Upload size={24} />
                             </div>
                             <p className="text-sm font-medium text-gray-700">
-                                <span className="text-primary">Cliquez pour uploader</span> ou glissez le fichier
+                                <span className="text-primary">{t('auth.register.verification.uploadPrompt')}</span> {t('auth.register.verification.dragDrop')}
                             </p>
                             <p className="text-xs text-gray-500 mt-1">
-                                JPG, PNG ou PDF (Max 5MB)
+                                {t('auth.register.verification.fileTypes')}
                             </p>
                         </motion.div>
                     )}

@@ -11,6 +11,8 @@ import com.solidarlink.backend.repository.SignalementRepository;
 import com.solidarlink.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,6 +29,19 @@ public class AdminService {
 
     public List<User> getPendingUsers() {
         return userRepository.findByIsValidatedFalse();
+    }
+
+    // ========== PAGINATED METHODS (NEW) ==========
+    public Page<User> getPendingUsersPaginated(Pageable pageable) {
+        return userRepository.findByIsValidatedFalse(pageable);
+    }
+
+    public Page<User> getAllUsersPaginated(Pageable pageable) {
+        return userRepository.findAll(pageable);
+    }
+
+    public Page<CasHumanitaire> getAllCasesPaginated(Pageable pageable) {
+        return casRepository.findAll(pageable);
     }
 
     public void validateUser(Long userId) {
@@ -105,15 +120,6 @@ public class AdminService {
         long resolvedCases = casRepository.countResolus();
         long pendingCases = casRepository.countEnAttente();
         long rejectedCases = casRepository.countRejetes();
-
-        System.out.println("DEBUG ADMIN STATS -> Total Users: " + totalUsers);
-        System.out.println("DEBUG ADMIN STATS -> Pending Users: " + pendingUsers);
-        System.out.println("DEBUG ADMIN STATS -> Active Volunteers: " + activeVolunteers);
-        System.out.println("DEBUG ADMIN STATS -> Total Cases: " + totalCases);
-        System.out.println("DEBUG ADMIN STATS -> Pending Cases: " + pendingCases);
-        System.out.println("DEBUG ADMIN STATS -> Active Cases: " + activeCases);
-        System.out.println("DEBUG ADMIN STATS -> Resolved Cases: " + resolvedCases);
-        System.out.println("DEBUG ADMIN STATS -> Rejected Cases: " + rejectedCases);
 
         return StatsDTOs.AdminStatsDTO.builder()
                 .totalUsers(totalUsers)

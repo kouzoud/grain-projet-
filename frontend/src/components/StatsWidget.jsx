@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Trophy, Star, Clock, Target, TrendingUp } from 'lucide-react';
 
 const StatsWidget = ({ stats }) => {
@@ -69,6 +70,28 @@ const StatsWidget = ({ stats }) => {
             </div>
         </div>
     );
+};
+
+StatsWidget.propTypes = {
+    stats: PropTypes.shape({
+        level: PropTypes.string,
+        points: PropTypes.number,
+        nextLevelPoints: PropTypes.number,
+        missionsCompleted: PropTypes.number,
+        hoursVolunteered: PropTypes.number,
+        impactScore: PropTypes.number
+    })
+};
+
+StatsWidget.defaultProps = {
+    stats: {
+        level: 'Bronze',
+        points: 120,
+        nextLevelPoints: 200,
+        missionsCompleted: 5,
+        hoursVolunteered: 12,
+        impactScore: 85
+    }
 };
 
 export default StatsWidget;

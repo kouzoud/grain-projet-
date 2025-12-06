@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, LayersControl } from 'react-leaflet';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { MapContainer, TileLayer, Marker, Popup, LayersControl, useMapEvents } from 'react-leaflet';
 import MarkerClusterGroup from 'react-leaflet-cluster';
 import { useTranslation } from 'react-i18next';
-import { Layers, Map as MapIcon, Activity } from 'lucide-react';
+import { Layers, Map as MapIcon, Activity, User, Calendar, MapPin, Phone, Clock, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
 import HeatmapLayer from '../../components/admin/HeatmapLayer';
 import casService from '../../services/casService';
 import 'leaflet/dist/leaflet.css';
@@ -41,35 +41,103 @@ const createPulsingIcon = (category) => {
     });
 };
 
+// Component to handle viewport-based loading
+const ViewportLoader = ({ onViewportChange }) => {
+    const map = useMapEvents({
+        moveend: () => {
+            const bounds = map.getBounds();
+            onViewportChange(bounds);
+        },
+        zoomend: () => {
+            const bounds = map.getBounds();
+            onViewportChange(bounds);
+        }
+    });
+
+    useEffect(() => {
+        const bounds = map.getBounds();
+        onViewportChange(bounds);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+    return null;
+};
+
 const AdminMap = () => {
     const { t, i18n } = useTranslation();
     const isRTL = i18n.language === 'ar';
     const [requests, setRequests] = useState([]);
     const [mode, setMode] = useState('MARKERS'); // 'MARKERS' or 'HEATMAP'
     const [heatmapPoints, setHeatmapPoints] = useState([]);
+    const [loading, setLoading] = useState(false);
+    
+    const debounceTimerRef = useRef(null);
+    const abortControllerRef = useRef(null);
 
-    useEffect(() => {
-        const fetchRequests = async () => {
+    // Fetch cases within viewport with debounce
+    const fetchCasesInViewport = useCallback(async (bounds) => {
+        if (abortControllerRef.current) {
+            abortControllerRef.current.abort();
+        }
+
+        if (debounceTimerRef.current) {
+            clearTimeout(debounceTimerRef.current);
+        }
+
+        debounceTimerRef.current = setTimeout(async () => {
             try {
-                const data = await casService.getAllCases();
+                setLoading(true);
+                abortControllerRef.current = new AbortController();
+
+                const params = {
+                    minLon: bounds.getWest(),
+                    minLat: bounds.getSouth(),
+                    maxLon: bounds.getEast(),
+                    maxLat: bounds.getNorth(),
+                    page: 0,
+                    size: 200 // Admin peut charger plus
+                };
+
+                const response = await casService.getCasesInViewport(params);
+                const data = response.content || response.data?.content || response;
+
                 setRequests(data);
 
-                // Prepare heatmap data: [lat, lng, intensity]
+                // Préparer données heatmap (échantillonnage si >1000)
                 const points = data
                     .filter(r => r.latitude && r.longitude)
-                    .map(r => [r.latitude, r.longitude, 0.8]); // Intensity 0.8 by default
-                setHeatmapPoints(points);
+                    .map(r => [r.latitude, r.longitude, 0.8]);
+                
+                // Si trop de points, échantillonner pour performance
+                const sampledPoints = points.length > 1000 
+                    ? points.filter((_, index) => index % Math.ceil(points.length / 1000) === 0)
+                    : points;
+                
+                setHeatmapPoints(sampledPoints);
 
             } catch (error) {
-                console.error("Failed to fetch requests", error);
+                if (error.name !== 'AbortError' && error.name !== 'CanceledError') {
+                    console.error("Failed to fetch cases in viewport", error);
+                }
+            } finally {
+                setLoading(false);
+                abortControllerRef.current = null;
+            }
+        }, 500);
+    }, []);
+
+    useEffect(() => {
+        return () => {
+            if (debounceTimerRef.current) {
+                clearTimeout(debounceTimerRef.current);
+            }
+            if (abortControllerRef.current) {
+                abortControllerRef.current.abort();
             }
         };
-
-        fetchRequests();
     }, []);
 
     return (
-        <div className="h-screen flex flex-col relative bg-slate-900">
+        <div className="h-[calc(100vh-64px)] flex flex-col relative bg-slate-900">
             {/* Control Panel (Glassmorphism) */}
             <div className={`absolute top-4 ${isRTL ? 'right-4' : 'left-4'} z-[1000] bg-slate-900/80 backdrop-blur-md border border-slate-700 rounded-xl p-4 shadow-2xl w-64`}>
                 <div className="flex items-center gap-2 mb-4 border-b border-slate-700 pb-2">
@@ -123,6 +191,8 @@ const AdminMap = () => {
             </div>
 
             <MapContainer center={[31.7917, -7.0926]} zoom={6} style={{ height: '100%', width: '100%', background: '#0f172a' }}>
+                <ViewportLoader onViewportChange={fetchCasesInViewport} />
+                
                 <LayersControl position="topright">
                     <LayersControl.BaseLayer checked name="🗺️ Plan Standard">
                         <TileLayer
@@ -166,17 +236,79 @@ const AdminMap = () => {
                                     position={[request.latitude, request.longitude]}
                                     icon={createPulsingIcon(request.categorie)}
                                 >
-                                    <Popup className="custom-popup-dark">
-                                        <div className="p-2 bg-slate-800 text-white rounded border border-slate-700">
-                                            <h3 className="font-bold text-cyan-400">{request.titre}</h3>
-                                            <p className="text-sm text-slate-300">{request.categorie}</p>
-                                            <div className="mt-2">
-                                                <span className={`text-xs px-2 py-1 rounded-full font-bold ${request.statut === 'EN_ATTENTE' ? 'bg-yellow-500/20 text-yellow-500' :
-                                                    request.statut === 'EN_COURS' ? 'bg-green-500/20 text-green-500' :
-                                                        'bg-slate-700 text-slate-300'
-                                                    }`}>
-                                                    {request.statut}
-                                                </span>
+                                    <Popup className="custom-popup-dark" maxWidth={400} minWidth={320}>
+                                        <div className="bg-gradient-to-br from-slate-800 to-slate-900 text-white rounded-lg shadow-2xl overflow-hidden border border-slate-700">
+                                            {/* Header avec statut */}
+                                            <div className="relative bg-slate-950/50 px-4 py-3 border-b border-slate-700">
+                                                <div className="flex items-start justify-between gap-3">
+                                                    <div className="flex-1 min-w-0">
+                                                        <h3 className="font-bold text-base text-cyan-400 mb-1 truncate">{request.titre}</h3>
+                                                        <div className="flex items-center gap-2 flex-wrap">
+                                                            <span className={`inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full font-semibold ${
+                                                                request.categorie === 'ALIMENTAIRE' ? 'bg-orange-500/20 text-orange-400 border border-orange-500/30' :
+                                                                request.categorie === 'MEDICAL' ? 'bg-red-500/20 text-red-400 border border-red-500/30' :
+                                                                request.categorie === 'LOGISTIQUE' ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30' :
+                                                                'bg-blue-500/20 text-blue-400 border border-blue-500/30'
+                                                            }`}>
+                                                                {request.categorie}
+                                                            </span>
+                                                            <span className={`inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full font-semibold ${
+                                                                request.statut === 'EN_ATTENTE' ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30' :
+                                                                request.statut === 'VALIDE' ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30' :
+                                                                request.statut === 'EN_COURS' ? 'bg-orange-500/20 text-orange-400 border border-orange-500/30' :
+                                                                request.statut === 'RESOLU' ? 'bg-green-500/20 text-green-400 border border-green-500/30' :
+                                                                'bg-red-500/20 text-red-400 border border-red-500/30'
+                                                            }`}>
+                                                                {request.statut === 'EN_ATTENTE' ? <Clock className="w-3 h-3" /> :
+                                                                 request.statut === 'EN_COURS' ? <AlertCircle className="w-3 h-3" /> :
+                                                                 request.statut === 'RESOLU' ? <CheckCircle className="w-3 h-3" /> :
+                                                                 request.statut === 'VALIDE' ? <CheckCircle className="w-3 h-3" /> :
+                                                                 <XCircle className="w-3 h-3" />}
+                                                                {request.statut}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* Corps avec informations détaillées */}
+                                            <div className="px-4 py-3 space-y-2">
+                                                {/* Description */}
+                                                {request.description && (
+                                                    <p className="text-sm text-slate-300 line-clamp-3 leading-relaxed">
+                                                        {request.description}
+                                                    </p>
+                                                )}
+
+                                                {/* Informations du citoyen */}
+                                                {request.utilisateur && (
+                                                    <div className="flex items-center gap-2 text-sm text-slate-400 bg-slate-800/50 rounded-lg px-3 py-2">
+                                                        <User className="w-4 h-4 text-cyan-400 flex-shrink-0" />
+                                                        <span className="font-medium text-slate-200">
+                                                            {request.utilisateur.prenom} {request.utilisateur.nom}
+                                                        </span>
+                                                        {request.utilisateur.telephone && (
+                                                            <>
+                                                                <span className="text-slate-600">•</span>
+                                                                <Phone className="w-3.5 h-3.5 text-slate-500" />
+                                                                <span className="text-slate-400">{request.utilisateur.telephone}</span>
+                                                            </>
+                                                        )}
+                                                    </div>
+                                                )}
+
+                                                {/* Date et localisation */}
+                                                <div className="flex items-center gap-3 text-xs text-slate-400">
+                                                    <div className="flex items-center gap-1.5">
+                                                        <Calendar className="w-3.5 h-3.5 text-slate-500" />
+                                                        <span>{new Date(request.createdAt).toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', year: 'numeric' })}</span>
+                                                    </div>
+                                                    <span className="text-slate-600">•</span>
+                                                    <div className="flex items-center gap-1.5">
+                                                        <MapPin className="w-3.5 h-3.5 text-slate-500" />
+                                                        <span>{request.latitude?.toFixed(4)}, {request.longitude?.toFixed(4)}</span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </Popup>

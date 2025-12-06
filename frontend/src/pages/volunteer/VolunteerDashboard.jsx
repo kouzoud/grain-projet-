@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import VolunteerNavBar from '../../components/VolunteerNavBar';
 import RequestCard from '../../components/RequestCard';
+import RequestModal from '../../components/RequestModal';
 import StatsWidget from '../../components/StatsWidget';
 import casService from '../../services/casService';
 import { Sparkles } from 'lucide-react';
@@ -10,6 +11,8 @@ const VolunteerDashboard = () => {
     const [stats, setStats] = useState(null);
     const [loading, setLoading] = useState(true);
     const [selectedCategory, setSelectedCategory] = useState("TOUTES");
+    const [selectedCase, setSelectedCase] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const CATEGORIES = ["TOUTES", "ALIMENTAIRE", "MEDICAL", "LOGISTIQUE", "VETEMENTS", "LOGEMENT", "AUTRE"];
 
@@ -35,6 +38,20 @@ const VolunteerDashboard = () => {
                 }));
                 setCases(mappedCases);
                 setStats(statsData);
+
+                // Deep Linking: Gérer le caseId dans l'URL
+                const urlParams = new URLSearchParams(window.location.search);
+                const caseId = urlParams.get('caseId');
+                
+                if (caseId) {
+                    const foundCase = mappedCases.find(c => c.id === parseInt(caseId));
+                    if (foundCase) {
+                        setSelectedCase(foundCase);
+                        setIsModalOpen(true);
+                        // Nettoyer l'URL sans recharger la page
+                        window.history.replaceState({}, document.title, window.location.pathname);
+                    }
+                }
             } catch (error) {
                 console.error("Error fetching data:", error);
             } finally {
@@ -132,6 +149,23 @@ const VolunteerDashboard = () => {
                     </div>
                 )}
             </main>
+
+            {/* Modal de Deep Linking */}
+            {selectedCase && (
+                <RequestModal
+                    isOpen={isModalOpen}
+                    onClose={() => {
+                        setIsModalOpen(false);
+                        setSelectedCase(null);
+                    }}
+                    request={selectedCase}
+                    isVolunteer={true}
+                    onTakeAction={(req) => {
+                        console.log('Prise en charge:', req);
+                        setIsModalOpen(false);
+                    }}
+                />
+            )}
         </div>
     );
 };

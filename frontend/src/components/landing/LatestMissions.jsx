@@ -9,9 +9,9 @@ const LatestMissions = ({ successStories }) => {
     const { t } = useTranslation();
     
     return (
-        <section className="py-24 bg-slate-950 relative overflow-hidden">
+        <section className="py-24 bg-white dark:bg-slate-950 relative overflow-hidden">
             {/* Ambient Background Glow */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-900/10 rounded-full blur-[120px] pointer-events-none animate-pulse"></div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-cyan-500/5 dark:bg-blue-900/10 rounded-full blur-[120px] pointer-events-none animate-pulse"></div>
 
             <div className="container mx-auto px-4 relative z-10">
                 <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
@@ -21,10 +21,10 @@ const LatestMissions = ({ successStories }) => {
                         viewport={{ once: true }}
                         transition={{ duration: 0.6 }}
                     >
-                        <div className="text-cyan-500 font-bold tracking-wider uppercase mb-2 text-sm">{t('landing.missions.badge')}</div>
-                        <h2 className="text-4xl md:text-5xl font-bold text-white">{t('landing.missions.title')}</h2>
+                        <div className="text-cyan-600 dark:text-cyan-500 font-bold tracking-wider uppercase mb-2 text-sm">{t('landing.missions.badge')}</div>
+                        <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">{t('landing.missions.title')}</h2>
                     </motion.div>
-                    <Link to="/register" className="group flex items-center gap-2 text-slate-300 hover:text-white transition-colors">
+                    <Link to="/register" className="group flex items-center gap-2 text-gray-600 dark:text-slate-300 hover:text-gray-900 dark:hover:text-white transition-colors">
                         {t('landing.missions.viewAll')} <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform rtl:rotate-180" />
                     </Link>
                 </div>
@@ -41,7 +41,7 @@ const LatestMissions = ({ successStories }) => {
                                 whileHover={{ scale: 1.03, rotateY: 2, zIndex: 10 }}
                                 className="transform transition-all duration-500"
                             >
-                                <div className="h-full bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl overflow-hidden hover:border-cyan-500/30 hover:shadow-[0_0_30px_rgba(6,182,212,0.15)] transition-all group">
+                                <div className="h-full bg-white/80 dark:bg-slate-900/50 backdrop-blur-sm border border-gray-200 dark:border-slate-800 rounded-2xl overflow-hidden hover:border-cyan-500/30 hover:shadow-[0_0_30px_rgba(6,182,212,0.15)] transition-all group">
                                     <RequestCard request={story} />
                                 </div>
                             </motion.div>
@@ -49,10 +49,10 @@ const LatestMissions = ({ successStories }) => {
                     ) : (
                         // Skeleton Loading State
                         [1, 2, 3].map((i) => (
-                            <div key={i} className="h-[400px] bg-slate-900/30 rounded-2xl border border-slate-800 animate-pulse flex flex-col p-4">
-                                <div className="w-full h-48 bg-slate-800 rounded-xl mb-4"></div>
-                                <div className="h-6 bg-slate-800 rounded w-3/4 mb-2"></div>
-                                <div className="h-4 bg-slate-800 rounded w-1/2"></div>
+                            <div key={i} className="h-[400px] bg-gray-100 dark:bg-slate-900/30 rounded-2xl border border-gray-200 dark:border-slate-800 animate-pulse flex flex-col p-4">
+                                <div className="w-full h-48 bg-gray-200 dark:bg-slate-800 rounded-xl mb-4"></div>
+                                <div className="h-6 bg-gray-200 dark:bg-slate-800 rounded w-3/4 mb-2"></div>
+                                <div className="h-4 bg-gray-200 dark:bg-slate-800 rounded w-1/2"></div>
                             </div>
                         ))
                     )}

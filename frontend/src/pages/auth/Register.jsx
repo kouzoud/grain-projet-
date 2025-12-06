@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { User, Heart, Mail, Phone, Lock, CheckCircle, ArrowRight, ShieldCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -25,6 +25,23 @@ const Register = () => {
         errors,
         passwordValue
     } = useRegisterForm();
+
+    // Redirection automatique si déjà connecté
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        const userRole = localStorage.getItem('role');
+
+        if (token && userRole) {
+            // Redirection intelligente selon le rôle
+            if (userRole === 'ADMIN') {
+                navigate('/admin/dashboard');
+            } else if (userRole === 'BENEVOLE') {
+                navigate('/volunteer/map');
+            } else if (userRole === 'CITOYEN') {
+                navigate('/citizen/dashboard');
+            }
+        }
+    }, [navigate]);
 
     if (isSuccess) {
         return (
@@ -62,7 +79,25 @@ const Register = () => {
                 animate={{ opacity: 1, y: 0 }}
                 className="max-w-4xl w-full space-y-8"
             >
+                {/* Logo */}
                 <div className="text-center">
+                    <Link to="/" className="inline-block group mb-4">
+                        <motion.div
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            transition={{ type: "spring", stiffness: 200, delay: 0.1 }}
+                            className="relative"
+                        >
+                            <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-violet-500 rounded-2xl blur-lg opacity-50 group-hover:opacity-70 transition-opacity" />
+                            <div className="relative bg-gradient-to-r from-cyan-500 to-violet-500 p-1 rounded-2xl">
+                                <img 
+                                    src="/logo.jpg" 
+                                    alt="Logo" 
+                                    className="w-20 h-20 object-contain rounded-xl bg-white"
+                                />
+                            </div>
+                        </motion.div>
+                    </Link>
                     <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white mb-2">
                         {t('auth.register.subtitle').split('SolidarLink')[0]} <span className="text-primary">SolidarLink</span>
                     </h1>
@@ -132,7 +167,7 @@ const Register = () => {
                             <section>
                                 <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
                                     <span className="w-8 h-8 rounded-full bg-gray-100 dark:bg-slate-700 flex items-center justify-center text-sm font-bold text-gray-600 dark:text-gray-300">1</span>
-                                    {t('auth.register.firstName').includes('Prénom') ? 'Informations Personnelles' : 'المعلومات الشخصية'}
+                                    {t('auth.register.sections.personalInfo')}
                                 </h3>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <FloatingLabelInput
@@ -178,7 +213,7 @@ const Register = () => {
                                             required: t('auth.validation.required'),
                                             pattern: {
                                                 value: /^(0[1-9])[0-9]{8}$/,
-                                                message: 'Format invalide (ex: 0612345678)'
+                                                message: t('auth.errors.emailInvalid')
                                             }
                                         })}
                                         error={errors.phone}
@@ -190,7 +225,7 @@ const Register = () => {
                             <section>
                                 <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
                                     <span className="w-8 h-8 rounded-full bg-gray-100 dark:bg-slate-700 flex items-center justify-center text-sm font-bold text-gray-600 dark:text-gray-300">2</span>
-                                    {t('auth.register.password').includes('Mot') ? 'Sécurité' : 'الأمان'}
+                                    {t('auth.register.sections.security')}
                                 </h3>
                                 <div className="max-w-md">
                                     <FloatingLabelInput
@@ -229,7 +264,7 @@ const Register = () => {
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-accent/5 p-6 rounded-xl border border-accent/10">
                                             <FloatingLabelInput
                                                 id="skills"
-                                                label={t('profile.skills') || 'Compétences'}
+                                                label={t('profile.infoSection.skills')}
                                                 role={role}
                                                 {...register('skills', { required: t('auth.validation.required') })}
                                                 error={errors.skills}
@@ -237,7 +272,7 @@ const Register = () => {
                                             />
                                             <FloatingLabelInput
                                                 id="availability"
-                                                label={t('profile.availability') || 'Disponibilités'}
+                                                label={t('profile.infoSection.availability')}
                                                 role={role}
                                                 {...register('availability', { required: t('auth.validation.required') })}
                                                 error={errors.availability}
@@ -252,15 +287,15 @@ const Register = () => {
                             <section>
                                 <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-4 flex items-center gap-2 pt-4 border-t border-gray-100 dark:border-slate-700">
                                     <span className="w-8 h-8 rounded-full bg-gray-100 dark:bg-slate-700 flex items-center justify-center text-sm font-bold text-gray-600 dark:text-gray-300">{role === 'VOLUNTEER' ? '4' : '3'}</span>
-                                    {t('profile.verification') || 'Vérification d\'identité'}
+                                    {t('auth.register.verification.title')}
                                 </h3>
                                 <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-                                    {t('profile.verificationDesc') || 'Pour garantir la confiance au sein de la communauté, nous vérifions l\'identité de chaque membre.'}
+                                    {t('auth.register.verification.description')}
                                 </p>
                                 <FileUpload
                                     register={register}
                                     name="document"
-                                    label={t('profile.idDocument') || 'Pièce d\'identité'}
+                                    label={t('auth.register.verification.idDocument')}
                                     error={errors.document}
                                 />
                             </section>

@@ -1,13 +1,16 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Check, X } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const PasswordStrengthMeter = ({ password }) => {
+    const { t } = useTranslation();
+    
     const criteria = [
-        { label: "8 caractères min.", valid: password?.length >= 8 },
-        { label: "1 majuscule", valid: /[A-Z]/.test(password || "") },
-        { label: "1 chiffre", valid: /[0-9]/.test(password || "") },
-        { label: "1 caractère spécial", valid: /[^A-Za-z0-9]/.test(password || "") },
+        { label: t('auth.register.passwordCriteria.minLength') || "8 caractères min.", valid: password?.length >= 8 },
+        { label: t('auth.register.passwordCriteria.uppercase') || "1 majuscule", valid: /[A-Z]/.test(password || "") },
+        { label: t('auth.register.passwordCriteria.number') || "1 chiffre", valid: /[0-9]/.test(password || "") },
+        { label: t('auth.register.passwordCriteria.special') || "1 caractère spécial", valid: /[^A-Za-z0-9]/.test(password || "") },
     ];
 
     const validCount = criteria.filter(c => c.valid).length;
@@ -21,11 +24,11 @@ const PasswordStrengthMeter = ({ password }) => {
     };
 
     const getLabel = () => {
-        if (strength === 0) return "Vide";
-        if (strength <= 25) return "Faible";
-        if (strength <= 50) return "Moyen";
-        if (strength <= 75) return "Bon";
-        return "Excellent";
+        if (strength === 0) return t('auth.register.passwordStrength.empty') || "Vide";
+        if (strength <= 25) return t('auth.register.passwordStrength.weak') || "Faible";
+        if (strength <= 50) return t('auth.register.passwordStrength.medium') || "Moyen";
+        if (strength <= 75) return t('auth.register.passwordStrength.good') || "Bon";
+        return t('auth.register.passwordStrength.excellent') || "Excellent";
     };
 
     if (!password) return null;
@@ -33,7 +36,7 @@ const PasswordStrengthMeter = ({ password }) => {
     return (
         <div className="mt-2 space-y-2">
             <div className="flex justify-between items-center text-xs text-gray-500 mb-1">
-                <span>Force du mot de passe</span>
+                <span>{t('auth.register.passwordStrengthLabel') || "Force du mot de passe"}</span>
                 <span className="font-medium">{getLabel()}</span>
             </div>
 

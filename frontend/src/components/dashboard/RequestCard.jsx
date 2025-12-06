@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { MapPin, Clock, Edit3, Trash2, Eye, MoreHorizontal, ExternalLink } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { getSingleImageUrl, defaultImage } from '../../utils/imageUtils';
+import SocialShareButton from '../common/SocialShareButton';
 
 const RequestCard = ({ request, onEdit, onDelete, index = 0 }) => {
     const { t, i18n } = useTranslation();
@@ -216,6 +217,18 @@ const RequestCard = ({ request, onEdit, onDelete, index = 0 }) => {
                         <Edit3 className="w-4 h-4" />
                         {t('dashboard.citizen.requestCard.edit')}
                     </motion.button>
+                    
+                    {/* Social Share Button - Masqué si RESOLU */}
+                    {request.statut !== 'RESOLU' && request.status !== 'RESOLU' && (
+                        <SocialShareButton
+                            title={request.titre}
+                            description={request.description}
+                            caseId={request.id}
+                            showLabel={false}
+                            className="p-2.5 rounded-xl bg-gray-50 dark:bg-slate-700/50 hover:bg-blue-50 dark:hover:bg-blue-500/20 text-gray-400 dark:text-gray-500 hover:text-blue-500 dark:hover:text-blue-400 transition-all duration-200 border border-transparent hover:border-blue-200 dark:hover:border-blue-500/30"
+                        />
+                    )}
+                    
                     <motion.button
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}

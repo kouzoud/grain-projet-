@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { MapContainer, TileLayer, Marker, LayersControl, useMap } from 'react-leaflet';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { MapContainer, TileLayer, Marker, LayersControl, useMap, useMapEvents } from 'react-leaflet';
 import MarkerClusterGroup from 'react-leaflet-cluster';
 import { Filter, Search, Crosshair, List } from 'lucide-react';
 import ConfirmInterventionModal from '../../components/volunteer/ConfirmInterventionModal';
@@ -31,6 +31,28 @@ const MapUpdater = ({ center, zoom }) => {
     return null;
 };
 
+// Component to handle viewport-based loading with debounce
+const ViewportLoader = ({ onViewportChange, debounceMs = 500 }) => {
+    const map = useMapEvents({
+        moveend: () => {
+            const bounds = map.getBounds();
+            onViewportChange(bounds);
+        },
+        zoomend: () => {
+            const bounds = map.getBounds();
+            onViewportChange(bounds);
+        }
+    });
+
+    // Initial load
+    useEffect(() => {
+        const bounds = map.getBounds();
+        onViewportChange(bounds);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+    return null;
+};
+
 const VolunteerMap = () => {
     const [requests, setRequests] = useState([]);
     const [selectedRequest, setSelectedRequest] = useState(null);
@@ -39,6 +61,10 @@ const VolunteerMap = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [mapCenter, setMapCenter] = useState([31.7917, -7.0926]); // Default Morocco center
     const [mapZoom, setMapZoom] = useState(6); // Default zoom level
+    const [loading, setLoading] = useState(false);
+    
+    const debounceTimerRef = useRef(null);
+    const abortControllerRef = useRef(null);
 
     const { confirmIntervention } = useInterventionConfirmation(() => {
         setInterventionRequest(null);
@@ -46,12 +72,37 @@ const VolunteerMap = () => {
         alert(`Merci ! Vous avez pris en charge la demande : ${interventionRequest?.title}`);
     });
 
-    useEffect(() => {
-        console.log("VolunteerMap mounted");
-        const fetchRequests = async () => {
+    // Fetch cases within viewport with debounce
+    const fetchCasesInViewport = useCallback(async (bounds) => {
+        // Cancel previous request
+        if (abortControllerRef.current) {
+            abortControllerRef.current.abort();
+        }
+
+        // Clear previous debounce timer
+        if (debounceTimerRef.current) {
+            clearTimeout(debounceTimerRef.current);
+        }
+
+        // Debounce 500ms
+        debounceTimerRef.current = setTimeout(async () => {
             try {
-                const data = await casService.getValidatedCases();
-                console.log("Fetched requests:", data);
+                setLoading(true);
+                abortControllerRef.current = new AbortController();
+
+                const params = {
+                    minLon: bounds.getWest(),
+                    minLat: bounds.getSouth(),
+                    maxLon: bounds.getEast(),
+                    maxLat: bounds.getNorth(),
+                    status: 'VALIDE',
+                    page: 0,
+                    size: 100
+                };
+
+                const response = await casService.getCasesInViewport(params);
+                const data = response.content || response.data?.content || response;
+
                 const mappedRequests = data.map(cas => ({
                     id: cas.id,
                     title: cas.titre || "",
@@ -62,20 +113,36 @@ const VolunteerMap = () => {
                     longitude: cas.longitude,
                     createdAt: cas.createdAt,
                     authorName: cas.author?.nom ? `${cas.author.prenom} ${cas.author.nom}` : null,
-                    author: cas.author, // Include full author object for phone number
+                    author: cas.author,
                     location: {
                         lat: cas.latitude || 0,
                         lng: cas.longitude || 0
                     },
                     photosUrl: cas.photos
                 }));
+
                 setRequests(mappedRequests);
             } catch (error) {
-                console.error("Failed to fetch requests", error);
+                if (error.name !== 'AbortError' && error.name !== 'CanceledError') {
+                    console.error("Failed to fetch cases in viewport", error);
+                }
+            } finally {
+                setLoading(false);
+                abortControllerRef.current = null;
+            }
+        }, 500);
+    }, []);
+
+    // Cleanup on unmount
+    useEffect(() => {
+        return () => {
+            if (debounceTimerRef.current) {
+                clearTimeout(debounceTimerRef.current);
+            }
+            if (abortControllerRef.current) {
+                abortControllerRef.current.abort();
             }
         };
-
-        fetchRequests();
     }, []);
 
     const filteredRequests = requests.filter(r => {
@@ -101,12 +168,35 @@ const VolunteerMap = () => {
     };
 
     const handleLocateMe = () => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition((position) => {
-                setMapCenter([position.coords.latitude, position.coords.longitude]);
-                setMapZoom(13); // Zoom in when locating
-            });
+        if (!navigator.geolocation) {
+            alert("La géolocalisation n'est pas supportée par votre navigateur.");
+            return;
         }
+
+        // Options de haute précision
+        const options = {
+            enableHighAccuracy: true, // CRUCIAL : Force le GPS ou le Wi-Fi précis
+            timeout: 10000,           // Attend jusqu'à 10s pour avoir un bon signal
+            maximumAge: 0             // Interdit d'utiliser une position mise en cache (vieille)
+        };
+
+        const success = (position) => {
+            const { latitude, longitude, accuracy } = position.coords;
+            console.log(`✅ Position bénévole trouvée avec précision de ${accuracy} mètres`);
+            setMapCenter([latitude, longitude]);
+            setMapZoom(16); // Zoom 16 = niveau rue pour voir les demandes autour
+        };
+
+        const error = (err) => {
+            console.warn(`❌ ERREUR GÉOLOCALISATION (Code ${err.code}): ${err.message}`);
+            let msg = "Impossible d'obtenir votre position précise.";
+            if (err.code === 1) msg = "Vous devez autoriser la géolocalisation dans les paramètres de votre navigateur.";
+            if (err.code === 2) msg = "Position indisponible (GPS introuvable). Vérifiez que votre GPS est activé.";
+            if (err.code === 3) msg = "Délai d'attente dépassé. Le signal GPS est trop faible.";
+            alert(msg);
+        };
+
+        navigator.geolocation.getCurrentPosition(success, error, options);
     };
 
     return (
@@ -158,6 +248,8 @@ const VolunteerMap = () => {
                     zoomControl={false}
                 >
                     <MapUpdater center={mapCenter} zoom={mapZoom} />
+                    <ViewportLoader onViewportChange={fetchCasesInViewport} />
+                    
                     <LayersControl position="bottomright">
                         <LayersControl.BaseLayer checked name="🗺️ Plan Standard">
                             <TileLayer

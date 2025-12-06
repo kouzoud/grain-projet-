@@ -7,12 +7,12 @@ import { useTranslation } from 'react-i18next';
 import publicService from '../../services/publicService';
 
 const Skeleton = ({ className }) => (
-    <div className={`animate-pulse bg-slate-800 rounded-md ${className}`}></div>
+    <div className={`animate-pulse bg-gray-200 dark:bg-slate-800 rounded-md ${className}`}></div>
 );
 
 const BentoCard = ({ title, value, icon, subtext, delay, loading, colSpan = "col-span-1" }) => (
     <motion.div
-        className={`${colSpan} relative overflow-hidden p-8 rounded-3xl bg-slate-900/50 backdrop-blur-md border border-slate-800 hover:border-cyan-500/30 transition-all duration-500 group`}
+        className={`${colSpan} relative overflow-hidden p-8 rounded-3xl bg-white/50 dark:bg-slate-900/50 backdrop-blur-md border border-gray-200 dark:border-slate-800 hover:border-cyan-500/30 transition-all duration-500 group`}
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -23,27 +23,27 @@ const BentoCard = ({ title, value, icon, subtext, delay, loading, colSpan = "col
         </div>
 
         <div className="flex items-start justify-between mb-8">
-            <div className="p-3 bg-slate-800/50 rounded-2xl group-hover:scale-110 transition-transform duration-300">
+            <div className="p-3 bg-gray-100 dark:bg-slate-800/50 rounded-2xl group-hover:scale-110 transition-transform duration-300">
                 {icon}
             </div>
             {loading ? (
                 <Skeleton className="w-24 h-6 rounded-full" />
             ) : subtext && (
-                <div className="flex items-center gap-1 text-green-400 text-sm font-medium bg-green-400/10 px-2 py-1 rounded-full">
+                <div className="flex items-center gap-1 text-green-600 dark:text-green-400 text-sm font-medium bg-green-100 dark:bg-green-400/10 px-2 py-1 rounded-full">
                     <TrendingUp className="w-3 h-3" /> {subtext}
                 </div>
             )}
         </div>
 
         <div>
-            <div className="text-5xl font-bold text-white mb-2 tracking-tight">
+            <div className="text-5xl font-bold text-gray-900 dark:text-white mb-2 tracking-tight">
                 {loading ? (
                     <Skeleton className="w-32 h-12 mb-2" />
                 ) : (
                     <CountUp end={value} duration={2.5} separator=" " enableScrollSpy />
                 )}
             </div>
-            <div className="text-slate-400 font-medium text-lg">{title}</div>
+            <div className="text-gray-600 dark:text-slate-400 font-medium text-lg">{title}</div>
         </div>
 
         {/* Decorative Gradient Blob */}
@@ -79,14 +79,14 @@ const ImpactSection = () => {
     }, []);
 
     return (
-        <section className="py-24 bg-black relative overflow-hidden">
+        <section className="py-24 bg-gray-50 dark:bg-black relative overflow-hidden">
             {/* Background Grid */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
 
             <div className="container mx-auto px-4 relative z-10">
                 <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">{t('landing.impact.title')}</h2>
-                    <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+                    <h2 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">{t('landing.impact.title')}</h2>
+                    <p className="text-gray-600 dark:text-slate-400 text-lg max-w-2xl mx-auto">
                         {t('landing.impact.subtitle')}
                     </p>
                 </div>
@@ -96,7 +96,7 @@ const ImpactSection = () => {
                     <BentoCard
                         title={t('landing.stats.volunteers')}
                         value={stats.activeVolunteers}
-                        icon={<Users className="w-8 h-8 text-cyan-400" />}
+                        icon={<Users className="w-8 h-8 text-cyan-500 dark:text-cyan-400" />}
                         subtext={stats.volunteerGrowth > 0 ? `+${stats.volunteerGrowth}% ${t('landing.impact.thisMonth')}` : null}
                         delay={0}
                         loading={loading}
@@ -107,7 +107,7 @@ const ImpactSection = () => {
                     <BentoCard
                         title={t('landing.stats.cities')}
                         value={stats.coveredCities}
-                        icon={<MapPin className="w-8 h-8 text-purple-400" />}
+                        icon={<MapPin className="w-8 h-8 text-purple-500 dark:text-purple-400" />}
                         delay={0.2}
                         loading={loading}
                     />
@@ -116,7 +116,7 @@ const ImpactSection = () => {
                     <BentoCard
                         title={t('landing.stats.missions')}
                         value={stats.completedMissions}
-                        icon={<CheckCircle className="w-8 h-8 text-green-400" />}
+                        icon={<CheckCircle className="w-8 h-8 text-green-500 dark:text-green-400" />}
                         subtext={`${stats.successRate}% ${t('landing.impact.successRate')}`}
                         delay={0.4}
                         loading={loading}
@@ -124,15 +124,15 @@ const ImpactSection = () => {
 
                     {/* Wide Card - CTA */}
                     <motion.div
-                        className="md:col-span-2 relative overflow-hidden p-8 rounded-3xl bg-gradient-to-r from-cyan-900/20 to-blue-900/20 border border-cyan-500/20 hover:border-cyan-500/40 transition-all duration-500 group flex items-center justify-between"
+                        className="md:col-span-2 relative overflow-hidden p-8 rounded-3xl bg-gradient-to-r from-cyan-50 to-blue-50 dark:from-cyan-900/20 dark:to-blue-900/20 border border-cyan-200 dark:border-cyan-500/20 hover:border-cyan-400 dark:hover:border-cyan-500/40 transition-all duration-500 group flex items-center justify-between"
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.5, delay: 0.6 }}
                     >
                         <div>
-                            <div className="text-2xl font-bold text-white mb-2">{t('landing.cta.title')}</div>
-                            <p className="text-slate-400">{t('landing.cta.subtitle')}</p>
+                            <div className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{t('landing.cta.title')}</div>
+                            <p className="text-gray-600 dark:text-slate-400">{t('landing.cta.subtitle')}</p>
                         </div>
                         <Link to="/register" className="px-6 py-3 bg-cyan-500 hover:bg-cyan-400 text-white rounded-full font-bold transition-colors shadow-lg shadow-cyan-500/20">
                             {t('landing.cta.button')}

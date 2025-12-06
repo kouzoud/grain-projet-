@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { User, Lock, Activity, FileText, Camera, Save, AlertCircle, CheckCircle } from 'lucide-react';
 import userService from '../../services/userService';
 import { getSingleImageUrl, defaultImage } from '../../utils/imageUtils';
 
 const Profile = () => {
+    const { t } = useTranslation();
     const [activeTab, setActiveTab] = useState('info');
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -22,7 +24,7 @@ const Profile = () => {
         try {
             const data = await userService.getProfile();
             setUser(data);
-            setPreviewImage(getSingleImageUrl(data.photoUrl));
+            setPreviewImage(getSingleImageUrl(data.avatarUrl));
             reset(data);
         } catch (error) {
             console.error("Failed to fetch profile", error);
@@ -35,16 +37,16 @@ const Profile = () => {
         try {
             const updatedUser = await userService.updateProfile(data);
             setUser(updatedUser);
-            setMessage({ type: 'success', text: 'Profil mis à jour avec succès !' });
+            setMessage({ type: 'success', text: t('profile.messages.profileUpdated') });
             setTimeout(() => setMessage(null), 3000);
         } catch (error) {
-            setMessage({ type: 'error', text: 'Erreur lors de la mise à jour du profil.' });
+            setMessage({ type: 'error', text: t('profile.messages.profileUpdateError') });
         }
     };
 
     const onChangePassword = async (data) => {
         if (data.newPassword !== data.confirmPassword) {
-            setMessage({ type: 'error', text: 'Les mots de passe ne correspondent pas.' });
+            setMessage({ type: 'error', text: t('profile.messages.passwordMismatch') });
             return;
         }
 
@@ -53,11 +55,11 @@ const Profile = () => {
                 currentPassword: data.currentPassword,
                 newPassword: data.newPassword
             });
-            setMessage({ type: 'success', text: 'Mot de passe modifié avec succès !' });
+            setMessage({ type: 'success', text: t('profile.messages.passwordChanged') });
             resetPassword();
             setTimeout(() => setMessage(null), 3000);
         } catch (error) {
-            setMessage({ type: 'error', text: 'Erreur : Mot de passe actuel incorrect.' });
+            setMessage({ type: 'error', text: t('profile.messages.passwordIncorrect') });
         }
     };
 
@@ -75,11 +77,12 @@ const Profile = () => {
         // Upload
         try {
             const filename = await userService.uploadAvatar(file);
-            setUser(prev => ({ ...prev, photoUrl: filename }));
-            setMessage({ type: 'success', text: 'Photo de profil mise à jour !' });
+            // Recharger le profil complet depuis le backend
+            await fetchProfile();
+            setMessage({ type: 'success', text: t('profile.messages.avatarUpdated') });
             setTimeout(() => setMessage(null), 3000);
         } catch (error) {
-            setMessage({ type: 'error', text: "Erreur lors de l'upload de la photo." });
+            setMessage({ type: 'error', text: t('profile.messages.avatarUploadError') });
         }
     };
 
@@ -137,20 +140,20 @@ const Profile = () => {
                                 onClick={() => setActiveTab('info')}
                                 className={`w-full flex items-center gap-3 px-6 py-4 text-left transition-colors ${activeTab === 'info' ? 'bg-gray-50 text-primary font-medium border-l-4 border-primary' : 'text-gray-600 hover:bg-gray-50'}`}
                             >
-                                <User className="w-5 h-5" /> Informations
+                                <User className="w-5 h-5" /> {t('profile.tabs.info')}
                             </button>
                             <button
                                 onClick={() => setActiveTab('security')}
                                 className={`w-full flex items-center gap-3 px-6 py-4 text-left transition-colors ${activeTab === 'security' ? 'bg-gray-50 text-primary font-medium border-l-4 border-primary' : 'text-gray-600 hover:bg-gray-50'}`}
                             >
-                                <Lock className="w-5 h-5" /> Sécurité
+                                <Lock className="w-5 h-5" /> {t('profile.tabs.security')}
                             </button>
                             {user?.role === 'BENEVOLE' && (
                                 <button
                                     onClick={() => setActiveTab('stats')}
                                     className={`w-full flex items-center gap-3 px-6 py-4 text-left transition-colors ${activeTab === 'stats' ? 'bg-gray-50 text-primary font-medium border-l-4 border-primary' : 'text-gray-600 hover:bg-gray-50'}`}
                                 >
-                                    <Activity className="w-5 h-5" /> Mes Statistiques
+                                    <Activity className="w-5 h-5" /> {t('profile.tabs.stats')}
                                 </button>
                             )}
                             {user?.role === 'CITOYEN' && (
@@ -158,7 +161,7 @@ const Profile = () => {
                                     onClick={() => setActiveTab('docs')}
                                     className={`w-full flex items-center gap-3 px-6 py-4 text-left transition-colors ${activeTab === 'docs' ? 'bg-gray-50 text-primary font-medium border-l-4 border-primary' : 'text-gray-600 hover:bg-gray-50'}`}
                                 >
-                                    <FileText className="w-5 h-5" /> Mes Documents
+                                    <FileText className="w-5 h-5" /> {t('profile.tabs.docs')}
                                 </button>
                             )}
                         </div>
@@ -169,41 +172,41 @@ const Profile = () => {
                         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8">
                             {activeTab === 'info' && (
                                 <form onSubmit={handleSubmit(onUpdateProfile)} className="space-y-6">
-                                    <h2 className="text-xl font-bold text-gray-800 mb-6">Informations Personnelles</h2>
+                                    <h2 className="text-xl font-bold text-gray-800 mb-6">{t('profile.infoSection.title')}</h2>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-1">Prénom</label>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">{t('profile.infoSection.firstName')}</label>
                                             <input {...register('prenom', { required: true })} className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent" />
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-1">Nom</label>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">{t('profile.infoSection.lastName')}</label>
                                             <input {...register('nom', { required: true })} className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent" />
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">{t('profile.infoSection.email')}</label>
                                             <input {...register('email')} disabled className="w-full px-4 py-2 rounded-lg border border-gray-300 bg-gray-100 cursor-not-allowed" />
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-1">Téléphone</label>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">{t('profile.infoSection.phone')}</label>
                                             <input {...register('telephone')} className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent" />
                                         </div>
 
                                         {user?.role === 'BENEVOLE' && (
                                             <>
                                                 <div className="md:col-span-2">
-                                                    <label className="block text-sm font-medium text-gray-700 mb-1">Compétences</label>
-                                                    <textarea {...register('competences')} className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent" rows="3" placeholder="Ex: Premiers secours, Logistique..." />
+                                                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('profile.infoSection.skills')}</label>
+                                                    <textarea {...register('competences')} className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent" rows="3" placeholder={t('profile.infoSection.skillsPlaceholder')} />
                                                 </div>
                                                 <div className="md:col-span-2">
-                                                    <label className="block text-sm font-medium text-gray-700 mb-1">Disponibilité</label>
-                                                    <input {...register('disponibilite')} className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Ex: Weekends, Soirées..." />
+                                                    <label className="block text-sm font-medium text-gray-700 mb-1">{t('profile.infoSection.availability')}</label>
+                                                    <input {...register('disponibilite')} className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent" placeholder={t('profile.infoSection.availabilityPlaceholder')} />
                                                 </div>
                                             </>
                                         )}
                                     </div>
                                     <div className="flex justify-end pt-4">
                                         <button type="submit" className="bg-primary hover:bg-primary-dark text-white px-6 py-2 rounded-lg font-medium transition-colors flex items-center gap-2">
-                                            <Save className="w-4 h-4" /> Enregistrer
+                                            <Save className="w-4 h-4" /> {t('profile.buttons.save')}
                                         </button>
                                     </div>
                                 </form>
@@ -211,23 +214,23 @@ const Profile = () => {
 
                             {activeTab === 'security' && (
                                 <form onSubmit={handleSubmitPassword(onChangePassword)} className="space-y-6 max-w-md">
-                                    <h2 className="text-xl font-bold text-gray-800 mb-6">Changer le mot de passe</h2>
+                                    <h2 className="text-xl font-bold text-gray-800 mb-6">{t('profile.securitySection.title')}</h2>
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">Mot de passe actuel</label>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">{t('profile.securitySection.currentPassword')}</label>
                                         <input type="password" {...registerPassword('currentPassword', { required: true })} className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent" />
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">Nouveau mot de passe</label>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">{t('profile.securitySection.newPassword')}</label>
                                         <input type="password" {...registerPassword('newPassword', { required: true, minLength: 6 })} className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent" />
-                                        {passwordErrors.newPassword && <span className="text-red-500 text-xs">Minimum 6 caractères</span>}
+                                        {passwordErrors.newPassword && <span className="text-red-500 text-xs">{t('profile.securitySection.minLength')}</span>}
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">Confirmer le mot de passe</label>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">{t('profile.securitySection.confirmPassword')}</label>
                                         <input type="password" {...registerPassword('confirmPassword', { required: true })} className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent" />
                                     </div>
                                     <div className="pt-4">
                                         <button type="submit" className="bg-primary hover:bg-primary-dark text-white px-6 py-2 rounded-lg font-medium transition-colors flex items-center gap-2">
-                                            <Save className="w-4 h-4" /> Mettre à jour
+                                            <Save className="w-4 h-4" /> {t('profile.buttons.update')}
                                         </button>
                                     </div>
                                 </form>
@@ -236,16 +239,16 @@ const Profile = () => {
                             {activeTab === 'stats' && (
                                 <div className="text-center py-12">
                                     <Activity className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                                    <h3 className="text-lg font-medium text-gray-900">Statistiques à venir</h3>
-                                    <p className="text-gray-500">Vos statistiques d'impact seront bientôt disponibles ici.</p>
+                                    <h3 className="text-lg font-medium text-gray-900">{t('profile.statsSection.title')}</h3>
+                                    <p className="text-gray-500">{t('profile.statsSection.description')}</p>
                                 </div>
                             )}
 
                             {activeTab === 'docs' && (
                                 <div className="text-center py-12">
                                     <FileText className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                                    <h3 className="text-lg font-medium text-gray-900">Documents</h3>
-                                    <p className="text-gray-500">Gestion de vos documents officiels (CNI, Justificatifs).</p>
+                                    <h3 className="text-lg font-medium text-gray-900">{t('profile.docsSection.title')}</h3>
+                                    <p className="text-gray-500">{t('profile.docsSection.description')}</p>
                                 </div>
                             )}
                         </div>

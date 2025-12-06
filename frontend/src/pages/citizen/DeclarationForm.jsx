@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import {
     Upload, MapPin, FileText, Check, ChevronRight, ChevronLeft,
     X, Image, Sparkles, Save, Eye, Send, AlertCircle, Lightbulb,
@@ -11,22 +12,23 @@ import {
 import LocationPicker from '../../components/LocationPicker';
 import Button from '../../components/ui/Button';
 import casService from '../../services/casService';
+import { useFormPersist } from '../../hooks/useFormPersist';
 
 // ==================== CONSTANTS ====================
 const MAX_TITLE_LENGTH = 100;
 const MAX_DESCRIPTION_LENGTH = 1000;
 
-const CATEGORIES = [
-    { value: 'ALIMENTAIRE', label: 'Alimentaire', icon: Package, color: 'from-orange-400 to-orange-600', keywords: ['nourriture', 'alimentaire', 'repas', 'manger', 'faim', 'provisions', 'denrées', 'courses', 'épicerie'] },
-    { value: 'MEDICAL', label: 'Médical', icon: Stethoscope, color: 'from-red-400 to-red-600', keywords: ['médical', 'santé', 'médicament', 'docteur', 'hôpital', 'urgence', 'soins', 'maladie', 'blessure'] },
-    { value: 'LOGISTIQUE', label: 'Logistique', icon: Truck, color: 'from-blue-400 to-blue-600', keywords: ['transport', 'déménagement', 'livraison', 'véhicule', 'déplacement', 'logistique', 'aide', 'porter'] },
-    { value: 'AUTRE', label: 'Autre', icon: HelpCircle, color: 'from-gray-400 to-gray-600', keywords: [] }
+const getCategories = (t) => [
+    { value: 'ALIMENTAIRE', label: t('declarationForm.categories.alimentaire'), icon: Package, color: 'from-orange-400 to-orange-600', keywords: ['nourriture', 'alimentaire', 'repas', 'manger', 'faim', 'provisions', 'denrées', 'courses', 'épicerie'] },
+    { value: 'MEDICAL', label: t('declarationForm.categories.medical'), icon: Stethoscope, color: 'from-red-400 to-red-600', keywords: ['médical', 'santé', 'médicament', 'docteur', 'hôpital', 'urgence', 'soins', 'maladie', 'blessure'] },
+    { value: 'LOGISTIQUE', label: t('declarationForm.categories.logistique'), icon: Truck, color: 'from-blue-400 to-blue-600', keywords: ['transport', 'déménagement', 'livraison', 'véhicule', 'déplacement', 'logistique', 'aide', 'porter'] },
+    { value: 'AUTRE', label: t('declarationForm.categories.autre'), icon: HelpCircle, color: 'from-gray-400 to-gray-600', keywords: [] }
 ];
 
-const DESCRIPTION_TEMPLATES = [
+const getDescriptionTemplates = (t) => [
     {
         id: 'alimentaire',
-        title: 'Aide alimentaire',
+        title: t('declarationForm.templates.alimentaire'),
         icon: Package,
         template: `🍽️ Type de besoin alimentaire :
 - Denrées de base (riz, pâtes, huile...)
@@ -43,7 +45,7 @@ const DESCRIPTION_TEMPLATES = [
     },
     {
         id: 'medical',
-        title: 'Assistance médicale',
+        title: t('declarationForm.templates.medical'),
         icon: Stethoscope,
         template: `🏥 Type d'assistance médicale :
 - Accompagnement médical
@@ -61,7 +63,7 @@ const DESCRIPTION_TEMPLATES = [
     },
     {
         id: 'logistique',
-        title: 'Aide logistique',
+        title: t('declarationForm.templates.logistique'),
         icon: Truck,
         template: `🚗 Type d'aide logistique :
 - Transport de personnes
@@ -78,17 +80,17 @@ const DESCRIPTION_TEMPLATES = [
     },
     {
         id: 'custom',
-        title: 'Description libre',
+        title: t('declarationForm.templates.custom'),
         icon: FileText,
         template: ''
     }
 ];
 
-const STEPS = [
-    { id: 1, title: 'Informations', icon: FileText },
-    { id: 2, title: 'Description', icon: Sparkles },
-    { id: 3, title: 'Localisation', icon: MapPin },
-    { id: 4, title: 'Photos', icon: Camera }
+const getSteps = (t) => [
+    { id: 1, title: t('declarationForm.steps.info'), icon: FileText },
+    { id: 2, title: t('declarationForm.steps.description'), icon: Sparkles },
+    { id: 3, title: t('declarationForm.steps.location'), icon: MapPin },
+    { id: 4, title: t('declarationForm.steps.photos'), icon: Camera }
 ];
 
 // ==================== ANIMATIONS ====================
@@ -164,7 +166,9 @@ const CharacterCounter = ({ current, max, warningThreshold = 0.8 }) => {
     );
 };
 
-const CategorySuggestion = ({ suggestedCategory, onSelect }) => (
+const CategorySuggestion = ({ suggestedCategory, onSelect }) => {
+    const { t } = useTranslation();
+    return (
     <AnimatePresence>
         {suggestedCategory && (
             <motion.div
@@ -176,20 +180,21 @@ const CategorySuggestion = ({ suggestedCategory, onSelect }) => (
                 <div className="flex items-center gap-2 p-3 bg-gradient-to-r from-cyan-50 to-violet-50 dark:from-cyan-900/20 dark:to-violet-900/20 rounded-lg border border-cyan-200 dark:border-cyan-800">
                     <Lightbulb className="w-4 h-4 text-cyan-500 flex-shrink-0" />
                     <span className="text-sm text-gray-700 dark:text-slate-300">
-                        Suggestion : <strong>{suggestedCategory.label}</strong>
+                        {t('declarationForm.suggestion')} : <strong>{suggestedCategory.label}</strong>
                     </span>
                     <button
                         type="button"
                         onClick={() => onSelect(suggestedCategory.value)}
                         className="ml-auto text-xs bg-cyan-500 hover:bg-cyan-600 text-white px-3 py-1 rounded-full transition-colors"
                     >
-                        Appliquer
+                        {t('declarationForm.apply')}
                     </button>
                 </div>
             </motion.div>
         )}
     </AnimatePresence>
 );
+};
 
 const CategoryCard = ({ category, isSelected, onClick }) => {
     const Icon = category.icon;
@@ -255,6 +260,7 @@ const TemplateCard = ({ template, isSelected, onClick }) => {
 };
 
 const PhotoUploadZone = ({ files, existingPhotos, onFilesAdd, onFileRemove, onExistingRemove, maxFiles = 4 }) => {
+    const { t } = useTranslation();
     const [isDragOver, setIsDragOver] = useState(false);
     const [previewUrls, setPreviewUrls] = useState([]);
     const totalPhotos = files.length + existingPhotos.length;
@@ -355,10 +361,10 @@ const PhotoUploadZone = ({ files, existingPhotos, onFilesAdd, onFileRemove, onEx
                         </div>
                     </motion.div>
                     <p className="text-gray-700 dark:text-slate-300 font-medium mb-1">
-                        {isDragOver ? 'Déposez les photos ici' : 'Glissez-déposez vos photos'}
+                        {isDragOver ? t('declarationForm.photos.dragDrop') : t('declarationForm.photos.dragDrop')}
                     </p>
                     <p className="text-sm text-gray-500 dark:text-slate-400">
-                        ou <span className="text-cyan-600 dark:text-cyan-400 underline">parcourez vos fichiers</span>
+                        ou <span className="text-cyan-600 dark:text-cyan-400 underline">{t('declarationForm.photos.orClick')}</span>
                     </p>
                     <p className="text-xs text-gray-400 dark:text-slate-500 mt-2">
                         {totalPhotos} / {maxFiles} photos • JPG, PNG, WebP
@@ -401,11 +407,17 @@ const PhotoUploadZone = ({ files, existingPhotos, onFilesAdd, onFileRemove, onEx
                             key={`new-${index}-${file.name}`}
                             className="relative group aspect-square rounded-xl overflow-hidden border-2 border-green-200 dark:border-green-800 shadow-lg bg-gray-100 dark:bg-slate-700"
                         >
-                            <img
-                                src={previewUrls[index] || ''}
-                                alt={`Preview ${index + 1}`}
-                                className="w-full h-full object-cover"
-                            />
+                            {previewUrls[index] ? (
+                                <img
+                                    src={previewUrls[index]}
+                                    alt={`Preview ${index + 1}`}
+                                    className="w-full h-full object-cover"
+                                />
+                            ) : (
+                                <div className="w-full h-full flex items-center justify-center">
+                                    <Image className="w-12 h-12 text-gray-400" />
+                                </div>
+                            )}
                             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                 <button
                                     type="button"
@@ -426,7 +438,9 @@ const PhotoUploadZone = ({ files, existingPhotos, onFilesAdd, onFileRemove, onEx
     );
 };
 
-const CertificationSection = ({ certifications, onChange }) => (
+const CertificationSection = ({ certifications, onChange }) => {
+    const { t } = useTranslation();
+    return (
     <motion.div
         className="p-6 bg-gradient-to-r from-cyan-50 to-violet-50 dark:from-cyan-900/20 dark:to-violet-900/20 rounded-2xl border border-cyan-200 dark:border-cyan-800"
         initial={{ opacity: 0, y: 20 }}
@@ -437,16 +451,16 @@ const CertificationSection = ({ certifications, onChange }) => (
                 <CheckCircle2 className="w-5 h-5 text-white" />
             </div>
             <div>
-                <h3 className="font-semibold text-gray-900 dark:text-white">Certification et engagement</h3>
-                <p className="text-sm text-gray-500 dark:text-slate-400">Veuillez confirmer les informations suivantes</p>
+                <h3 className="font-semibold text-gray-900 dark:text-white">{t('declarationForm.certifications.title')}</h3>
+                <p className="text-sm text-gray-500 dark:text-slate-400">{t('declarationForm.certifications.title')}</p>
             </div>
         </div>
 
         <div className="space-y-3">
             {[
-                { id: 'accuracy', label: "Je certifie que les informations fournies sont exactes et véridiques" },
-                { id: 'realNeed', label: "Cette demande correspond à un besoin réel et actuel" },
-                { id: 'terms', label: "J'accepte les conditions d'utilisation et la politique de confidentialité" }
+                { id: 'accuracy', label: t('declarationForm.certifications.accuracy') },
+                { id: 'realNeed', label: t('declarationForm.certifications.realNeed') },
+                { id: 'terms', label: t('declarationForm.certifications.terms') }
             ].map((item) => (
                 <label key={item.id} className="flex items-start gap-3 cursor-pointer group">
                     <div className="relative mt-0.5">
@@ -469,12 +483,19 @@ const CertificationSection = ({ certifications, onChange }) => (
         </div>
     </motion.div>
 );
+};
 
 // ==================== MAIN COMPONENT ====================
 const DeclarationForm = () => {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const { id } = useParams();
     const isEditMode = !!id;
+
+    // Dynamic constants with translations
+    const CATEGORIES = useMemo(() => getCategories(t), [t]);
+    const DESCRIPTION_TEMPLATES = useMemo(() => getDescriptionTemplates(t), [t]);
+    const STEPS = useMemo(() => getSteps(t), [t]);
 
     // Form state
     const { register, handleSubmit, setValue, watch, control, formState: { errors } } = useForm({
@@ -489,20 +510,79 @@ const DeclarationForm = () => {
     const watchDescription = watch('description', '');
     const watchCategory = watch('category', '');
 
-    // Component state
-    const [currentStep, setCurrentStep] = useState(1);
+    // 🆕 Utilisation du hook useFormPersist pour persister les données du formulaire
+    const formPersistKey = isEditMode ? `solidarlink_declaration_edit_${id}` : 'solidarlink_declaration_form';
+    const { 
+        values: persistedData, 
+        setFieldValue: setPersistField, 
+        clearForm: clearPersistedForm 
+    } = useFormPersist(formPersistKey, {
+        // Inclure TOUTES les données du formulaire
+        title: '',
+        category: '',
+        description: '',
+        currentStep: 1,
+        location: null,
+        selectedTemplate: null,
+        certifications: {
+            accuracy: false,
+            realNeed: false,
+            terms: false
+        }
+    });
+
+    // Component state (données non-critiques qui ne nécessitent pas de persistence)
+    const [currentStep, setCurrentStep] = useState(persistedData.currentStep || 1);
     const [isLoading, setIsLoading] = useState(false);
-    const [isSavingDraft, setIsSavingDraft] = useState(false);
-    const [location, setLocation] = useState(null);
+    const [location, setLocation] = useState(persistedData.location || null);
     const [selectedFiles, setSelectedFiles] = useState([]);
     const [existingPhotos, setExistingPhotos] = useState([]);
-    const [selectedTemplate, setSelectedTemplate] = useState(null);
-    const [certifications, setCertifications] = useState({
+    const [selectedTemplate, setSelectedTemplate] = useState(persistedData.selectedTemplate || null);
+    const [certifications, setCertifications] = useState(persistedData.certifications || {
         accuracy: false,
         realNeed: false,
         terms: false
     });
     const [showPreview, setShowPreview] = useState(false);
+
+    // 🆕 Synchroniser les états avec la persistence
+    useEffect(() => {
+        setPersistField('currentStep', currentStep);
+    }, [currentStep]);
+
+    useEffect(() => {
+        setPersistField('location', location);
+    }, [location]);
+
+    useEffect(() => {
+        setPersistField('selectedTemplate', selectedTemplate);
+    }, [selectedTemplate]);
+
+    useEffect(() => {
+        setPersistField('certifications', certifications);
+    }, [certifications]);
+
+    // 🆕 Synchroniser les champs react-hook-form avec la persistence
+    useEffect(() => {
+        setPersistField('title', watchTitle);
+    }, [watchTitle]);
+
+    useEffect(() => {
+        setPersistField('description', watchDescription);
+    }, [watchDescription]);
+
+    useEffect(() => {
+        setPersistField('category', watchCategory);
+    }, [watchCategory]);
+
+    // 🆕 Restaurer les valeurs persistées au chargement (uniquement en mode création)
+    useEffect(() => {
+        if (!isEditMode && persistedData) {
+            if (persistedData.title) setValue('title', persistedData.title);
+            if (persistedData.description) setValue('description', persistedData.description);
+            if (persistedData.category) setValue('category', persistedData.category);
+        }
+    }, []); // Exécuter une seule fois au montage
 
     // Calculate suggested category based on title
     const suggestedCategory = useMemo(() => {
@@ -527,6 +607,9 @@ const DeclarationForm = () => {
                     setValue('category', data.categorie);
                     setLocation({ lat: data.latitude, lng: data.longitude });
                     if (data.photos) setExistingPhotos(data.photos);
+                    
+                    // 🆕 En mode édition, on ne restaure pas les données persistées
+                    // car on charge les données du serveur
                 } catch (error) {
                     console.error("Failed to fetch case", error);
                     navigate('/citizen/dashboard');
@@ -569,35 +652,18 @@ const DeclarationForm = () => {
     // Check if all certifications are complete
     const allCertified = Object.values(certifications).every(Boolean);
 
-    // Save draft
-    const saveDraft = async () => {
-        setIsSavingDraft(true);
-        try {
-            const draft = {
-                title: watchTitle,
-                category: watchCategory,
-                description: watchDescription,
-                location,
-                timestamp: new Date().toISOString()
-            };
-            localStorage.setItem('declarationDraft', JSON.stringify(draft));
-            // Show success notification
-            setTimeout(() => setIsSavingDraft(false), 1000);
-        } catch (error) {
-            console.error('Failed to save draft', error);
-            setIsSavingDraft(false);
-        }
-    };
+    // 🆕 Les données sont automatiquement sauvegardées par useFormPersist
+    // Plus besoin de fonction saveDraft manuelle !
 
     // Form submission
     const onSubmit = async (data) => {
         if (!location) {
-            alert("Veuillez sélectionner une position sur la carte.");
+            alert(t('declarationForm.errors.locationRequired'));
             return;
         }
 
         if (!allCertified) {
-            alert("Veuillez confirmer toutes les certifications.");
+            alert(t('declarationForm.errors.certificationsRequired'));
             return;
         }
 
@@ -613,13 +679,26 @@ const DeclarationForm = () => {
                 existingPhotos: existingPhotos
             };
 
+            console.log('📤 Sending case request:', {
+                titre: casRequest.titre,
+                description: casRequest.description?.substring(0, 50) + '...',
+                categorie: casRequest.categorie,
+                latitude: casRequest.latitude,
+                longitude: casRequest.longitude,
+                photosCount: casRequest.photos?.length || 0,
+                existingPhotosCount: casRequest.existingPhotos?.length || 0
+            });
+
             if (isEditMode) {
                 await casService.updateCase(id, casRequest);
             } else {
                 await casService.createCase(casRequest);
             }
 
-            localStorage.removeItem('declarationDraft');
+            // 🆕 CRUCIAL : Nettoyer les données persistées après soumission réussie
+            clearPersistedForm();
+            localStorage.removeItem('declarationDraft'); // Ancien système de brouillon
+            
             navigate('/citizen/dashboard');
         } catch (error) {
             console.error('Operation failed', error);
@@ -646,15 +725,18 @@ const DeclarationForm = () => {
                         <div>
                             <div className="flex items-center justify-between mb-2">
                                 <label className="block text-sm font-semibold text-gray-700 dark:text-slate-300">
-                                    Titre de votre demande *
+                                    {t('declarationForm.fields.title')} *
                                 </label>
                                 <CharacterCounter current={watchTitle.length} max={MAX_TITLE_LENGTH} />
                             </div>
                             <input
                                 type="text"
-                                placeholder="Ex: Besoin urgent de denrées alimentaires"
+                                placeholder={t('declarationForm.fields.titlePlaceholder')}
                                 maxLength={MAX_TITLE_LENGTH}
-                                {...register('title', { required: 'Le titre est requis' })}
+                                {...register('title', { 
+                                    required: t('declarationForm.errors.titleRequired'),
+                                    minLength: { value: 10, message: 'Le titre doit contenir au moins 10 caractères' }
+                                })}
                                 className={`w-full px-4 py-3 rounded-xl border-2 transition-all duration-300 bg-white dark:bg-slate-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-slate-500 ${errors.title
                                         ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20'
                                         : 'border-gray-200 dark:border-slate-700 focus:border-cyan-500 focus:ring-cyan-500/20'
@@ -665,6 +747,19 @@ const DeclarationForm = () => {
                                     <AlertCircle className="w-4 h-4" /> {errors.title.message}
                                 </p>
                             )}
+                            {/* Validation indicators */}
+                            {watchTitle.length > 0 && (
+                                <div className="mt-2 space-y-1">
+                                    <div className={`text-xs flex items-center gap-1.5 ${watchTitle.length >= 10 ? 'text-green-600 dark:text-green-400' : 'text-gray-400 dark:text-slate-500'}`}>
+                                        {watchTitle.length >= 10 ? <CheckCircle2 className="w-3.5 h-3.5" /> : <AlertCircle className="w-3.5 h-3.5" />}
+                                        Minimum 10 caractères ({watchTitle.length}/10)
+                                    </div>
+                                    <div className={`text-xs flex items-center gap-1.5 ${watchTitle.length <= MAX_TITLE_LENGTH ? 'text-green-600 dark:text-green-400' : 'text-red-500'}`}>
+                                        {watchTitle.length <= MAX_TITLE_LENGTH ? <CheckCircle2 className="w-3.5 h-3.5" /> : <AlertCircle className="w-3.5 h-3.5" />}
+                                        Maximum {MAX_TITLE_LENGTH} caractères
+                                    </div>
+                                </div>
+                            )}
                             <CategorySuggestion
                                 suggestedCategory={suggestedCategory}
                                 onSelect={(value) => setValue('category', value)}
@@ -674,7 +769,7 @@ const DeclarationForm = () => {
                         {/* Category Selection */}
                         <div>
                             <label className="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-3">
-                                Catégorie de la demande *
+                                {t('declarationForm.categories.label')} *
                             </label>
                             <motion.div
                                 className="grid grid-cols-2 md:grid-cols-4 gap-4"
@@ -732,16 +827,16 @@ const DeclarationForm = () => {
                         <div>
                             <div className="flex items-center justify-between mb-2">
                                 <label className="block text-sm font-semibold text-gray-700 dark:text-slate-300">
-                                    Description détaillée *
+                                    {t('declarationForm.fields.description')} *
                                 </label>
                                 <CharacterCounter current={watchDescription.length} max={MAX_DESCRIPTION_LENGTH} />
                             </div>
                             <textarea
-                                placeholder="Décrivez votre situation et vos besoins en détail..."
+                                placeholder={t('declarationForm.fields.descriptionPlaceholder')}
                                 maxLength={MAX_DESCRIPTION_LENGTH}
                                 {...register('description', {
-                                    required: 'La description est requise',
-                                    minLength: { value: 50, message: 'Minimum 50 caractères requis' }
+                                    required: t('declarationForm.errors.descriptionRequired'),
+                                    minLength: { value: 50, message: t('declarationForm.errors.descriptionRequired') }
                                 })}
                                 className={`w-full h-64 px-4 py-3 rounded-xl border-2 transition-all duration-300 resize-none bg-white dark:bg-slate-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-slate-500 ${errors.description
                                         ? 'border-red-500 focus:border-red-500'
@@ -752,6 +847,19 @@ const DeclarationForm = () => {
                                 <p className="mt-1 text-sm text-red-500 flex items-center gap-1">
                                     <AlertCircle className="w-4 h-4" /> {errors.description.message}
                                 </p>
+                            )}
+                            {/* Validation indicators */}
+                            {watchDescription.length > 0 && (
+                                <div className="mt-2 space-y-1">
+                                    <div className={`text-xs flex items-center gap-1.5 ${watchDescription.length >= 50 ? 'text-green-600 dark:text-green-400' : 'text-gray-400 dark:text-slate-500'}`}>
+                                        {watchDescription.length >= 50 ? <CheckCircle2 className="w-3.5 h-3.5" /> : <AlertCircle className="w-3.5 h-3.5" />}
+                                        Minimum 50 caractères ({watchDescription.length}/50)
+                                    </div>
+                                    <div className={`text-xs flex items-center gap-1.5 ${watchDescription.length <= MAX_DESCRIPTION_LENGTH ? 'text-green-600 dark:text-green-400' : 'text-red-500'}`}>
+                                        {watchDescription.length <= MAX_DESCRIPTION_LENGTH ? <CheckCircle2 className="w-3.5 h-3.5" /> : <AlertCircle className="w-3.5 h-3.5" />}
+                                        Maximum {MAX_DESCRIPTION_LENGTH} caractères
+                                    </div>
+                                </div>
                             )}
                             <p className="mt-2 text-xs text-gray-400 dark:text-slate-500 flex items-center gap-1">
                                 <Info className="w-3 h-3" /> Plus votre description est précise, plus les bénévoles pourront vous aider efficacement
@@ -772,7 +880,7 @@ const DeclarationForm = () => {
                     >
                         <div className="flex items-center justify-between mb-2">
                             <label className="block text-sm font-semibold text-gray-700 dark:text-slate-300">
-                                Localisation du besoin *
+                                {t('declarationForm.location.title')} *
                             </label>
                             {location && (
                                 <span className="text-xs text-green-600 dark:text-green-400 flex items-center gap-1">
@@ -787,6 +895,15 @@ const DeclarationForm = () => {
                                 initialLocation={location}
                             />
                         </div>
+
+                        {!location && (
+                            <div className="flex items-center gap-2 p-3 bg-amber-50 dark:bg-amber-900/20 rounded-lg border border-amber-200 dark:border-amber-800">
+                                <AlertCircle className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+                                <span className="text-sm text-amber-700 dark:text-amber-300">
+                                    Veuillez cliquer sur la carte pour sélectionner votre position
+                                </span>
+                            </div>
+                        )}
 
                         {location && (
                             <motion.div
@@ -815,9 +932,14 @@ const DeclarationForm = () => {
                     >
                         {/* Photo Upload */}
                         <div>
-                            <label className="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-3">
-                                Photos (optionnel, max 4)
-                            </label>
+                            <div className="flex items-center justify-between mb-3">
+                                <label className="block text-sm font-semibold text-gray-700 dark:text-slate-300">
+                                    {t('declarationForm.photos.title')}
+                                </label>
+                                <span className="text-xs text-gray-500 dark:text-slate-400">
+                                    {selectedFiles.length + existingPhotos.length}/5 photos
+                                </span>
+                            </div>
                             <PhotoUploadZone
                                 files={selectedFiles}
                                 existingPhotos={existingPhotos}
@@ -825,13 +947,51 @@ const DeclarationForm = () => {
                                 onFileRemove={handleFileRemove}
                                 onExistingRemove={handleExistingRemove}
                             />
+                            {(selectedFiles.length + existingPhotos.length) === 0 && (
+                                <div className="mt-2 flex items-center gap-2 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+                                    <Info className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                                    <span className="text-xs text-blue-700 dark:text-blue-300">
+                                        Les photos sont optionnelles mais fortement recommandées pour illustrer votre demande
+                                    </span>
+                                </div>
+                            )}
                         </div>
 
                         {/* Certifications */}
-                        <CertificationSection
-                            certifications={certifications}
-                            onChange={handleCertificationChange}
-                        />
+                        <div>
+                            <CertificationSection
+                                certifications={certifications}
+                                onChange={handleCertificationChange}
+                            />
+                            {/* Validation des certifications */}
+                            {!certifications.accuracy || !certifications.realNeed || !certifications.terms ? (
+                                <div className="mt-3 space-y-1">
+                                    {!certifications.accuracy && (
+                                        <div className="text-xs flex items-center gap-1.5 text-red-500">
+                                            <AlertCircle className="w-3.5 h-3.5" />
+                                            Vous devez certifier l'exactitude des informations
+                                        </div>
+                                    )}
+                                    {!certifications.realNeed && (
+                                        <div className="text-xs flex items-center gap-1.5 text-red-500">
+                                            <AlertCircle className="w-3.5 h-3.5" />
+                                            Vous devez confirmer qu'il s'agit d'un besoin réel
+                                        </div>
+                                    )}
+                                    {!certifications.terms && (
+                                        <div className="text-xs flex items-center gap-1.5 text-red-500">
+                                            <AlertCircle className="w-3.5 h-3.5" />
+                                            Vous devez accepter les conditions d'utilisation
+                                        </div>
+                                    )}
+                                </div>
+                            ) : (
+                                <div className="mt-3 flex items-center gap-1.5 text-green-600 dark:text-green-400 text-xs">
+                                    <CheckCircle2 className="w-3.5 h-3.5" />
+                                    Toutes les certifications sont complétées
+                                </div>
+                            )}
+                        </div>
                     </motion.div>
                 );
 
@@ -853,12 +1013,12 @@ const DeclarationForm = () => {
                         <Heart className="w-8 h-8 text-white" />
                     </div>
                     <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2">
-                        {isEditMode ? 'Modifier la Demande' : 'Nouvelle Demande d\'Aide'}
+                        {isEditMode ? t('declarationForm.editTitle') : t('declarationForm.headerTitle')}
                     </h1>
                     <p className="text-gray-500 dark:text-slate-400 max-w-xl mx-auto">
                         {isEditMode
-                            ? 'Mettez à jour les informations de votre demande'
-                            : 'Détaillez votre besoin pour alerter les bénévoles à proximité'
+                            ? t('declarationForm.editSubtitle')
+                            : t('declarationForm.headerSubtitle')
                         }
                     </p>
                 </motion.div>
@@ -882,22 +1042,17 @@ const DeclarationForm = () => {
                         {/* Navigation Buttons */}
                         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-8 pt-6 border-t border-gray-100 dark:border-slate-700">
                             <div className="flex gap-3 order-2 sm:order-1">
-                                <Button
-                                    type="button"
-                                    variant="outline"
-                                    onClick={saveDraft}
-                                    disabled={isSavingDraft}
-                                    className="gap-2"
-                                >
-                                    <Save className="w-4 h-4" />
-                                    {isSavingDraft ? 'Sauvegardé !' : 'Brouillon'}
-                                </Button>
+                                {/* 🆕 Indicateur de sauvegarde automatique */}
+                                <div className="flex items-center gap-2 px-4 py-2 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 rounded-lg text-sm border border-green-200 dark:border-green-800">
+                                    <CheckCircle2 className="w-4 h-4" />
+                                    <span className="font-medium">{t('declarationForm.autoSave')}</span>
+                                </div>
                                 <Button
                                     type="button"
                                     variant="outline"
                                     onClick={() => navigate('/citizen/dashboard')}
                                 >
-                                    Annuler
+                                    {t('declarationForm.buttons.cancel')}
                                 </Button>
                             </div>
 
@@ -910,7 +1065,7 @@ const DeclarationForm = () => {
                                         className="gap-2"
                                     >
                                         <ChevronLeft className="w-4 h-4" />
-                                        Précédent
+                                        {t('declarationForm.buttons.previous')}
                                     </Button>
                                 )}
 
@@ -920,7 +1075,7 @@ const DeclarationForm = () => {
                                         onClick={nextStep}
                                         className="gap-2 bg-gradient-to-r from-cyan-500 to-violet-500 hover:from-cyan-600 hover:to-violet-600 text-white border-0"
                                     >
-                                        Suivant
+                                        {t('declarationForm.buttons.next')}
                                         <ChevronRight className="w-4 h-4" />
                                     </Button>
                                 ) : (
@@ -934,7 +1089,7 @@ const DeclarationForm = () => {
                                             }`}
                                     >
                                         <Send className="w-4 h-4" />
-                                        {isEditMode ? 'Mettre à jour' : 'Publier'}
+                                        {isEditMode ? t('declarationForm.buttons.update') : t('declarationForm.buttons.submit')}
                                     </Button>
                                 )}
                             </div>

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Eye, EyeOff, Heart, Sparkles } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Eye, EyeOff, Sparkles } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
@@ -20,6 +20,23 @@ const Login = () => {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
     const [loginError, setLoginError] = useState(null);
+
+    // Redirection automatique si déjà connecté
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        const role = localStorage.getItem('role');
+
+        if (token && role) {
+            // Redirection intelligente selon le rôle
+            if (role === 'ADMIN') {
+                navigate('/admin/dashboard');
+            } else if (role === 'BENEVOLE') {
+                navigate('/volunteer/map');
+            } else if (role === 'CITOYEN') {
+                navigate('/citizen/dashboard');
+            }
+        }
+    }, [navigate]);
 
     const onSubmit = async (data) => {
         setIsLoading(true);
@@ -94,12 +111,16 @@ const Login = () => {
                             transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
                             className="inline-flex items-center justify-center mb-4"
                         >
-                            <div className="relative">
-                                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-violet-500 rounded-2xl blur-lg opacity-50" />
-                                <div className="relative bg-gradient-to-r from-cyan-500 to-violet-500 p-4 rounded-2xl">
-                                    <Heart className="w-8 h-8 text-white" />
+                            <Link to="/" className="relative group cursor-pointer">
+                                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-violet-500 rounded-2xl blur-lg opacity-50 group-hover:opacity-70 transition-opacity" />
+                                <div className="relative bg-gradient-to-r from-cyan-500 to-violet-500 p-1 rounded-2xl">
+                                    <img 
+                                        src="/logo.jpg" 
+                                        alt="Logo" 
+                                        className="w-16 h-16 object-contain rounded-xl bg-white"
+                                    />
                                 </div>
-                            </div>
+                            </Link>
                         </motion.div>
                         <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-600 to-violet-600 bg-clip-text text-transparent mb-2">{t('auth.login.title')}</h1>
                         <p className="text-gray-500 dark:text-gray-400">{t('auth.login.subtitle')}</p>

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import adminService from '../../services/adminService';
 import { CheckCircle, XCircle, User, FileText, ZoomIn } from 'lucide-react';
 
 const IdentityVerification = () => {
+    const { t } = useTranslation();
     const [users, setUsers] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -29,24 +31,24 @@ const IdentityVerification = () => {
     };
 
     const handleValidate = async (userId) => {
-        if (!window.confirm("Êtes-vous sûr de vouloir valider cet utilisateur ?")) return;
+        if (!window.confirm(t('identityVerification.confirmValidate'))) return;
         try {
             await adminService.validateUser(userId);
             removeUserFromList(userId);
         } catch (error) {
             console.error("Error validating user:", error);
-            alert("Erreur lors de la validation");
+            alert(t('identityVerification.errorValidating'));
         }
     };
 
     const handleReject = async (userId) => {
-        if (!window.confirm("Êtes-vous sûr de vouloir rejeter cet utilisateur ?")) return;
+        if (!window.confirm(t('identityVerification.confirmReject'))) return;
         try {
             await adminService.rejectUser(userId);
             removeUserFromList(userId);
         } catch (error) {
             console.error("Error rejecting user:", error);
-            alert("Erreur lors du rejet");
+            alert(t('identityVerification.errorRejecting'));
         }
     };
 
@@ -73,13 +75,13 @@ const IdentityVerification = () => {
                 <div className="p-6 border-b border-gray-200 dark:border-slate-800 bg-white dark:bg-slate-900 sticky top-0 z-10">
                     <h2 className="text-xl font-bold text-cyan-600 dark:text-cyan-400 tracking-wider uppercase flex items-center gap-2">
                         <User className="w-5 h-5" />
-                        En Attente ({users.length})
+                        {t('identityVerification.title')} ({users.length})
                     </h2>
                 </div>
                 <div className="overflow-y-auto flex-1 p-4 space-y-3 custom-scrollbar">
                     {users.length === 0 ? (
                         <div className="text-center py-10 text-gray-500 dark:text-gray-400 italic">
-                            Aucun utilisateur en attente.
+                            {t('identityVerification.noUsers')}
                         </div>
                     ) : (
                         users.map((user) => (
@@ -103,7 +105,7 @@ const IdentityVerification = () => {
                                     </span>
                                 </div>
                                 <div className="mt-2 text-xs text-gray-400 dark:text-gray-500">
-                                    Inscrit le: {new Date(user.dateInscription).toLocaleDateString()}
+                                    {t('identityVerification.registeredOn')} {new Date(user.dateInscription).toLocaleDateString()}
                                 </div>
                             </div>
                         ))
@@ -123,7 +125,7 @@ const IdentityVerification = () => {
                                 </h1>
                                 <p className="text-cyan-600 dark:text-cyan-400 mt-1 flex items-center gap-2">
                                     <span className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse"></span>
-                                    Vérification d'identité requise
+                                    {t('identityVerification.verificationRequired')}
                                 </p>
                             </div>
                             <div className="flex gap-4">
@@ -132,14 +134,14 @@ const IdentityVerification = () => {
                                     className="flex items-center gap-2 px-6 py-3 rounded-xl bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-500/50 hover:bg-red-100 dark:hover:bg-red-500/20 hover:shadow-lg transition-all duration-300 font-medium"
                                 >
                                     <XCircle className="w-5 h-5" />
-                                    Rejeter
+                                    {t('identityVerification.buttons.reject')}
                                 </button>
                                 <button
                                     onClick={() => handleValidate(selectedUser.id)}
                                     className="flex items-center gap-2 px-6 py-3 rounded-xl bg-green-50 dark:bg-green-500/10 text-green-600 dark:text-green-400 border border-green-200 dark:border-green-500/50 hover:bg-green-100 dark:hover:bg-green-500/20 hover:shadow-lg transition-all duration-300 font-medium"
                                 >
                                     <CheckCircle className="w-5 h-5" />
-                                    Valider l'Identité
+                                    {t('identityVerification.buttons.validate')}
                                 </button>
                             </div>
                         </div>
@@ -150,22 +152,22 @@ const IdentityVerification = () => {
                                 {/* User Info */}
                                 <div className="lg:col-span-1 space-y-6">
                                     <div className="bg-white dark:bg-slate-800/50 p-6 rounded-2xl border border-gray-200 dark:border-slate-700 backdrop-blur-sm shadow-lg">
-                                        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-300 mb-4 border-b border-gray-200 dark:border-slate-700 pb-2">Informations Personnelles</h3>
+                                        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-300 mb-4 border-b border-gray-200 dark:border-slate-700 pb-2">{t('identityVerification.sections.personalInfo')}</h3>
                                         <div className="space-y-4">
                                             <div>
-                                                <label className="text-xs text-gray-500 dark:text-gray-500 uppercase tracking-wider">Email</label>
+                                                <label className="text-xs text-gray-500 dark:text-gray-500 uppercase tracking-wider">{t('identityVerification.fields.email')}</label>
                                                 <p className="text-gray-900 dark:text-gray-200 font-medium break-all">{selectedUser.email}</p>
                                             </div>
                                             <div>
-                                                <label className="text-xs text-gray-500 dark:text-gray-500 uppercase tracking-wider">Téléphone</label>
-                                                <p className="text-gray-900 dark:text-gray-200 font-medium">{selectedUser.telephone || "Non renseigné"}</p>
+                                                <label className="text-xs text-gray-500 dark:text-gray-500 uppercase tracking-wider">{t('identityVerification.fields.phone')}</label>
+                                                <p className="text-gray-900 dark:text-gray-200 font-medium">{selectedUser.telephone || t('identityVerification.fields.notProvided')}</p>
                                             </div>
                                             <div>
-                                                <label className="text-xs text-gray-500 dark:text-gray-500 uppercase tracking-wider">Rôle</label>
+                                                <label className="text-xs text-gray-500 dark:text-gray-500 uppercase tracking-wider">{t('identityVerification.fields.role')}</label>
                                                 <p className="text-gray-900 dark:text-gray-200 font-medium">{selectedUser.role}</p>
                                             </div>
                                             <div>
-                                                <label className="text-xs text-gray-500 dark:text-gray-500 uppercase tracking-wider">Date d'inscription</label>
+                                                <label className="text-xs text-gray-500 dark:text-gray-500 uppercase tracking-wider">{t('identityVerification.fields.registrationDate')}</label>
                                                 <p className="text-gray-900 dark:text-gray-200 font-medium">{new Date(selectedUser.dateInscription).toLocaleString()}</p>
                                             </div>
                                         </div>
@@ -178,7 +180,7 @@ const IdentityVerification = () => {
                                         <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-300 mb-4 border-b border-gray-200 dark:border-slate-700 pb-2 flex justify-between items-center">
                                             <span className="flex items-center gap-2">
                                                 <FileText className="w-5 h-5 text-cyan-500" />
-                                                Document Officiel
+                                                {t('identityVerification.sections.officialDocument')}
                                             </span>
                                             {selectedUser.documentType && (
                                                 <span className="text-xs px-2 py-1 bg-gray-100 dark:bg-slate-700 rounded-lg text-gray-600 dark:text-gray-400">{selectedUser.documentType}</span>
@@ -202,14 +204,14 @@ const IdentityVerification = () => {
                                                             className="px-4 py-2 bg-cyan-600 text-white rounded-lg hover:bg-cyan-500 transition-colors flex items-center gap-2 shadow-lg transform translate-y-4 group-hover:translate-y-0 duration-300"
                                                         >
                                                             <ZoomIn className="w-5 h-5" />
-                                                            Agrandir
+                                                            {t('identityVerification.buttons.enlarge')}
                                                         </button>
                                                     </div>
                                                 </>
                                             ) : (
                                                 <div className="text-center text-gray-400 dark:text-gray-500">
                                                     <FileText className="w-16 h-16 mx-auto mb-2 opacity-20" />
-                                                    <p>Aucun document disponible</p>
+                                                    <p>{t('identityVerification.fields.noDocument')}</p>
                                                 </div>
                                             )}
                                         </div>
@@ -221,7 +223,7 @@ const IdentityVerification = () => {
                 ) : (
                     <div className="flex-1 flex flex-col items-center justify-center text-gray-400 dark:text-gray-500">
                         <User className="w-24 h-24 mb-4 opacity-10 text-cyan-500" />
-                        <p className="text-xl font-light">Sélectionnez un utilisateur pour commencer la vérification</p>
+                        <p className="text-xl font-light">{t('identityVerification.selectUser')}</p>
                     </div>
                 )}
             </div>

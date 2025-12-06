@@ -52,6 +52,78 @@
   *:focus-visible {
     @apply outline-none ring-2 ring-cyan-500/50 ring-offset-2 ring-offset-white dark:ring-offset-slate-900;
   }
+  
+  /* Custom CSS Variables for Light/Dark Mode */
+  :root {
+    /* Light Mode Colors */
+    --color-primary-light: 14 165 233; /* cyan-500 */
+    --color-secondary-light: 139 92 246; /* violet-500 */
+    --color-accent-light: 59 130 246; /* blue-500 */
+    
+    /* Shadows */
+    --shadow-light: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  }
+  
+  html.dark {
+    /* Dark Mode Colors */
+    --color-primary-dark: 34 211 238; /* cyan-400 */
+    --color-secondary-dark: 167 139 250; /* violet-400 */
+    --color-accent-dark: 96 165 250; /* blue-400 */
+    
+    /* Shadows */
+    --shadow-dark: 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.2);
+  }
+}
+
+/* Effet de brillance sur hover (utilisable partout) */
+@layer utilities {
+  .shine-effect {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .shine-effect::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent
+    );
+    transition: left 0.6s;
+  }
+  
+  .shine-effect:hover::after {
+    left: 100%;
+  }
+  
+  /* Glassmorphisme */
+  .glass-light {
+    @apply bg-white/90 backdrop-blur-md border border-gray-200 shadow-xl;
+  }
+  
+  .glass-dark {
+    @apply bg-gray-800/50 backdrop-blur-md border border-gray-700 shadow-2xl;
+  }
+  
+  /* Dégradés réutilisables */
+  .gradient-primary {
+    @apply bg-gradient-to-r from-cyan-500 via-cyan-600 to-blue-600;
+  }
+  
+  .gradient-primary-dark {
+    @apply bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500;
+  }
+  
+  /* Text gradient pour titres */
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 dark:from-cyan-400 dark:via-blue-500 dark:to-purple-500;
+  }
 }
 
 /* Custom Leaflet Marker Reset */
@@ -113,4 +185,64 @@
   /* Prend la couleur du parent */
   opacity: 0.6;
   animation: pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+/* Custom Popup Styles for Admin Map */
+.custom-popup-dark .leaflet-popup-content-wrapper {
+  background: transparent !important;
+  padding: 0 !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2) !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+}
+
+.custom-popup-dark .leaflet-popup-content {
+  margin: 0 !important;
+  width: auto !important;
+}
+
+.custom-popup-dark .leaflet-popup-tip-container {
+  display: none;
+}
+
+.custom-popup-dark .leaflet-popup-close-button {
+  color: #94a3b8 !important;
+  font-size: 24px !important;
+  padding: 8px 12px !important;
+  width: auto !important;
+  height: auto !important;
+  background: rgba(15, 23, 42, 0.8) !important;
+  border-radius: 8px !important;
+  transition: all 0.2s !important;
+  right: 8px !important;
+  top: 8px !important;
+}
+
+.custom-popup-dark .leaflet-popup-close-button:hover {
+  color: #ffffff !important;
+  background: rgba(6, 182, 212, 0.8) !important;
+}
+
+/* Animation pour l'ouverture du popup */
+.custom-popup-dark.leaflet-popup {
+  animation: popupFadeIn 0.3s ease-out;
+}
+
+@keyframes popupFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Amélioration du line-clamp */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }

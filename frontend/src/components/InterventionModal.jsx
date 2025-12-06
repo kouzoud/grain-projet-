@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { X, Calendar, MessageSquare } from 'lucide-react';
 import Button from './ui/Button';
 
@@ -87,6 +88,16 @@ const InterventionModal = ({ isOpen, onClose, onConfirm, request }) => {
             </div>
         </div>
     );
+};
+
+InterventionModal.propTypes = {
+    isOpen: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired,
+    onConfirm: PropTypes.func.isRequired,
+    request: PropTypes.shape({
+        title: PropTypes.string,
+        id: PropTypes.number
+    })
 };
 
 export default InterventionModal;

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 import { MapContainer, TileLayer, Marker, useMap, useMapEvents, LayersControl } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -41,30 +42,31 @@ const MapControls = ({ onLocationFound }) => {
             return;
         }
 
-        // 2. Options pour forcer le GPS
+        // 2. Options de haute précision
         const options = {
-            enableHighAccuracy: true, // CRUCIAL : Demande le GPS
-            timeout: 10000,           // Attend jusqu'à 10s
-            maximumAge: 0             // Ne pas utiliser de position en cache
+            enableHighAccuracy: true, // CRUCIAL : Force le GPS ou le Wi-Fi précis
+            timeout: 10000,           // Attend jusqu'à 10s pour avoir un bon signal
+            maximumAge: 0             // Interdit d'utiliser une position mise en cache (vieille)
         };
 
         navigator.geolocation.getCurrentPosition(
             (position) => {
-                const { latitude, longitude } = position.coords;
+                const { latitude, longitude, accuracy } = position.coords;
+                console.log(`✅ Position trouvée avec précision de ${accuracy} mètres`);
                 const latlng = { lat: latitude, lng: longitude };
 
-                // 3. Action : Bouger la carte et le marqueur
-                map.flyTo([latitude, longitude], 16); // Zoom 16 = niveau rue
+                // 3. Action : Bouger la carte et le marqueur (Zoom serré pour voir la rue)
+                map.flyTo([latitude, longitude], 18); // Zoom 18 = niveau rue très précis
 
                 // Notifier le parent pour mettre à jour le state et l'adresse
                 onLocationFound(latlng);
             },
             (error) => {
-                console.error("Erreur Geo :", error);
+                console.warn(`❌ ERREUR GÉOLOCALISATION (Code ${error.code}): ${error.message}`);
                 let msg = "Erreur de localisation.";
-                if (error.code === 1) msg = "Vous devez autoriser la géolocalisation.";
-                if (error.code === 2) msg = "Position indisponible (GPS introuvable).";
-                if (error.code === 3) msg = "Délai d'attente dépassé.";
+                if (error.code === 1) msg = "Vous devez autoriser la géolocalisation dans les paramètres de votre navigateur.";
+                if (error.code === 2) msg = "Position indisponible (GPS introuvable). Vérifiez que votre GPS est activé.";
+                if (error.code === 3) msg = "Délai d'attente dépassé. Le signal GPS est trop faible.";
                 alert(msg);
             },
             options
@@ -398,6 +400,17 @@ const LocationPicker = ({ onLocationSelect, initialLocation }) => {
             </div>
         </div>
     );
+};
+
+LocationPicker.propTypes = {
+    latitude: PropTypes.number,
+    longitude: PropTypes.number,
+    onLocationChange: PropTypes.func.isRequired
+};
+
+LocationPicker.defaultProps = {
+    latitude: 33.5731,
+    longitude: -7.5898
 };
 
 export default LocationPicker;

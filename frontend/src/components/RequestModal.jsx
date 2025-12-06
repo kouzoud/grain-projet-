@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { X, MapPin, Calendar, Tag, User, ShieldCheck, AlertCircle, Hand, Clock, Phone } from 'lucide-react';
 import { MapContainer, TileLayer, Marker } from 'react-leaflet';
+import SocialShareButton from './common/SocialShareButton';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import Button from './ui/Button';
@@ -21,7 +22,13 @@ let DefaultIcon = L.icon({
 
 L.Marker.prototype.options.icon = DefaultIcon;
 
-const RequestModal = ({ request, isOpen, onClose, onTakeAction, isVolunteer }) => {
+const RequestModal = ({ request, isOpen, onClose, onTakeAction, onStatusUpdate, isVolunteer, isReadOnly = false }) => {
+    const [selectedStatus, setSelectedStatus] = React.useState(request?.statut || 'EN_ATTENTE');
+
+    useEffect(() => {
+        setSelectedStatus(request?.statut || 'EN_ATTENTE');
+    }, [request]);
+
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = 'hidden';
@@ -261,6 +268,55 @@ const RequestModal = ({ request, isOpen, onClose, onTakeAction, isVolunteer }) =
                                                 </div>
                                             </div>
 
+                                            {/* Social Share Button */}
+                                            <div className="flex items-center justify-center pb-4">
+                                                <SocialShareButton
+                                                    title={request.title || request.titre}
+                                                    description={request.description}
+                                                    caseId={request.id}
+                                                    ville={request.ville}
+                                                    showLabel={true}
+                                                    className="bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-lg"
+                                                />
+                                            </div>
+
+                                            {/* Admin Status Selector */}
+                                            {!isReadOnly && onStatusUpdate && (
+                                                <div className="bg-gradient-to-br from-cyan-50 to-violet-50 dark:from-slate-800 dark:to-slate-700 p-4 rounded-xl border-2 border-cyan-200 dark:border-cyan-700">
+                                                    <label className="block text-sm font-bold text-gray-700 dark:text-gray-200 mb-3">
+                                                        Modifier le statut
+                                                    </label>
+                                                    <div className="flex gap-2">
+                                                        <select
+                                                            value={selectedStatus}
+                                                            onChange={(e) => setSelectedStatus(e.target.value)}
+                                                            className="flex-1 px-4 py-2.5 rounded-lg border-2 border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-gray-900 dark:text-gray-100 font-medium focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+                                                        >
+                                                            <option value="EN_ATTENTE">⏳ En Attente</option>
+                                                            <option value="VALIDE">✅ Validé (Disponible aux bénévoles)</option>
+                                                            <option value="EN_COURS">🔄 En Cours</option>
+                                                            <option value="RESOLU">✔️ Résolu</option>
+                                                            <option value="REJETE">❌ Rejeté</option>
+                                                        </select>
+                                                        <button
+                                                            onClick={() => {
+                                                                onStatusUpdate(request.id, selectedStatus);
+                                                                onClose();
+                                                            }}
+                                                            disabled={selectedStatus === request.statut}
+                                                            className="px-6 py-2.5 bg-gradient-to-r from-cyan-500 to-violet-500 hover:from-cyan-600 hover:to-violet-600 text-white font-bold rounded-lg shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                                                        >
+                                                            Valider
+                                                        </button>
+                                                    </div>
+                                                    {selectedStatus === 'VALIDE' && (
+                                                        <p className="mt-2 text-xs text-cyan-700 dark:text-cyan-300 font-medium">
+                                                            ℹ️ Ce cas sera visible par tous les bénévoles sur la carte
+                                                        </p>
+                                                    )}
+                                                </div>
+                                            )}
+
                                             {/* Action Button */}
                                             {isVolunteer ? (
                                                 <Button
@@ -270,7 +326,7 @@ const RequestModal = ({ request, isOpen, onClose, onTakeAction, isVolunteer }) =
                                                     <Hand className="w-5 h-5" />
                                                     Je prends en charge
                                                 </Button>
-                                            ) : (
+                                            ) : !onStatusUpdate && (
                                                 <div className="bg-gray-50 p-4 rounded-xl text-center border border-gray-100">
                                                     <p className="text-sm text-gray-600 font-medium">Connectez-vous en tant que bénévole pour aider.</p>
                                                 </div>

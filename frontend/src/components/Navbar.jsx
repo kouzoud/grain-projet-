@@ -29,7 +29,7 @@ const Navbar = () => {
         <nav className="bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-800 shadow-sm transition-colors duration-200">
             <div className="container mx-auto px-4">
                 <div className="flex justify-between items-center h-16">
-                    <Link to="/" className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2 shrink-0">
+                    <Link to="/" className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2 shrink-0 ltr:mr-8 rtl:ml-8">
                         <img src="/logo.jpg" alt="Link2Act" className="h-8 w-auto rounded" />
                         <span className="bg-gradient-to-r from-cyan-500 to-cyan-600 bg-clip-text text-transparent">Link2Act</span>
                     </Link>
@@ -86,7 +86,11 @@ const Navbar = () => {
                                     <ThemeToggle variant="dropdown" />
 
                                     {/* Profile */}
-                                    <Link to="/profile" className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">
+                                    <Link 
+                                        to="/profile" 
+                                        className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors"
+                                        aria-label="Profil utilisateur"
+                                    >
                                         <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-500 to-cyan-600 flex items-center justify-center text-white font-bold text-sm">
                                             {user?.firstName?.charAt(0) || 'U'}
                                         </div>
@@ -98,8 +102,9 @@ const Navbar = () => {
                                         onClick={handleLogout} 
                                         className="p-2.5 rounded-xl text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors"
                                         title={t('navbar.logout')}
+                                        aria-label="Se déconnecter"
                                     >
-                                        <LogOut className="w-5 h-5" />
+                                        <LogOut className="w-5 h-5" aria-hidden="true" />
                                     </button>
                                 </div>
                             </>
@@ -123,8 +128,13 @@ const Navbar = () => {
                     <div className="md:hidden flex items-center gap-3">
                         <LanguageSwitcher variant="icon" />
                         <ThemeToggle variant="icon" />
-                        <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="p-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">
-                            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                        <button 
+                            onClick={() => setIsMenuOpen(!isMenuOpen)} 
+                            className="p-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors"
+                            aria-label={isMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+                            aria-expanded={isMenuOpen}
+                        >
+                            {isMenuOpen ? <X className="w-6 h-6" aria-hidden="true" /> : <Menu className="w-6 h-6" aria-hidden="true" />}
                         </button>
                     </div>
                 </div>

@@ -7,6 +7,10 @@ import com.solidarlink.backend.entity.User;
 import com.solidarlink.backend.enums.CasStatut;
 import com.solidarlink.backend.service.AdminService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +30,14 @@ public class AdminController {
         return ResponseEntity.ok(adminService.getPendingUsers());
     }
 
+    @GetMapping("/users/pending/paginated")
+    public ResponseEntity<Page<User>> getPendingUsersPaginated(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+        return ResponseEntity.ok(adminService.getPendingUsersPaginated(pageable));
+    }
+
     @PutMapping("/users/{id}/validate")
     public ResponseEntity<Void> validateUser(@PathVariable Long id) {
         adminService.validateUser(id);
@@ -43,6 +55,17 @@ public class AdminController {
         return ResponseEntity.ok(adminService.getAllUsers());
     }
 
+    @GetMapping("/users/paginated")
+    public ResponseEntity<Page<User>> getAllUsersPaginated(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "createdAt") String sortBy,
+            @RequestParam(defaultValue = "DESC") String sortDir) {
+        Sort sort = sortDir.equalsIgnoreCase("ASC") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return ResponseEntity.ok(adminService.getAllUsersPaginated(pageable));
+    }
+
     @PutMapping("/users/{id}/ban")
     public ResponseEntity<Void> toggleUserBan(@PathVariable Long id) {
         adminService.toggleUserBan(id);
@@ -52,6 +75,17 @@ public class AdminController {
     @GetMapping("/cases")
     public ResponseEntity<List<CasHumanitaire>> getAllCases() {
         return ResponseEntity.ok(adminService.getAllCases());
+    }
+
+    @GetMapping("/cases/paginated")
+    public ResponseEntity<Page<CasHumanitaire>> getAllCasesPaginated(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "createdAt") String sortBy,
+            @RequestParam(defaultValue = "DESC") String sortDir) {
+        Sort sort = sortDir.equalsIgnoreCase("ASC") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return ResponseEntity.ok(adminService.getAllCasesPaginated(pageable));
     }
 
     @PutMapping("/cases/{id}/status")

@@ -153,4 +153,79 @@ export default defineConfig({
       }
     })
   ],
+  
+  // ========== OPTIMISATIONS BUILD (PHASE 1) ==========
+  build: {
+    target: 'es2015',
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+        passes: 2,
+        pure_funcs: ['console.log', 'console.info', 'console.debug']
+      },
+      format: {
+        comments: false
+      }
+    },
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // React core
+          'react-vendor': [
+            'react',
+            'react-dom',
+            'react-router-dom'
+          ],
+          // State management
+          'redux-vendor': [
+            '@reduxjs/toolkit',
+            'react-redux'
+          ],
+          // Map libraries
+          'map-vendor': [
+            'leaflet',
+            'react-leaflet',
+            'react-leaflet-cluster',
+            'leaflet.heat',
+            'leaflet-geosearch'
+          ],
+          // UI & Animation
+          'ui-vendor': [
+            'framer-motion',
+            'recharts'
+          ],
+          // i18n
+          'i18n-vendor': [
+            'i18next',
+            'react-i18next',
+            'i18next-browser-languagedetector'
+          ],
+          // HTTP
+          'http-vendor': [
+            'axios'
+          ],
+          // Forms & Validation
+          'forms-vendor': [
+            'react-hook-form'
+          ]
+        }
+      }
+    },
+    chunkSizeWarningLimit: 1000,
+    sourcemap: false
+  },
+  
+  // Optimisations dev
+  server: {
+    port: 5173,
+    host: true
+  },
+  
+  // Optimisations preview
+  preview: {
+    port: 4173,
+    host: true
+  }
 })

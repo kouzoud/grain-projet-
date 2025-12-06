@@ -335,7 +335,7 @@ const Dashboard = () => {
                         className="flex items-center justify-between mb-6"
                     >
                         <p className="text-sm text-gray-500 dark:text-gray-400">
-                            <span className="font-semibold text-gray-700 dark:text-gray-300">{filteredRequests.length}</span> {t('dashboard.citizen.requestCount', { count: filteredRequests.length })}
+                            {t('dashboard.citizen.requestCount', { count: filteredRequests.length })}
                             {hasActiveFilters && <span className="text-cyan-600 dark:text-cyan-400 ml-1 rtl:ml-0 rtl:mr-1">({t('dashboard.citizen.filtered')})</span>}
                         </p>
                         {totalPages > 1 && (

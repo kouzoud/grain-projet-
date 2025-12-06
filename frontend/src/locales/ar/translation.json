@@ -170,7 +170,37 @@
       "terms": "بالتسجيل، أنت توافق على",
       "termsLink": "شروط الاستخدام",
       "privacyLink": "سياسة الخصوصية",
-      "success": "تم إنشاء الحساب بنجاح! في انتظار التحقق."
+      "success": "تم إنشاء الحساب بنجاح! في انتظار التحقق.",
+      "successMessage": "تم أخذ طلبك بعين الاعتبار. تم إرسال بريد إلكتروني للتأكيد.",
+      "sections": {
+        "personalInfo": "المعلومات الشخصية",
+        "security": "الأمان",
+        "verification": "التحقق من الهوية"
+      },
+      "verification": {
+        "title": "التحقق من الهوية",
+        "description": "لضمان الثقة داخل المجتمع، نحن نتحقق من هوية كل عضو.",
+        "idDocument": "وثيقة الهوية",
+        "uploadPrompt": "انقر للتحميل",
+        "dragDrop": "أو اسحب الملف",
+        "fileTypes": "JPG، PNG أو PDF (أقصى 5 ميجابايت)",
+        "fileSelected": "تم اختيار الملف",
+        "clickToChange": "انقر للتغيير"
+      },
+      "passwordStrengthLabel": "قوة كلمة المرور",
+      "passwordStrength": {
+        "empty": "فارغ",
+        "weak": "ضعيف",
+        "medium": "متوسط",
+        "good": "جيد",
+        "excellent": "ممتاز"
+      },
+      "passwordCriteria": {
+        "minLength": "8 أحرف كحد أدنى",
+        "uppercase": "1 حرف كبير",
+        "number": "1 رقم",
+        "special": "1 حرف خاص"
+      }
     },
     "errors": {
       "emailRequired": "البريد الإلكتروني مطلوب",
@@ -427,26 +457,6 @@
     "ANNULE": "ملغى"
   },
   
-  "profile": {
-    "title": "ملفي الشخصي",
-    "subtitle": "إدارة معلوماتك الشخصية",
-    "personalInfo": "المعلومات الشخصية",
-    "security": "الأمان",
-    "notifications": "الإشعارات",
-    "changePassword": "تغيير كلمة المرور",
-    "currentPassword": "كلمة المرور الحالية",
-    "newPassword": "كلمة المرور الجديدة",
-    "confirmNewPassword": "تأكيد كلمة المرور الجديدة",
-    "updateProfile": "تحديث الملف الشخصي",
-    "deleteAccount": "حذف حسابي",
-    "deleteWarning": "هذا الإجراء لا رجعة فيه",
-    "skills": "المهارات",
-    "availability": "التوفر",
-    "verification": "التحقق من الهوية",
-    "verificationDesc": "لضمان الثقة داخل المجتمع، نتحقق من هوية كل عضو.",
-    "idDocument": "بطاقة الهوية (CNI أو جواز السفر)"
-  },
-  
   "notifications": {
     "title": "الإشعارات",
     "markAllRead": "تحديد الكل كمقروء",
@@ -489,5 +499,158 @@
     "select": "اختر اللغة",
     "fr": "Français",
     "ar": "العربية"
+  },
+
+  "declarationForm": {
+    "title": "الإبلاغ عن احتياج للمساعدة",
+    "headerTitle": "طلب مساعدة جديد",
+    "headerSubtitle": "صف احتياجك لتنبيه المتطوعين القريبين",
+    "editTitle": "تعديل طلبك",
+    "editSubtitle": "قم بتحديث معلومات طلبك",
+    "autoSave": "حفظ تلقائي",
+    "steps": {
+      "info": "المعلومات",
+      "description": "الوصف",
+      "location": "الموقع",
+      "photos": "الصور"
+    },
+    "categories": {
+      "label": "الفئة",
+      "alimentaire": "غذائي",
+      "medical": "طبي",
+      "logistique": "لوجستي",
+      "autre": "أخرى"
+    },
+    "fields": {
+      "title": "عنوان طلبك",
+      "titlePlaceholder": "مثال: أحتاج إلى وجبات ساخنة",
+      "description": "وصف تفصيلي",
+      "descriptionPlaceholder": "صف احتياجك بالتفصيل..."
+    },
+    "templates": {
+      "title": "نماذج الوصف",
+      "alimentaire": "مساعدة غذائية",
+      "medical": "مساعدة طبية",
+      "logistique": "مساعدة لوجستية",
+      "custom": "وصف حر"
+    },
+    "location": {
+      "title": "أين يقع الاحتياج؟",
+      "selectOnMap": "انقر على الخريطة لوضع العلامة",
+      "useMyLocation": "استخدم موقعي الحالي"
+    },
+    "photos": {
+      "title": "الصور (اختياري)",
+      "dragDrop": "اسحب وأفلت صورك هنا",
+      "orClick": "أو انقر للاختيار",
+      "maxSize": "بحد أقصى 5 صور بحجم 5 ميجابايت لكل منها",
+      "preview": "معاينة الصور"
+    },
+    "certifications": {
+      "title": "الشهادات",
+      "accuracy": "أشهد أن المعلومات المقدمة دقيقة",
+      "realNeed": "أشهد أن هذا احتياج حقيقي وعاجل",
+      "terms": "أوافق على شروط الاستخدام"
+    },
+    "buttons": {
+      "previous": "السابق",
+      "next": "التالي",
+      "cancel": "إلغاء",
+      "submit": "نشر الطلب",
+      "update": "تحديث",
+      "preview": "معاينة"
+    },
+    "suggestion": "اقتراح",
+    "apply": "تطبيق",
+    "errors": {
+      "titleRequired": "العنوان مطلوب",
+      "categoryRequired": "الفئة مطلوبة",
+      "descriptionRequired": "الوصف مطلوب",
+      "locationRequired": "يرجى تحديد موقع على الخريطة",
+      "certificationsRequired": "يرجى تأكيد جميع الشهادات"
+    },
+    "success": {
+      "created": "تم إنشاء الطلب بنجاح",
+      "updated": "تم تحديث الطلب بنجاح"
+    }
+  },
+
+  "profile": {
+    "title": "الملف الشخصي",
+    "messages": {
+      "profileUpdated": "تم تحديث الملف الشخصي بنجاح!",
+      "profileUpdateError": "خطأ في تحديث الملف الشخصي",
+      "passwordMismatch": "كلمات المرور غير متطابقة",
+      "passwordChanged": "تم تغيير كلمة المرور بنجاح!",
+      "passwordIncorrect": "خطأ: كلمة المرور الحالية غير صحيحة",
+      "avatarUpdated": "تم تحديث صورة الملف الشخصي!",
+      "avatarUploadError": "خطأ في تحميل الصورة"
+    },
+    "tabs": {
+      "info": "المعلومات",
+      "security": "الأمان",
+      "stats": "إحصائياتي",
+      "docs": "مستنداتي"
+    },
+    "infoSection": {
+      "title": "المعلومات الشخصية",
+      "firstName": "الاسم الأول",
+      "lastName": "اسم العائلة",
+      "email": "البريد الإلكتروني",
+      "phone": "الهاتف",
+      "skills": "المهارات",
+      "skillsPlaceholder": "مثال: الإسعافات الأولية، اللوجستيات...",
+      "availability": "التوفر",
+      "availabilityPlaceholder": "مثال: عطلات نهاية الأسبوع، الأمسيات..."
+    },
+    "securitySection": {
+      "title": "تغيير كلمة المرور",
+      "currentPassword": "كلمة المرور الحالية",
+      "newPassword": "كلمة المرور الجديدة",
+      "confirmPassword": "تأكيد كلمة المرور",
+      "minLength": "6 أحرف كحد أدنى"
+    },
+    "statsSection": {
+      "title": "الإحصائيات قريبًا",
+      "description": "ستكون إحصائيات تأثيرك متاحة هنا قريبًا."
+    },
+    "docsSection": {
+      "title": "المستندات",
+      "description": "إدارة مستنداتك الرسمية (بطاقة الهوية، المستندات الداعمة)."
+    },
+    "buttons": {
+      "save": "حفظ",
+      "update": "تحديث"
+    }
+  },
+
+  "identityVerification": {
+    "title": "قيد الانتظار",
+    "noUsers": "لا يوجد مستخدمون في الانتظار.",
+    "selectUser": "اختر مستخدمًا لبدء التحقق",
+    "registeredOn": "مسجل في:",
+    "verificationRequired": "التحقق من الهوية مطلوب",
+    "confirmValidate": "هل أنت متأكد من أنك تريد التحقق من هذا المستخدم؟",
+    "confirmReject": "هل أنت متأكد من أنك تريد رفض هذا المستخدم؟",
+    "errorValidating": "خطأ أثناء التحقق",
+    "errorRejecting": "خطأ أثناء الرفض",
+    "buttons": {
+      "reject": "رفض",
+      "validate": "التحقق من الهوية",
+      "enlarge": "تكبير"
+    },
+    "sections": {
+      "personalInfo": "المعلومات الشخصية",
+      "officialDocument": "الوثيقة الرسمية"
+    },
+    "fields": {
+      "email": "البريد الإلكتروني",
+      "phone": "الهاتف",
+      "role": "الدور",
+      "registrationDate": "تاريخ التسجيل",
+      "notProvided": "غير مذكور",
+      "noDocument": "لا توجد وثيقة متاحة"
+    }
   }
 }
+

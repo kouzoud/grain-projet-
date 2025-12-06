@@ -60,8 +60,6 @@ i18n.on('languageChanged', (lng) => {
     htmlElement.setAttribute('lang', lng);
     document.body.classList.remove('rtl');
   }
-  
-  console.log(`🌐 Langue changée : ${lng}`);
 });
 
 // Initialiser la direction au démarrage

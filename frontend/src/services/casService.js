@@ -8,6 +8,17 @@ const casService = {
         const token = localStorage.getItem('token');
         const formData = new FormData();
 
+        // Debug log
+        console.log('📦 Creating FormData from:', {
+            titre: caseData.titre,
+            description: caseData.description?.substring(0, 50),
+            categorie: caseData.categorie,
+            latitude: caseData.latitude,
+            longitude: caseData.longitude,
+            photosType: typeof caseData.photos,
+            photosLength: caseData.photos?.length
+        });
+
         // Appending simple fields
         formData.append('titre', caseData.titre);
         formData.append('description', caseData.description);
@@ -18,7 +29,16 @@ const casService = {
         // Appending Files
         if (caseData.photos && caseData.photos.length > 0) {
             // Si c'est un FileList
-            Array.from(caseData.photos).forEach(file => formData.append('photos', file));
+            Array.from(caseData.photos).forEach(file => {
+                console.log('📎 Appending file:', file.name, file.type, file.size);
+                formData.append('photos', file);
+            });
+        }
+
+        // Debug FormData contents
+        console.log('📋 FormData entries:');
+        for (let [key, value] of formData.entries()) {
+            console.log(`  ${key}:`, value instanceof File ? `File(${value.name})` : value);
         }
 
         // Force Headers
@@ -59,6 +79,27 @@ const casService = {
 
     getAllCases: async () => {
         const response = await api.get('/cases');
+        return response.data;
+    },
+
+    // ========== PAGINATED METHODS (NEW) ==========
+    getAllCasesPaginated: async (params = {}) => {
+        const response = await api.get('/cases/paginated', { params });
+        return response.data;
+    },
+
+    getMyCasesPaginated: async (params = {}) => {
+        const response = await api.get('/cases/me/paginated', { params });
+        return response.data;
+    },
+
+    getMyInterventionsPaginated: async (params = {}) => {
+        const response = await api.get('/cases/my-interventions/paginated', { params });
+        return response.data;
+    },
+
+    getCasesInViewport: async (params = {}) => {
+        const response = await api.get('/cases/viewport', { params });
         return response.data;
     },
 

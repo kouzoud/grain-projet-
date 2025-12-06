@@ -51,7 +51,7 @@ const FilterBar = ({
         <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="sticky top-4 z-30 mb-6"
+            className="relative z-10 mb-6"
         >
             <div className="relative bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl border border-gray-200/50 dark:border-slate-700/50 shadow-lg shadow-gray-200/30 dark:shadow-slate-900/30 rounded-2xl p-4">
                 {/* Subtle gradient border effect */}

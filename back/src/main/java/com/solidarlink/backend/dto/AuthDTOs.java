@@ -46,7 +46,11 @@ public class AuthDTOs {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class AuthenticationRequest {
+        @jakarta.validation.constraints.NotBlank(message = "L'email est obligatoire")
+        @jakarta.validation.constraints.Email(message = "Email invalide")
         private String email;
+        
+        @jakarta.validation.constraints.NotBlank(message = "Le mot de passe est obligatoire")
         private String password;
     }
 

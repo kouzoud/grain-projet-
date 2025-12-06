@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import casService from '../../services/casService';
 import { CheckCircle, MapPin, Calendar, AlertCircle, Clock, Filter } from 'lucide-react';
 import { defaultImage, getSingleImageUrl } from '../../utils/imageUtils';
+import SocialShareButton from '../../components/common/SocialShareButton';
 
 const MyInterventions = () => {
     const { t, i18n } = useTranslation();
@@ -188,15 +189,28 @@ const MyInterventions = () => {
                                     </div>
                                 </div>
 
-                                {cas.statut !== 'RESOLU' && (
-                                    <button
-                                        onClick={() => handleResolve(cas.id)}
-                                        className="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
-                                    >
-                                        <CheckCircle className="w-4 h-4" />
-                                        {t('volunteer.missions.markResolved', 'Marquer comme Résolu')}
-                                    </button>
-                                )}
+                                <div className="flex gap-2">
+                                    {/* Social Share Button - Masqué si RESOLU */}
+                                    {cas.statut !== 'RESOLU' && cas.status !== 'RESOLU' && (
+                                        <SocialShareButton
+                                            title={cas.titre}
+                                            description={cas.description}
+                                            caseId={cas.id}
+                                            showLabel={false}
+                                            className="px-4 py-2 rounded-lg bg-blue-50 hover:bg-blue-100 dark:bg-blue-500/10 dark:hover:bg-blue-500/20 text-blue-600 dark:text-blue-400 transition-colors flex items-center justify-center"
+                                        />
+                                    )}
+                                    
+                                    {cas.statut !== 'RESOLU' && cas.status !== 'RESOLU' && (
+                                        <button
+                                            onClick={() => handleResolve(cas.id)}
+                                            className="flex-1 bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
+                                        >
+                                            <CheckCircle className="w-4 h-4" />
+                                            {t('volunteer.missions.markResolved', 'Marquer comme Résolu')}
+                                        </button>
+                                    )}
+                                </div>
                             </div>
                         </div>
                     ))}

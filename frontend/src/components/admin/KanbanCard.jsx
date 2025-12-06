@@ -1,5 +1,6 @@
 import React from 'react';
 import { Clock, MapPin, User, UserCheck } from 'lucide-react';
+import SocialShareButton from '../common/SocialShareButton';
 
 const KanbanCard = ({ request, onClick }) => {
     const getCategoryColor = (category) => {
@@ -64,6 +65,19 @@ const KanbanCard = ({ request, onClick }) => {
                     <span className="truncate">
                         Pris par : {request.volunteer.prenom} {request.volunteer.nom}
                     </span>
+                </div>
+            )}
+            
+            {/* Social Share Button - Masqué si RESOLU */}
+            {request.statut !== 'RESOLU' && request.status !== 'RESOLU' && (
+                <div className="mt-3 pt-2 border-t border-gray-200 dark:border-slate-700/50" onClick={(e) => e.stopPropagation()}>
+                    <SocialShareButton
+                        title={request.titre}
+                        description={request.description}
+                        caseId={request.id}
+                        showLabel={true}
+                        className="w-full justify-center text-xs py-2 bg-blue-50 dark:bg-blue-500/10 hover:bg-blue-100 dark:hover:bg-blue-500/20 text-blue-600 dark:text-blue-400 rounded-lg transition-all"
+                    />
                 </div>
             )}
         </div>

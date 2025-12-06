@@ -43,12 +43,12 @@ const AdminDashboard = () => {
     const fetchData = async () => {
         try {
             const statsData = await adminService.getStats();
-            console.log("Données Stats reçues :", statsData);
             setStats(statsData);
 
-            const casesData = await adminService.getAllCases();
-            const sortedCases = casesData.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 5);
-            setRecentCases(sortedCases);
+            // Utiliser pagination pour ne charger que les 5 récents
+            const casesResponse = await adminService.getAllCasesPaginated({ page: 0, size: 5, sortBy: 'createdAt', sortDir: 'DESC' });
+            const recentData = casesResponse.content || casesResponse.data?.content || casesResponse;
+            setRecentCases(recentData);
         } catch (error) {
             console.error("Error fetching dashboard data:", error);
         } finally {

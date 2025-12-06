@@ -28,6 +28,7 @@
   "navbar": {
     "home": "Accueil",
     "dashboard": "Tableau de bord",
+    "myDashboard": "Mon Tableau de Bord",
     "newRequest": "Nouvelle demande",
     "map": "Carte",
     "profile": "Mon profil",
@@ -170,7 +171,37 @@
       "terms": "En vous inscrivant, vous acceptez nos",
       "termsLink": "Conditions d'utilisation",
       "privacyLink": "Politique de confidentialité",
-      "success": "Compte créé avec succès ! En attente de validation."
+      "success": "Compte créé avec succès ! En attente de validation.",
+      "successMessage": "Votre demande a bien été prise en compte. Un email de confirmation a été envoyé.",
+      "sections": {
+        "personalInfo": "Informations Personnelles",
+        "security": "Sécurité",
+        "verification": "Vérification d'identité"
+      },
+      "verification": {
+        "title": "Vérification d'identité",
+        "description": "Pour garantir la confiance au sein de la communauté, nous vérifions l'identité de chaque membre.",
+        "idDocument": "Pièce d'identité",
+        "uploadPrompt": "Cliquez pour uploader",
+        "dragDrop": "ou glissez le fichier",
+        "fileTypes": "JPG, PNG ou PDF (Max 5MB)",
+        "fileSelected": "Fichier sélectionné",
+        "clickToChange": "Cliquez pour changer"
+      },
+      "passwordStrengthLabel": "Force du mot de passe",
+      "passwordStrength": {
+        "empty": "Vide",
+        "weak": "Faible",
+        "medium": "Moyen",
+        "good": "Bon",
+        "excellent": "Excellent"
+      },
+      "passwordCriteria": {
+        "minLength": "8 caractères min.",
+        "uppercase": "1 majuscule",
+        "number": "1 chiffre",
+        "special": "1 caractère spécial"
+      }
     },
     "errors": {
       "emailRequired": "L'email est requis",
@@ -453,7 +484,11 @@
     "noNotifications": "Aucune notification",
     "newRequest": "Nouvelle demande près de vous",
     "requestAccepted": "Votre demande a été acceptée",
-    "missionCompleted": "Mission terminée avec succès"
+    "missionCompleted": "Mission terminée avec succès",
+    "caseCreated": "Nouveau cas créé",
+    "caseUpdated": "Cas mis à jour",
+    "interventionConfirmed": "Intervention confirmée",
+    "caseResolved": "Cas résolu"
   },
   
   "footer": {
@@ -489,5 +524,157 @@
     "select": "Choisir la langue",
     "fr": "Français",
     "ar": "العربية"
+  },
+
+  "declarationForm": {
+    "title": "Déclarer un Besoin d'Aide",
+    "headerTitle": "Nouvelle Demande d'Aide",
+    "headerSubtitle": "Détaillez votre besoin pour alerter les bénévoles à proximité",
+    "editTitle": "Modifier votre demande",
+    "editSubtitle": "Mettez à jour les informations de votre demande",
+    "autoSave": "Sauvegarde auto",
+    "steps": {
+      "info": "Informations",
+      "description": "Description",
+      "location": "Localisation",
+      "photos": "Photos"
+    },
+    "categories": {
+      "label": "Catégorie",
+      "alimentaire": "Alimentaire",
+      "medical": "Médical",
+      "logistique": "Logistique",
+      "autre": "Autre"
+    },
+    "fields": {
+      "title": "Titre de votre demande",
+      "titlePlaceholder": "Ex: Besoin de repas chauds",
+      "description": "Description détaillée",
+      "descriptionPlaceholder": "Décrivez votre besoin en détail..."
+    },
+    "templates": {
+      "title": "Modèles de description",
+      "alimentaire": "Aide alimentaire",
+      "medical": "Assistance médicale",
+      "logistique": "Aide logistique",
+      "custom": "Description libre"
+    },
+    "location": {
+      "title": "Où se situe le besoin ?",
+      "selectOnMap": "Cliquez sur la carte pour placer le marqueur",
+      "useMyLocation": "Utiliser ma position actuelle"
+    },
+    "photos": {
+      "title": "Photos (optionnel)",
+      "dragDrop": "Glissez-déposez vos photos ici",
+      "orClick": "ou cliquez pour sélectionner",
+      "maxSize": "Maximum 5 photos de 5MB chacune",
+      "preview": "Aperçu des photos"
+    },
+    "certifications": {
+      "title": "Certifications",
+      "accuracy": "Je certifie que les informations fournies sont exactes",
+      "realNeed": "Je certifie qu'il s'agit d'un besoin réel et urgent",
+      "terms": "J'accepte les conditions d'utilisation"
+    },
+    "buttons": {
+      "previous": "Précédent",
+      "next": "Suivant",
+      "cancel": "Annuler",
+      "submit": "Publier la demande",
+      "update": "Mettre à jour",
+      "preview": "Aperçu"
+    },
+    "suggestion": "Suggestion",
+    "apply": "Appliquer",
+    "errors": {
+      "titleRequired": "Le titre est requis",
+      "categoryRequired": "La catégorie est requise",
+      "descriptionRequired": "La description est requise",
+      "locationRequired": "Veuillez sélectionner une position sur la carte",
+      "certificationsRequired": "Veuillez confirmer toutes les certifications"
+    },
+    "success": {
+      "created": "Demande créée avec succès",
+      "updated": "Demande mise à jour avec succès"
+    }
+  },
+
+  "profile": {
+    "title": "Profil",
+    "messages": {
+      "profileUpdated": "Profil mis à jour avec succès !",
+      "profileUpdateError": "Erreur lors de la mise à jour du profil",
+      "passwordMismatch": "Les mots de passe ne correspondent pas",
+      "passwordChanged": "Mot de passe modifié avec succès !",
+      "passwordIncorrect": "Erreur : Mot de passe actuel incorrect",
+      "avatarUpdated": "Photo de profil mise à jour !",
+      "avatarUploadError": "Erreur lors de l'upload de la photo"
+    },
+    "tabs": {
+      "info": "Informations",
+      "security": "Sécurité",
+      "stats": "Mes Statistiques",
+      "docs": "Mes Documents"
+    },
+    "infoSection": {
+      "title": "Informations Personnelles",
+      "firstName": "Prénom",
+      "lastName": "Nom",
+      "email": "Email",
+      "phone": "Téléphone",
+      "skills": "Compétences",
+      "skillsPlaceholder": "Ex: Premiers secours, Logistique...",
+      "availability": "Disponibilité",
+      "availabilityPlaceholder": "Ex: Weekends, Soirées..."
+    },
+    "securitySection": {
+      "title": "Changer le mot de passe",
+      "currentPassword": "Mot de passe actuel",
+      "newPassword": "Nouveau mot de passe",
+      "confirmPassword": "Confirmer le mot de passe",
+      "minLength": "Minimum 6 caractères"
+    },
+    "statsSection": {
+      "title": "Statistiques à venir",
+      "description": "Vos statistiques d'impact seront bientôt disponibles ici."
+    },
+    "docsSection": {
+      "title": "Documents",
+      "description": "Gestion de vos documents officiels (CNI, Justificatifs)."
+    },
+    "buttons": {
+      "save": "Enregistrer",
+      "update": "Mettre à jour"
+    }
+  },
+
+  "identityVerification": {
+    "title": "En Attente",
+    "noUsers": "Aucun utilisateur en attente.",
+    "selectUser": "Sélectionnez un utilisateur pour commencer la vérification",
+    "registeredOn": "Inscrit le:",
+    "verificationRequired": "Vérification d'identité requise",
+    "confirmValidate": "Êtes-vous sûr de vouloir valider cet utilisateur ?",
+    "confirmReject": "Êtes-vous sûr de vouloir rejeter cet utilisateur ?",
+    "errorValidating": "Erreur lors de la validation",
+    "errorRejecting": "Erreur lors du rejet",
+    "buttons": {
+      "reject": "Rejeter",
+      "validate": "Valider l'Identité",
+      "enlarge": "Agrandir"
+    },
+    "sections": {
+      "personalInfo": "Informations Personnelles",
+      "officialDocument": "Document Officiel"
+    },
+    "fields": {
+      "email": "Email",
+      "phone": "Téléphone",
+      "role": "Rôle",
+      "registrationDate": "Date d'inscription",
+      "notProvided": "Non renseigné",
+      "noDocument": "Aucun document disponible"
+    }
   }
 }

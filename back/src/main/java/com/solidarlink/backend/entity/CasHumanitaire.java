@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.BatchSize;
 import org.locationtech.jts.geom.Point;
 
 import java.time.LocalDateTime;
@@ -18,6 +19,15 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "cas_humanitaire", indexes = {
+    @Index(name = "idx_cas_status", columnList = "status"),
+    @Index(name = "idx_cas_categorie", columnList = "categorie"),
+    @Index(name = "idx_cas_created_at", columnList = "createdAt"),
+    @Index(name = "idx_cas_updated_at", columnList = "updatedAt"),
+    @Index(name = "idx_cas_author", columnList = "author_id"),
+    @Index(name = "idx_cas_volunteer", columnList = "volunteer_id"),
+    @Index(name = "idx_cas_status_created", columnList = "status, createdAt")
+})
 public class CasHumanitaire {
 
     @Id
@@ -36,7 +46,8 @@ public class CasHumanitaire {
     @Column(columnDefinition = "geometry(Point,4326)")
     private Point location;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.LAZY)
+    @BatchSize(size = 10)
     private List<String> photos;
 
     @Enumerated(EnumType.STRING)

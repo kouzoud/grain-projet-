@@ -43,16 +43,16 @@ const FeatureCard = ({ icon, title, description, delay }) => {
             viewport={{ once: true }}
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.5, delay: delay }}
-            className="relative p-8 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-cyan-500/30 hover:bg-slate-800/50 transition-colors duration-300 group perspective-1000"
+            className="relative p-8 rounded-2xl bg-white/80 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-800 hover:border-cyan-500/30 hover:bg-gray-50 dark:hover:bg-slate-800/50 transition-colors duration-300 group perspective-1000"
         >
             <div
                 style={{ transform: "translateZ(50px)" }}
-                className="bg-slate-800 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 rotate-3 group-hover:rotate-6 transition-transform group-hover:bg-cyan-500/20 shadow-lg shadow-cyan-500/5"
+                className="bg-gray-100 dark:bg-slate-800 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 rotate-3 group-hover:rotate-6 transition-transform group-hover:bg-cyan-500/20 shadow-lg shadow-cyan-500/5"
             >
                 {icon}
             </div>
-            <h3 style={{ transform: "translateZ(30px)" }} className="text-xl font-bold text-white mb-3 text-center">{title}</h3>
-            <p style={{ transform: "translateZ(20px)" }} className="text-slate-400 leading-relaxed text-center">{description}</p>
+            <h3 style={{ transform: "translateZ(30px)" }} className="text-xl font-bold text-gray-900 dark:text-white mb-3 text-center">{title}</h3>
+            <p style={{ transform: "translateZ(20px)" }} className="text-gray-600 dark:text-slate-400 leading-relaxed text-center">{description}</p>
 
             {/* Glow Effect */}
             <div className="absolute inset-0 -z-10 bg-gradient-to-br from-cyan-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl blur-xl"></div>
@@ -64,15 +64,15 @@ const FeaturesSection = () => {
     const { t } = useTranslation();
     
     return (
-        <section className="py-24 bg-black relative">
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-900/20 via-black to-black"></div>
+        <section className="py-24 bg-gray-50 dark:bg-black relative">
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-cyan-500/5 dark:from-slate-900/20 via-transparent dark:via-black to-transparent dark:to-black"></div>
             <div className="container mx-auto px-4 relative z-10">
                 <div className="text-center mb-16">
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-4xl font-bold text-white mb-4"
+                        className="text-4xl font-bold text-gray-900 dark:text-white mb-4"
                     >
                         {t('landing.features.title')}
                     </motion.h2>
@@ -81,7 +81,7 @@ const FeaturesSection = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.2 }}
-                        className="text-slate-400 text-lg max-w-2xl mx-auto"
+                        className="text-gray-600 dark:text-slate-400 text-lg max-w-2xl mx-auto"
                     >
                         {t('landing.features.subtitle')}
                     </motion.p>

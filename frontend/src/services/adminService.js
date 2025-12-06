@@ -3,7 +3,22 @@ import api from './api';
 const adminService = {
     getPendingUsers: async () => {
         const response = await api.get('/admin/users/pending');
-        console.log('[AdminService] getPendingUsers response:', response.data);
+        return response.data;
+    },
+
+    // ========== PAGINATED METHODS (NEW) ==========
+    getPendingUsersPaginated: async (params = {}) => {
+        const response = await api.get('/admin/users/pending/paginated', { params });
+        return response.data;
+    },
+
+    getAllUsersPaginated: async (params = {}) => {
+        const response = await api.get('/admin/users/paginated', { params });
+        return response.data;
+    },
+
+    getAllCasesPaginated: async (params = {}) => {
+        const response = await api.get('/admin/cases/paginated', { params });
         return response.data;
     },
 

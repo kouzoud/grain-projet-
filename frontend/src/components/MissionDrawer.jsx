@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, MapPin, Calendar, User, Clock, AlertCircle, HeartPulse } from 'lucide-react';
 import { getSingleImageUrl, defaultImage } from '../utils/imageUtils';
@@ -129,6 +130,22 @@ const MissionDrawer = ({ isOpen, onClose, mission, onTakeAction }) => {
             )}
         </AnimatePresence>
     );
+};
+
+MissionDrawer.propTypes = {
+    isOpen: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired,
+    mission: PropTypes.shape({
+        id: PropTypes.number,
+        title: PropTypes.string,
+        description: PropTypes.string,
+        categorie: PropTypes.string,
+        latitude: PropTypes.number,
+        longitude: PropTypes.number,
+        createdAt: PropTypes.string,
+        photosUrl: PropTypes.array
+    }),
+    onTakeAction: PropTypes.func
 };
 
 export default MissionDrawer;
