@@ -1,0 +1,83 @@
+# ==========================================
+# Configuration Render.com - SolidarLink
+# ==========================================
+
+services:
+  # ==========================================
+  # Base de données PostgreSQL + PostGIS
+  # ==========================================
+  - type: pserv
+    name: solidarlink-db
+    env: docker
+    plan: free
+    region: frankfurt
+    dockerfilePath: ./postgres/Dockerfile.render
+    envVars:
+      - key: POSTGRES_DB
+        value: solidarlink
+      - key: POSTGRES_USER
+        value: postgres
+      - key: POSTGRES_PASSWORD
+        generateValue: true
+    disk:
+      name: postgres-data
+      mountPath: /var/lib/postgresql/data
+      sizeGB: 1
+
+  # ==========================================
+  # Backend Spring Boot
+  # ==========================================
+  - type: web
+    name: solidarlink-backend
+    env: docker
+    plan: starter
+    region: frankfurt
+    dockerfilePath: ./back/Dockerfile
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        fromDatabase:
+          name: solidarlink-db
+          property: connectionString
+      - key: SPRING_DATASOURCE_USERNAME
+        fromDatabase:
+          name: solidarlink-db
+          property: user
+      - key: SPRING_DATASOURCE_PASSWORD
+        fromDatabase:
+          name: solidarlink-db
+          property: password
+      - key: SPRING_JPA_HIBERNATE_DDL_AUTO
+        value: update
+      - key: SERVER_PORT
+        value: 8080
+      - key: JAVA_OPTS
+        value: "-Xmx512m -Xms256m"
+      - key: APPLICATION_SECURITY_JWT_SECRET_KEY
+        generateValue: true
+      - key: APPLICATION_SECURITY_JWT_EXPIRATION
+        value: "86400000"
+      - key: SPRING_MAIL_USERNAME
+        sync: false
+      - key: SPRING_MAIL_PASSWORD
+        sync: false
+      - key: APP_ADMIN_EMAIL
+        value: admin1@solidarlink.com
+      - key: APP_ADMIN_PASSWORD
+        generateValue: true
+
+  # ==========================================
+  # Frontend React
+  # ==========================================
+  - type: web
+    name: solidarlink-frontend
+    env: docker
+    plan: free
+    region: frankfurt
+    dockerfilePath: ./frontend/Dockerfile
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          name: solidarlink-backend
+          type: web
+          property: host

@@ -1,0 +1,22 @@
+FROM eclipse-temurin:17-jdk-alpine
+
+WORKDIR /app
+
+# Installer Maven
+RUN apk add --no-cache maven
+
+# Copier les fichiers de dépendances
+COPY pom.xml ./
+RUN mvn dependency:go-offline
+
+# Copier le code source
+COPY src ./src
+
+# Exposer le port Spring Boot
+EXPOSE 8080
+
+# Activer Spring DevTools pour le hot reload
+ENV SPRING_DEVTOOLS_RESTART_ENABLED=true
+
+# Démarrer en mode dev
+CMD ["mvn", "spring-boot:run"]

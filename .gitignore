@@ -4,3 +4,20 @@ frontend/node_modules/
 frontend/dist/
 .idea/
 .vscode/
+
+# Docker
+.env
+.env.local
+docker-compose.override.yml
+
+# Logs
+*.log
+logs/
+
+# Certificats SSL
+nginx/certs/*.pem
+nginx/certs/*.key
+
+# Volumes Docker
+postgres_data/
+postgres_dev_data/
