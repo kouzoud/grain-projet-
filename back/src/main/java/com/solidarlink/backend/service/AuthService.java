@@ -6,6 +6,7 @@ import com.solidarlink.backend.entity.User;
 import com.solidarlink.backend.enums.Role;
 import com.solidarlink.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,12 +21,14 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AuthService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final EmailService emailService;
 
     private final Path rootLocation = Paths.get("uploads");
 
@@ -46,6 +49,16 @@ public class AuthService {
                 .build();
 
         userRepository.save(user);
+        
+        // Envoi de l'email de bienvenue (asynchrone, ne bloque pas l'inscription)
+        try {
+            emailService.sendWelcomeEmail(user.getEmail(), user.getPrenom());
+            log.info("📧 Email de bienvenue envoyé à : {}", user.getEmail());
+        } catch (Exception e) {
+            // L'échec de l'envoi d'email ne doit pas bloquer l'inscription
+            log.warn("⚠️ Impossible d'envoyer l'email de bienvenue à {} : {}", user.getEmail(), e.getMessage());
+        }
+        
         var jwtToken = jwtService.generateToken(user);
         return AuthDTOs.AuthenticationResponse.builder()
                 .token(jwtToken)

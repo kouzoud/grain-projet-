@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 
+// En production : utiliser l'URL relative "/api" pour que Nginx puisse router correctement
+// En développement local : utiliser localhost:8080
 const API_URL = import.meta.env.PROD 
-    ? "http://link2act.cloud/api"  
+    ? "/api"  
     : "http://localhost:8080/api";
 
 const api = axios.create({
