@@ -177,5 +177,5 @@ Tout fonctionne. Aucune erreur. **Ready to ship! 🚀**
 
 ---
 
-**Développé avec ❤️ pour SolidarLink**
+**Développé avec ❤️ pour Link2Act**
 **Happy Growth Hacking! 🚀📈**

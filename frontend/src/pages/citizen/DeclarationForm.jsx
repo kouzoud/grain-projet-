@@ -511,7 +511,7 @@ const DeclarationForm = () => {
     const watchCategory = watch('category', '');
 
     // 🆕 Utilisation du hook useFormPersist pour persister les données du formulaire
-    const formPersistKey = isEditMode ? `solidarlink_declaration_edit_${id}` : 'solidarlink_declaration_form';
+    const formPersistKey = isEditMode ? `Link2Act_declaration_edit_${id}` : 'Link2Act_declaration_form';
     const { 
         values: persistedData, 
         setFieldValue: setPersistField, 

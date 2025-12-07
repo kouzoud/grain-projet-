@@ -8,7 +8,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Couleurs primaires SolidarLink
+        // Couleurs primaires Link2Act
         primary: {
           DEFAULT: '#06b6d4',   // Cyan
           dark: '#0891b2',

@@ -1,4 +1,4 @@
-# 🚀 Fonctionnalité de Partage Social - SolidarLink
+# 🚀 Fonctionnalité de Partage Social - Link2Act
 
 ## 📋 Vue d'ensemble
 
@@ -38,7 +38,7 @@ Un composant intelligent qui s'adapte automatiquement à l'environnement (mobile
 
 ### 2. **Deep Linking** (Ouverture automatique)
 
-Quand un utilisateur clique sur un lien partagé : `https://solidarlink.com/?caseId=123`
+Quand un utilisateur clique sur un lien partagé : `https://Link2Act.com/?caseId=123`
 
 #### Flux automatique :
 1. L'application détecte le paramètre `caseId` dans l'URL
@@ -177,8 +177,8 @@ npm install react-hot-toast  # Déjà installé ✅
 
 ## 📞 Support
 
-Pour toute question : [support@solidarlink.com](mailto:support@solidarlink.com)
+Pour toute question : [support@Link2Act.com](mailto:support@Link2Act.com)
 
 ---
 
-**Développé avec ❤️ pour SolidarLink**
+**Développé avec ❤️ pour Link2Act**

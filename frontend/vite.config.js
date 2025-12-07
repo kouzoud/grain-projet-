@@ -10,8 +10,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'logo.jpg', 'robots.txt'],
       manifest: {
-        name: 'SolidarLink',
-        short_name: 'SolidarLink',
+        name: 'Link2Act',
+        short_name: 'Link2Act',
         description: 'Plateforme d\'entraide humanitaire citoyenne.',
         theme_color: '#0f172a',
         background_color: '#ffffff',
@@ -81,14 +81,14 @@ export default defineConfig({
             sizes: '390x844',
             type: 'image/png',
             form_factor: 'narrow',
-            label: 'SolidarLink Mobile'
+            label: 'Link2Act Mobile'
           },
           {
             src: '/screenshots/screenshot-desktop.png',
             sizes: '1920x1080',
             type: 'image/png',
             form_factor: 'wide',
-            label: 'SolidarLink Desktop'
+            label: 'Link2Act Desktop'
           }
         ],
         categories: ['social', 'lifestyle', 'utilities'],

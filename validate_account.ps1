@@ -1,7 +1,7 @@
-# Script PowerShell pour valider un compte utilisateur SolidarLink
+# Script PowerShell pour valider un compte utilisateur Link2Act
 # Utilisez ce script pour valider manuellement votre compte
 
-Write-Host "🔧 Validation de compte SolidarLink" -ForegroundColor Cyan
+Write-Host "🔧 Validation de compte Link2Act" -ForegroundColor Cyan
 Write-Host "=====================================" -ForegroundColor Cyan
 Write-Host ""
 

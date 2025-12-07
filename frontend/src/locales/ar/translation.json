@@ -56,7 +56,7 @@
     "hero": {
       "title": "التضامن والتعاون",
       "subtitle": "في قلب مدننا",
-      "description": "انضم إلى SolidarLink، المنصة التي تربط المحتاجين للمساعدة مع المستعدين للعمل.",
+      "description": "انضم إلى Link2Act، المنصة التي تربط المحتاجين للمساعدة مع المستعدين للعمل.",
       "ctaPrimary": "أريد المساعدة",
       "ctaSecondary": "كيف يعمل؟",
       "ctaRequest": "طلب المساعدة"
@@ -68,7 +68,7 @@
       "satisfaction": "نسبة الرضا"
     },
     "features": {
-      "title": "لماذا SolidarLink؟",
+      "title": "لماذا Link2Act؟",
       "subtitle": "منصة مصممة لتبسيط التضامن",
       "geolocation": {
         "title": "تحديد موقع دقيق",
@@ -131,7 +131,7 @@
   "auth": {
     "login": {
       "title": "تسجيل الدخول",
-      "subtitle": "مرحبًا بك في SolidarLink",
+      "subtitle": "مرحبًا بك في Link2Act",
       "email": "البريد الإلكتروني",
       "emailPlaceholder": "بريدك@الإلكتروني.com",
       "password": "كلمة المرور",
@@ -146,7 +146,7 @@
     },
     "register": {
       "title": "التسجيل",
-      "subtitle": "انضم إلى مجتمع SolidarLink",
+      "subtitle": "انضم إلى مجتمع Link2Act",
       "firstName": "الاسم الأول",
       "firstNamePlaceholder": "اسمك الأول",
       "lastName": "اسم العائلة",
@@ -300,7 +300,7 @@
     },
     "admin": {
       "title": "الإدارة",
-      "subtitle": "إدارة منصة SolidarLink",
+      "subtitle": "إدارة منصة Link2Act",
       "dashboard": {
         "title": "لوحة تحكم المسؤول",
         "subtitle": "نظرة عامة وتحليلات",
@@ -467,8 +467,8 @@
   },
   
   "footer": {
-    "about": "حول SolidarLink",
-    "aboutText": "SolidarLink تربط المواطنين المحتاجين بالمتطوعين المستعدين للمساعدة.",
+    "about": "حول Link2Act",
+    "aboutText": "Link2Act تربط المواطنين المحتاجين بالمتطوعين المستعدين للمساعدة.",
     "quickLinks": "روابط سريعة",
     "contact": "اتصل بنا",
     "privacy": "سياسة الخصوصية",
@@ -483,7 +483,7 @@
     "madeWith": "صنع بـ",
     "forCommunity": "للمجتمع",
     "help": "مركز المساعدة",
-    "rights": "© {{year}} SolidarLink. جميع الحقوق محفوظة."
+    "rights": "© {{year}} Link2Act. جميع الحقوق محفوظة."
   },
   
   "errors": {

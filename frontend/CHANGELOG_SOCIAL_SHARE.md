@@ -137,7 +137,7 @@ Aucun bug à signaler - première version stable.
 
 ## 🙏 Remerciements
 
-Développé pour **SolidarLink** avec l'objectif d'augmenter la portée des demandes d'aide humanitaire et d'accélérer les interventions.
+Développé pour **Link2Act** avec l'objectif d'augmenter la portée des demandes d'aide humanitaire et d'accélérer les interventions.
 
 **Growth Hacking avec ❤️**
 
@@ -146,7 +146,7 @@ Développé pour **SolidarLink** avec l'objectif d'augmenter la portée des dema
 ## 📞 Support
 
 Pour toute question ou bug :
-- 📧 Email : support@solidarlink.com
+- 📧 Email : support@Link2Act.com
 - 📖 Documentation : Voir les fichiers .md dans `/frontend`
 - 🐛 Issues : GitHub Issues (si configuré)
 

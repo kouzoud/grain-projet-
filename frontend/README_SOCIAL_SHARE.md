@@ -2,7 +2,7 @@
 
 ## ✅ RÉSUMÉ DE L'IMPLÉMENTATION
 
-Tous les fichiers ont été créés et intégrés avec succès dans votre application SolidarLink !
+Tous les fichiers ont été créés et intégrés avec succès dans votre application Link2Act !
 
 ---
 
@@ -96,7 +96,7 @@ Une famille de 5 personnes a besoin d'aide alimentaire
 d'urgence suite à une situation difficile. Ils manquent 
 de nourriture pour les prochains jours...
 
-👉 Aidez-nous sur SolidarLink !
+👉 Aidez-nous sur Link2Act !
 
 http://localhost:5173/?caseId=123
 ```
@@ -321,9 +321,9 @@ Chaque utilisateur partage → 3 amis voient → 1 nouveau bénévole
 
 ## 🎉 FÉLICITATIONS !
 
-Votre système de partage social est **100% fonctionnel** et prêt à augmenter la portée de SolidarLink !
+Votre système de partage social est **100% fonctionnel** et prêt à augmenter la portée de Link2Act !
 
-**Développé avec ❤️ pour SolidarLink**
+**Développé avec ❤️ pour Link2Act**
 
 ---
 

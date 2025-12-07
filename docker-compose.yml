@@ -6,10 +6,10 @@ services:
   # ==========================================
   db:
     image: postgis/postgis:16-3.4-alpine
-    container_name: solidarlink-db
+    container_name: Link2Act-db
     restart: unless-stopped
     environment:
-      POSTGRES_DB: ${DB_NAME:-solidarlink}
+      POSTGRES_DB: ${DB_NAME:-Link2Act}
       POSTGRES_USER: ${DB_USER:-postgres}
       POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
       PGDATA: /var/lib/postgresql/data/pgdata
@@ -19,12 +19,12 @@ services:
     ports:
       - "5432:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-solidarlink}"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-Link2Act}"]
       interval: 10s
       timeout: 5s
       retries: 5
     networks:
-      - solidarlink-network
+      - Link2Act-network
 
   # ==========================================
   # Backend Spring Boot
@@ -33,10 +33,10 @@ services:
     build:
       context: ./back
       dockerfile: Dockerfile
-    container_name: solidarlink-backend
+    container_name: Link2Act-backend
     restart: unless-stopped
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${DB_NAME:-solidarlink}
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${DB_NAME:-Link2Act}
       SPRING_DATASOURCE_USERNAME: ${DB_USER:-postgres}
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD:-postgres}
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
@@ -55,7 +55,7 @@ services:
       retries: 3
       start_period: 40s
     networks:
-      - solidarlink-network
+      - Link2Act-network
     volumes:
       - ./back/uploads:/app/uploads
       - ./back/logs:/app/logs
@@ -67,7 +67,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: solidarlink-frontend
+    container_name: Link2Act-frontend
     restart: unless-stopped
     ports:
       - "80:80"
@@ -81,14 +81,14 @@ services:
       retries: 3
       start_period: 5s
     networks:
-      - solidarlink-network
+      - Link2Act-network
 
   # ==========================================
   # Nginx Reverse Proxy (optionnel)
   # ==========================================
   nginx:
     image: nginx:1.25-alpine
-    container_name: solidarlink-nginx
+    container_name: Link2Act-nginx
     restart: unless-stopped
     ports:
       - "443:443"
@@ -100,7 +100,7 @@ services:
       - frontend
       - backend
     networks:
-      - solidarlink-network
+      - Link2Act-network
 
 # ==========================================
 # Volumes persistants
@@ -113,5 +113,5 @@ volumes:
 # Réseau Docker
 # ==========================================
 networks:
-  solidarlink-network:
+  Link2Act-network:
     driver: bridge

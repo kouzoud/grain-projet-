@@ -26,7 +26,7 @@ const LanguageSwitcher = ({ variant = 'dropdown', className = '' }) => {
 
   const changeLanguage = (langCode) => {
     i18n.changeLanguage(langCode);
-    localStorage.setItem('solidarlink-language', langCode);
+    localStorage.setItem('Link2Act-language', langCode);
   };
 
   const toggleLanguage = () => {

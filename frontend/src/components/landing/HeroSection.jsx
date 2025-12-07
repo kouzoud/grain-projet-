@@ -36,7 +36,7 @@ const HeroSection = () => {
                                 <Heart className="w-5 h-5 text-white fill-white" />
                             </div>
                             <span className="text-2xl font-bold text-gray-900 dark:text-white">
-                                Solidar<span className="text-cyan-600 dark:text-cyan-400">Link</span>
+                                Link<span className="text-cyan-600 dark:text-cyan-400">2</span>Act
                             </span>
                         </Link>
 

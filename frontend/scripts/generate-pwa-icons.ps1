@@ -1,7 +1,7 @@
-# Script de génération des icônes PWA pour SolidarLink
+# Script de génération des icônes PWA pour Link2Act
 # Utilise sharp-cli ou un outil en ligne
 
-Write-Host "📱 Génération des icônes PWA pour SolidarLink" -ForegroundColor Cyan
+Write-Host "📱 Génération des icônes PWA pour Link2Act" -ForegroundColor Cyan
 Write-Host "================================================" -ForegroundColor Cyan
 
 $publicPath = "c:\Users\PC\Desktop\Grain\projet\frontend\public"

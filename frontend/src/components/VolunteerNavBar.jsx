@@ -41,7 +41,7 @@ const VolunteerNavBar = () => {
                         </div>
                         <div className="flex items-center gap-2">
                             <span className="text-xl font-bold bg-gradient-to-r from-violet-600 to-cyan-600 bg-clip-text text-transparent">
-                                SolidarLink
+                                Link2Act
                             </span>
                             <span className="hidden sm:inline-flex px-2.5 py-1 text-xs font-bold bg-gradient-to-r from-violet-500 to-purple-600 text-white rounded-full shadow-lg shadow-violet-500/25">
                                 {t('navbar.volunteer')}

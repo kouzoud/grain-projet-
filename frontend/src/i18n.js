@@ -19,8 +19,8 @@ const resources = {
 // Configuration du détecteur de langue
 const detectionOptions = {
   order: ['localStorage', 'cookie', 'navigator'],
-  lookupLocalStorage: 'solidarlink-language',
-  lookupCookie: 'solidarlink-lang',
+  lookupLocalStorage: 'Link2Act-language',
+  lookupCookie: 'Link2Act-lang',
   cookieMinutes: 525600,
   caches: ['localStorage', 'cookie'],
 };

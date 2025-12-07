@@ -26,10 +26,10 @@ const createScreenshotSVG = (width, height, label) => {
       <!-- Header -->
       <rect x="0" y="0" width="${width}" height="${height * 0.08}" fill="#1e293b"/>
       <circle cx="${width * 0.05}" cy="${height * 0.04}" r="${Math.min(width, height) * 0.02}" fill="#06b6d4"/>
-      <text x="${width * 0.1}" y="${height * 0.05}" fill="#06b6d4" font-family="Arial" font-size="${Math.min(width, height) * 0.025}" font-weight="bold">SolidarLink</text>
+      <text x="${width * 0.1}" y="${height * 0.05}" fill="#06b6d4" font-family="Arial" font-size="${Math.min(width, height) * 0.025}" font-weight="bold">Link2Act</text>
       
       <!-- Main Content -->
-      <text x="${width/2}" y="${height * 0.3}" text-anchor="middle" fill="white" font-family="Arial" font-size="${Math.min(width, height) * 0.05}" font-weight="bold">Bienvenue sur SolidarLink</text>
+      <text x="${width/2}" y="${height * 0.3}" text-anchor="middle" fill="white" font-family="Arial" font-size="${Math.min(width, height) * 0.05}" font-weight="bold">Bienvenue sur Link2Act</text>
       <text x="${width/2}" y="${height * 0.38}" text-anchor="middle" fill="#94a3b8" font-family="Arial" font-size="${Math.min(width, height) * 0.025}">Plateforme d'entraide humanitaire</text>
       
       <!-- Cards -->

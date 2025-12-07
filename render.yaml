@@ -1,5 +1,5 @@
 # ==========================================
-# Configuration Render.com - SolidarLink
+# Configuration Render.com - Link2Act
 # ==========================================
 
 services:
@@ -7,14 +7,14 @@ services:
   # Base de données PostgreSQL + PostGIS
   # ==========================================
   - type: pserv
-    name: solidarlink-db
+    name: Link2Act-db
     env: docker
     plan: free
     region: frankfurt
     dockerfilePath: ./postgres/Dockerfile.render
     envVars:
       - key: POSTGRES_DB
-        value: solidarlink
+        value: Link2Act
       - key: POSTGRES_USER
         value: postgres
       - key: POSTGRES_PASSWORD
@@ -28,7 +28,7 @@ services:
   # Backend Spring Boot
   # ==========================================
   - type: web
-    name: solidarlink-backend
+    name: Link2Act-backend
     env: docker
     plan: starter
     region: frankfurt
@@ -37,15 +37,15 @@ services:
     envVars:
       - key: SPRING_DATASOURCE_URL
         fromDatabase:
-          name: solidarlink-db
+          name: Link2Act-db
           property: connectionString
       - key: SPRING_DATASOURCE_USERNAME
         fromDatabase:
-          name: solidarlink-db
+          name: Link2Act-db
           property: user
       - key: SPRING_DATASOURCE_PASSWORD
         fromDatabase:
-          name: solidarlink-db
+          name: Link2Act-db
           property: password
       - key: SPRING_JPA_HIBERNATE_DDL_AUTO
         value: update
@@ -62,7 +62,7 @@ services:
       - key: SPRING_MAIL_PASSWORD
         sync: false
       - key: APP_ADMIN_EMAIL
-        value: admin1@solidarlink.com
+        value: admin1@Link2Act.com
       - key: APP_ADMIN_PASSWORD
         generateValue: true
 
@@ -70,7 +70,7 @@ services:
   # Frontend React
   # ==========================================
   - type: web
-    name: solidarlink-frontend
+    name: Link2Act-frontend
     env: docker
     plan: free
     region: frankfurt
@@ -78,6 +78,6 @@ services:
     envVars:
       - key: VITE_API_URL
         fromService:
-          name: solidarlink-backend
+          name: Link2Act-backend
           type: web
           property: host

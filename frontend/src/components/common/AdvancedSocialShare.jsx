@@ -36,7 +36,7 @@ const AdvancedSocialShare = ({
   // Construction du contenu
   const shareUrl = `${window.location.origin}/?caseId=${caseId}`;
   const shareTitle = `🆘 Aide Urgente : ${title}`;
-  const shareText = `Besoin d'aide ${ville ? `à ${ville}` : ''}.\n\n${description.substring(0, 150)}${description.length > 150 ? '...' : ''}\n\n👉 Aidez-nous sur SolidarLink !`;
+  const shareText = `Besoin d'aide ${ville ? `à ${ville}` : ''}.\n\n${description.substring(0, 150)}${description.length > 150 ? '...' : ''}\n\n👉 Aidez-nous sur Link2Act !`;
   const fullMessage = `${shareTitle}\n\n${shareText}\n\n${shareUrl}`;
 
   const handleGenericShare = async () => {

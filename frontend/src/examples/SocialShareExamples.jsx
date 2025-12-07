@@ -97,12 +97,12 @@ export const CustomHookExample = () => {
     await share({
       title: "🆘 Aide Urgente",
       text: "Une famille a besoin de votre aide...",
-      url: "https://solidarlink.com/?caseId=999"
+      url: "https://Link2Act.com/?caseId=999"
     });
   };
 
   const handleWhatsAppShare = () => {
-    const message = "Regarde cette demande d'aide urgente sur SolidarLink !";
+    const message = "Regarde cette demande d'aide urgente sur Link2Act !";
     shareOnWhatsApp(message);
   };
 
@@ -207,7 +207,7 @@ export const ShareModalExample = () => {
 
   const shareData = {
     title: "Aide urgente à Casablanca",
-    url: "https://solidarlink.com/?caseId=123"
+    url: "https://Link2Act.com/?caseId=123"
   };
 
   if (!isOpen) {
@@ -292,7 +292,7 @@ export const ReduxExample = () => {
     <button onClick={() => share({
       title: "Aide urgente",
       text: "Description...",
-      url: "https://solidarlink.com/?caseId=123"
+      url: "https://Link2Act.com/?caseId=123"
     })}>
       Partager (avec Redux)
     </button>
@@ -307,14 +307,14 @@ export const HeaderShareButton = () => {
   return (
     <header className="bg-white shadow-sm">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <h1 className="text-2xl font-bold">SolidarLink</h1>
+        <h1 className="text-2xl font-bold">Link2Act</h1>
         
         <div className="flex items-center gap-4">
           <nav>...</nav>
           
           {/* Bouton de partage dans le header */}
           <SocialShareButton
-            title="Rejoignez SolidarLink"
+            title="Rejoignez Link2Act"
             description="Plateforme d'entraide humanitaire au Maroc"
             caseId={0}  // ID spécial pour la page d'accueil
             showLabel={true}
@@ -343,7 +343,7 @@ export const ProgrammaticShareExample = () => {
       await share({
         title: "J'ai aidé une famille dans le besoin !",
         text: "Vous aussi, vous pouvez faire la différence...",
-        url: `https://solidarlink.com/?caseId=${caseId}`
+        url: `https://Link2Act.com/?caseId=${caseId}`
       });
     }
   };

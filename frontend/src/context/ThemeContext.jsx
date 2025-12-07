@@ -7,7 +7,7 @@ export const ThemeProvider = ({ children }) => {
     const [theme, setTheme] = useState(() => {
         // Récupérer la préférence sauvegardée
         if (typeof window !== 'undefined') {
-            const savedTheme = localStorage.getItem('solidarlink-theme');
+            const savedTheme = localStorage.getItem('Link2Act-theme');
             // Assurer que c'est soit 'light' soit 'dark'
             if (savedTheme === 'dark') return 'dark';
             return 'light'; // Par défaut: light
@@ -26,7 +26,7 @@ export const ThemeProvider = ({ children }) => {
         }
 
         // Sauvegarder la préférence utilisateur
-        localStorage.setItem('solidarlink-theme', theme);
+        localStorage.setItem('Link2Act-theme', theme);
     }, [theme]);
 
     const value = {

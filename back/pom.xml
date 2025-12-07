@@ -8,11 +8,11 @@
 		<version>3.2.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.solidarlink</groupId>
+	<groupId>com.Link2Act</groupId>
 	<artifactId>backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>backend</name>
-	<description>SolidarLink Backend</description>
+	<description>Link2Act Backend</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

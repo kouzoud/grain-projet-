@@ -57,7 +57,7 @@
     "hero": {
       "title": "Solidarité et Entraide",
       "subtitle": "Au Cœur de Nos Villes",
-      "description": "Rejoignez SolidarLink, la plateforme qui connecte ceux qui ont besoin d'aide avec ceux prêts à agir.",
+      "description": "Rejoignez Link2Act, la plateforme qui connecte ceux qui ont besoin d'aide avec ceux prêts à agir.",
       "ctaPrimary": "Je veux aider",
       "ctaSecondary": "Comment ça marche ?",
       "ctaRequest": "Demander de l'aide"
@@ -69,7 +69,7 @@
       "satisfaction": "Satisfaction"
     },
     "features": {
-      "title": "Pourquoi SolidarLink ?",
+      "title": "Pourquoi Link2Act ?",
       "subtitle": "Une plateforme pensée pour simplifier l'entraide",
       "geolocation": {
         "title": "Géolocalisation précise",
@@ -132,7 +132,7 @@
   "auth": {
     "login": {
       "title": "Connexion",
-      "subtitle": "Bienvenue sur SolidarLink",
+      "subtitle": "Bienvenue sur Link2Act",
       "email": "Adresse email",
       "emailPlaceholder": "votre@email.com",
       "password": "Mot de passe",
@@ -147,7 +147,7 @@
     },
     "register": {
       "title": "Inscription",
-      "subtitle": "Rejoignez la communauté SolidarLink",
+      "subtitle": "Rejoignez la communauté Link2Act",
       "firstName": "Prénom",
       "firstNamePlaceholder": "Votre prénom",
       "lastName": "Nom",
@@ -301,7 +301,7 @@
     },
     "admin": {
       "title": "Administration",
-      "subtitle": "Gérez la plateforme SolidarLink",
+      "subtitle": "Gérez la plateforme Link2Act",
       "dashboard": {
         "title": "Tableau de Bord Admin",
         "subtitle": "Vue d'ensemble et analytique",
@@ -492,8 +492,8 @@
   },
   
   "footer": {
-    "about": "À propos de SolidarLink",
-    "aboutText": "SolidarLink connecte les citoyens en besoin avec les bénévoles prêts à aider.",
+    "about": "À propos de Link2Act",
+    "aboutText": "Link2Act connecte les citoyens en besoin avec les bénévoles prêts à aider.",
     "quickLinks": "Liens rapides",
     "contact": "Contact",
     "privacy": "Politique de confidentialité",
@@ -508,7 +508,7 @@
     "madeWith": "Fait avec",
     "forCommunity": "pour la communauté",
     "help": "Centre d'aide",
-    "rights": "© {{year}} SolidarLink. Tous droits réservés."
+    "rights": "© {{year}} Link2Act. Tous droits réservés."
   },
   
   "errors": {

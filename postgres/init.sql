@@ -10,10 +10,10 @@ CREATE EXTENSION IF NOT EXISTS postgis_topology;
 SELECT PostGIS_version();
 
 -- Créer un utilisateur de lecture seule (optionnel)
--- CREATE ROLE solidarlink_readonly WITH LOGIN PASSWORD 'readonly_password';
--- GRANT CONNECT ON DATABASE solidarlink TO solidarlink_readonly;
--- GRANT USAGE ON SCHEMA public TO solidarlink_readonly;
--- GRANT SELECT ON ALL TABLES IN SCHEMA public TO solidarlink_readonly;
+-- CREATE ROLE Link2Act_readonly WITH LOGIN PASSWORD 'readonly_password';
+-- GRANT CONNECT ON DATABASE Link2Act TO Link2Act_readonly;
+-- GRANT USAGE ON SCHEMA public TO Link2Act_readonly;
+-- GRANT SELECT ON ALL TABLES IN SCHEMA public TO Link2Act_readonly;
 
 -- Afficher les extensions installées
 \dx

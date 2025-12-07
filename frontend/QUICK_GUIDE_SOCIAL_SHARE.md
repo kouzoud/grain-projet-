@@ -48,9 +48,9 @@ Besoin d'aide à Casablanca.
 Une famille de 5 personnes a besoin d'aide alimentaire 
 d'urgence suite à une situation difficile...
 
-👉 Aidez-nous sur SolidarLink !
+👉 Aidez-nous sur Link2Act !
 
-https://solidarlink.com/?caseId=123
+https://Link2Act.com/?caseId=123
 ```
 
 ## 🎨 Personnalisation
@@ -119,4 +119,4 @@ Contactez le développeur ou consultez la documentation complète dans `SOCIAL_S
 
 ---
 
-**Prêt à augmenter la portée de SolidarLink ! 🚀**
+**Prêt à augmenter la portée de Link2Act ! 🚀**

@@ -99,7 +99,7 @@ const Register = () => {
                         </motion.div>
                     </Link>
                     <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white mb-2">
-                        {t('auth.register.subtitle').split('SolidarLink')[0]} <span className="text-primary">SolidarLink</span>
+                        {t('auth.register.subtitle').split('Link2Act')[0]} <span className="text-primary">Link2Act</span>
                     </h1>
                     <p className="text-lg text-gray-600 dark:text-gray-300">
                         {t('hero.badge')}

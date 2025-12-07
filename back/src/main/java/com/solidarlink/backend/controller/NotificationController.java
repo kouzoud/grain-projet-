@@ -43,18 +43,27 @@ public class NotificationController {
             try {
                 String email = jwtService.extractUsername(tokenParam);
                 if (email != null && !email.isEmpty()) {
-                    User tokenUser = notificationService.getUserByEmail(email);
-                    if (tokenUser != null && jwtService.isTokenValid(tokenParam, tokenUser)) {
-                        user = tokenUser;
+                    try {
+                        User tokenUser = notificationService.getUserByEmail(email);
+                        if (tokenUser != null && jwtService.isTokenValid(tokenParam, tokenUser)) {
+                            user = tokenUser;
+                        }
+                    } catch (RuntimeException e) {
+                        // User not found in database - token may be stale
+                        System.out.println("User from token not found in database: " + email);
+                        // Return silently - client will need to re-authenticate
+                        return null;
                     }
                 }
             } catch (Exception e) {
-                throw new RuntimeException("Invalid token provided: " + e.getMessage());
+                System.out.println("Error validating token: " + e.getMessage());
+                return null;
             }
         }
         
         if (user == null) {
-            throw new RuntimeException("Authentication required");
+            System.out.println("No authenticated user for SSE stream");
+            return null;
         }
         
         return notificationService.createEmitter(user);

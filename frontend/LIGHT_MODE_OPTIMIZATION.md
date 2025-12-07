@@ -1,8 +1,8 @@
-# ✨ Optimisation Light Mode - SolidarLink
+# ✨ Optimisation Light Mode - Link2Act
 
 ## 🎯 Objectif Accompli
 
-Le **Light Mode** de SolidarLink a été transformé pour égaler l'impact visuel du **Dark Mode**, avec des couleurs vibrantes, un contraste élevé et une esthétique professionnelle moderne.
+Le **Light Mode** de Link2Act a été transformé pour égaler l'impact visuel du **Dark Mode**, avec des couleurs vibrantes, un contraste élevé et une esthétique professionnelle moderne.
 
 ---
 
@@ -425,7 +425,7 @@ text-cyan-600 dark:text-cyan-400
 
 Le **Light Mode** est maintenant aussi professionnel, impactant et moderne que le **Dark Mode** ! 🎉
 
-**SolidarLink** offre désormais une expérience visuelle premium dans les deux modes, avec :
+**Link2Act** offre désormais une expérience visuelle premium dans les deux modes, avec :
 - Contraste optimal
 - Couleurs vibrantes
 - Effets premium (glassmorphisme, brillance, ombres colorées)
@@ -434,5 +434,5 @@ Le **Light Mode** est maintenant aussi professionnel, impactant et moderne que l
 ---
 
 **Date de création** : 6 décembre 2025  
-**Projet** : SolidarLink - Plateforme d'entraide  
+**Projet** : Link2Act - Plateforme d'entraide  
 **Version** : 1.0

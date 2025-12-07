@@ -1,6 +1,6 @@
-# 🐳 SolidarLink - Guide Docker
+# 🐳 Link2Act - Guide Docker
 
-Ce guide explique comment démarrer SolidarLink avec Docker en mode développement et production.
+Ce guide explique comment démarrer Link2Act avec Docker en mode développement et production.
 
 ---
 
@@ -136,8 +136,8 @@ docker-compose build --no-cache
 docker-compose ps
 
 # Accéder à un conteneur
-docker exec -it solidarlink-backend sh
-docker exec -it solidarlink-db psql -U postgres -d solidarlink
+docker exec -it Link2Act-backend sh
+docker exec -it Link2Act-db psql -U postgres -d Link2Act
 
 # Voir les ressources utilisées
 docker stats
@@ -150,16 +150,16 @@ docker system prune -a --volumes
 
 ```bash
 # Se connecter à PostgreSQL
-docker exec -it solidarlink-db psql -U postgres -d solidarlink
+docker exec -it Link2Act-db psql -U postgres -d Link2Act
 
 # Backup de la base
-docker exec solidarlink-db pg_dump -U postgres solidarlink > backup.sql
+docker exec Link2Act-db pg_dump -U postgres Link2Act > backup.sql
 
 # Restaurer un backup
-docker exec -i solidarlink-db psql -U postgres solidarlink < backup.sql
+docker exec -i Link2Act-db psql -U postgres Link2Act < backup.sql
 
 # Vérifier PostGIS
-docker exec -it solidarlink-db psql -U postgres -d solidarlink -c "SELECT PostGIS_version();"
+docker exec -it Link2Act-db psql -U postgres -d Link2Act -c "SELECT PostGIS_version();"
 ```
 
 ---
@@ -172,7 +172,7 @@ Créez un fichier `.env` à la racine du projet :
 
 ```env
 # Database
-DB_NAME=solidarlink
+DB_NAME=Link2Act
 DB_USER=postgres
 DB_PASSWORD=your_secure_password
 
@@ -212,7 +212,7 @@ Générer des certificats auto-signés (dev) :
 cd nginx/certs
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
   -keyout privkey.pem -out fullchain.pem \
-  -subj "/C=MA/ST=Casablanca/L=Casablanca/O=SolidarLink/CN=localhost"
+  -subj "/C=MA/ST=Casablanca/L=Casablanca/O=Link2Act/CN=localhost"
 ```
 
 Pour la production, utilisez **Let's Encrypt** :
@@ -251,7 +251,7 @@ docker-compose ps db
 docker-compose logs db
 
 # Tester la connexion
-docker exec -it solidarlink-db pg_isready -U postgres
+docker exec -it Link2Act-db pg_isready -U postgres
 ```
 
 ### Problème : Frontend ne se connecte pas au backend
@@ -261,7 +261,7 @@ docker exec -it solidarlink-db pg_isready -U postgres
 curl http://localhost:8080/actuator/health
 
 # Vérifier les variables d'environnement
-docker exec solidarlink-frontend env | grep VITE_API_URL
+docker exec Link2Act-frontend env | grep VITE_API_URL
 ```
 
 ### Problème : Erreur "port already in use"
@@ -321,16 +321,16 @@ jobs:
 **Azure Container Instances** :
 ```bash
 az container create \
-  --resource-group solidarlink-rg \
-  --name solidarlink \
-  --image your-registry/solidarlink:latest \
+  --resource-group Link2Act-rg \
+  --name Link2Act \
+  --image your-registry/Link2Act:latest \
   --ports 80 443
 ```
 
 **AWS ECS / Fargate** :
 ```bash
-aws ecs create-cluster --cluster-name solidarlink-cluster
-aws ecs create-service --cluster solidarlink-cluster --service-name solidarlink
+aws ecs create-cluster --cluster-name Link2Act-cluster
+aws ecs create-service --cluster Link2Act-cluster --service-name Link2Act
 ```
 
 ---
@@ -347,4 +347,4 @@ aws ecs create-service --cluster solidarlink-cluster --service-name solidarlink
 
 ## 📝 Licence
 
-SolidarLink © 2024 - Tous droits réservés
+Link2Act © 2024 - Tous droits réservés

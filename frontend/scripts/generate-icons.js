@@ -75,7 +75,7 @@ const createShortcutSVG = (size, color, iconType) => {
 };
 
 async function generateIcons() {
-  console.log('🎨 Génération des icônes PWA pour SolidarLink...\n');
+  console.log('🎨 Génération des icônes PWA pour Link2Act...\n');
 
   // Générer les icônes principales
   for (const config of iconConfigs) {

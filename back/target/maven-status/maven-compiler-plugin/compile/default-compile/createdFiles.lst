@@ -35,6 +35,7 @@ com\solidarlink\backend\controller\CasHumanitaireController.class
 com\solidarlink\backend\entity\Signalement$SignalementBuilder.class
 com\solidarlink\backend\controller\UserController.class
 com\solidarlink\backend\entity\Intervention$InterventionBuilder.class
+com\solidarlink\backend\Link2ActApplication.class
 com\solidarlink\backend\service\ExportService.class
 com\solidarlink\backend\dto\InterventionDTOs$InterventionRequest.class
 com\solidarlink\backend\config\RequestLoggingFilter.class
@@ -44,6 +45,7 @@ com\solidarlink\backend\dto\AuthDTOs$RegisterRequest$RegisterRequestBuilder.clas
 com\solidarlink\backend\dto\InterventionDTO.class
 com\solidarlink\backend\exception\BusinessException.class
 com\solidarlink\backend\service\CasHumanitaireService.class
+com\solidarlink\backend\controller\FileController.class
 com\solidarlink\backend\entity\CasHumanitaire$CasHumanitaireBuilder.class
 com\solidarlink\backend\entity\CasHumanitaire.class
 com\solidarlink\backend\service\NotificationService.class
@@ -53,7 +55,6 @@ com\solidarlink\backend\controller\NotificationController.class
 com\solidarlink\backend\dto\UserProfileDTO$UserProfileDTOBuilder.class
 com\solidarlink\backend\config\OpenApiConfig.class
 com\solidarlink\backend\dto\AuthDTOs$RegisterRequest.class
-com\solidarlink\backend\SolidarLinkApplication.class
 com\solidarlink\backend\controller\PublicController.class
 com\solidarlink\backend\repository\SignalementRepository.class
 com\solidarlink\backend\dto\StatsDTOs$ImpactStatsDTO$ImpactStatsDTOBuilder.class

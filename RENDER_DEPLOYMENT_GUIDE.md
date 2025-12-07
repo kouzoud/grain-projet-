@@ -2,7 +2,7 @@
 # Guide de déploiement sur Render.com
 # ==========================================
 
-Ce guide vous aide à déployer SolidarLink sur Render.com étape par étape.
+Ce guide vous aide à déployer Link2Act sur Render.com étape par étape.
 
 ---
 
@@ -39,8 +39,8 @@ git push origin main
 
 | Champ | Valeur à remplir |
 |-------|------------------|
-| **Name** | `solidarlink-db` |
-| **Database** | `solidarlink` |
+| **Name** | `Link2Act-db` |
+| **Database** | `Link2Act` |
 | **User** | `postgres` |
 | **Region** | `Frankfurt (EU Central)` ou proche de vous |
 | **PostgreSQL Version** | `16` |
@@ -73,7 +73,7 @@ git push origin main
 
 | Champ | Valeur à remplir |
 |-------|------------------|
-| **Name** | `solidarlink-backend` (ou `Link2Act`) |
+| **Name** | `Link2Act-backend` (ou `Link2Act`) |
 | **Project** | `My project` |
 | **Environment** | `Production` |
 | **Language** | **Docker** |
@@ -91,7 +91,7 @@ Cliquez sur **"Add Environment Variable"** pour chaque ligne :
 
 | Key | Value |
 |-----|-------|
-| `SPRING_DATASOURCE_URL` | `jdbc:postgresql://[INTERNAL_HOST]:5432/solidarlink` |
+| `SPRING_DATASOURCE_URL` | `jdbc:postgresql://[INTERNAL_HOST]:5432/Link2Act` |
 | `SPRING_DATASOURCE_USERNAME` | `postgres` |
 | `SPRING_DATASOURCE_PASSWORD` | `[PASSWORD_FROM_DB]` |
 | `SPRING_JPA_HIBERNATE_DDL_AUTO` | `update` |
@@ -101,15 +101,15 @@ Cliquez sur **"Add Environment Variable"** pour chaque ligne :
 | `APPLICATION_SECURITY_JWT_EXPIRATION` | `86400000` |
 | `SPRING_MAIL_USERNAME` | `kouzoudmohemad@gmail.com` |
 | `SPRING_MAIL_PASSWORD` | `wpad sggu ychg bfsi` |
-| `APP_ADMIN_EMAIL` | `admin1@solidarlink.com` |
+| `APP_ADMIN_EMAIL` | `admin1@Link2Act.com` |
 | `APP_ADMIN_PASSWORD` | `admin123` |
-| `APP_MAIL_FROM_NAME` | `SolidarLink` |
+| `APP_MAIL_FROM_NAME` | `Link2Act` |
 
 **🔍 Comment récupérer l'URL de la base de données :**
-- Allez dans votre base de données `solidarlink-db`
+- Allez dans votre base de données `Link2Act-db`
 - Onglet **"Connect"** → **"Internal Database URL"**
 - Copiez et remplacez `postgresql://` par `jdbc:postgresql://`
-- Format : `jdbc:postgresql://dpg-xxxxx-a.frankfurt-postgres.render.com:5432/solidarlink`
+- Format : `jdbc:postgresql://dpg-xxxxx-a.frankfurt-postgres.render.com:5432/Link2Act`
 
 5. **Health Check Path** : `/actuator/health`
 6. Cliquez sur **"Create Web Service"**
@@ -127,7 +127,7 @@ Cliquez sur **"Add Environment Variable"** pour chaque ligne :
 
 | Champ | Valeur à remplir |
 |-------|------------------|
-| **Name** | `solidarlink-frontend` |
+| **Name** | `Link2Act-frontend` |
 | **Project** | `My project` |
 | **Environment** | `Production` |
 | **Language** | **Docker** |
@@ -141,11 +141,11 @@ Cliquez sur **"Add Environment Variable"** pour chaque ligne :
 
 | Key | Value |
 |-----|-------|
-| `VITE_API_URL` | `https://solidarlink-backend.onrender.com` |
+| `VITE_API_URL` | `https://Link2Act-backend.onrender.com` |
 
 **🔍 Comment récupérer l'URL du backend :**
 - Allez dans votre service backend
-- Copiez l'URL en haut (ex: `https://solidarlink-backend.onrender.com`)
+- Copiez l'URL en haut (ex: `https://Link2Act-backend.onrender.com`)
 - Collez-la dans `VITE_API_URL`
 
 5. Cliquez sur **"Create Web Service"**
@@ -157,13 +157,13 @@ Cliquez sur **"Add Environment Variable"** pour chaque ligne :
 
 ### Vérifier le Backend
 
-1. Ouvrez : `https://solidarlink-backend.onrender.com/actuator/health`
+1. Ouvrez : `https://Link2Act-backend.onrender.com/actuator/health`
 2. Vous devriez voir : `{"status":"UP"}`
 
 ### Vérifier le Frontend
 
-1. Ouvrez : `https://solidarlink-frontend.onrender.com`
-2. Vous devriez voir la page d'accueil de SolidarLink
+1. Ouvrez : `https://Link2Act-frontend.onrender.com`
+2. Vous devriez voir la page d'accueil de Link2Act
 
 ### Tester l'application
 
@@ -179,7 +179,7 @@ Cliquez sur **"Add Environment Variable"** pour chaque ligne :
 
 **Erreur : "Connection refused to database"**
 - Vérifiez que `SPRING_DATASOURCE_URL` utilise l'**Internal Database URL**
-- Format : `jdbc:postgresql://dpg-xxxxx-a:5432/solidarlink`
+- Format : `jdbc:postgresql://dpg-xxxxx-a:5432/Link2Act`
 - Ne pas utiliser l'External URL (postgres:// au lieu de dpg-)
 
 **Logs Backend :**
@@ -192,7 +192,7 @@ Cliquez sur **"Add Environment Variable"** pour chaque ligne :
 
 **Erreur 404 ou CORS**
 - Vérifiez que `VITE_API_URL` pointe vers le backend Render
-- Format : `https://solidarlink-backend.onrender.com` (pas de `/` à la fin)
+- Format : `https://Link2Act-backend.onrender.com` (pas de `/` à la fin)
 - Redéployez le frontend après modification
 
 ### Build trop long
@@ -232,8 +232,8 @@ Cliquez sur **"Add Environment Variable"** pour chaque ligne :
 
 Après déploiement, vous aurez :
 
-- **Frontend** : `https://solidarlink-frontend.onrender.com`
-- **Backend** : `https://solidarlink-backend.onrender.com`
+- **Frontend** : `https://Link2Act-frontend.onrender.com`
+- **Backend** : `https://Link2Act-backend.onrender.com`
 - **Database** : `dpg-xxxxx-a.frankfurt-postgres.render.com:5432`
 
 ---
@@ -253,7 +253,7 @@ Après déploiement, vous aurez :
 
 ## 🎉 Félicitations !
 
-Votre application SolidarLink est maintenant déployée sur Render.com !
+Votre application Link2Act est maintenant déployée sur Render.com !
 
 **Prochaines étapes recommandées :**
 1. Configurer un nom de domaine personnalisé
@@ -268,4 +268,4 @@ Votre application SolidarLink est maintenant déployée sur Render.com !
 
 - Render Docs : https://render.com/docs
 - Render Community : https://community.render.com
-- Support SolidarLink : kouzoudmohemad@gmail.com
+- Support Link2Act : kouzoudmohemad@gmail.com
