@@ -64,7 +64,13 @@ export const useRegisterForm = () => {
 
         } catch (err) {
             console.error('Registration error:', err);
-            setError(err.response?.data?.message || err.message || "Une erreur est survenue lors de l'inscription.");
+            
+            // Gestion spécifique de l'erreur 409 (email déjà existant)
+            if (err.response?.status === 409) {
+                setError(err.response?.data?.message || "Cet email est déjà utilisé. Essayez de vous connecter.");
+            } else {
+                setError(err.response?.data?.message || err.message || "Une erreur est survenue lors de l'inscription.");
+            }
         } finally {
             setIsLoading(false);
         }

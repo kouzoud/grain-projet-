@@ -4,6 +4,7 @@ import com.solidarlink.backend.dto.ErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
@@ -130,6 +131,31 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
     }
 
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ErrorResponse> handleDataIntegrityViolationException(
+            DataIntegrityViolationException ex, 
+            HttpServletRequest request) {
+        logger.warn("Data integrity violation - Path: {} - Message: {}", 
+                request.getRequestURI(), 
+                ex.getMessage());
+        
+        String message = "Une contrainte de base de données a été violée.";
+        
+        // Détection spécifique pour l'email unique
+        if (ex.getMessage() != null && ex.getMessage().toLowerCase().contains("email")) {
+            message = "Cet email est déjà utilisé. Essayez de vous connecter.";
+        }
+        
+        ErrorResponse errorResponse = ErrorResponse.of(
+                HttpStatus.CONFLICT.value(),
+                "Conflict",
+                message,
+                request.getRequestURI()
+        );
+        
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleAllExceptions(
             Exception ex, 
@@ -139,19 +165,35 @@ public class GlobalExceptionHandler {
                 ex.getMessage(), 
                 ex);
         
-        // Si c'est une RuntimeException avec un message spécifique (ex: compte non validé)
+        // Si c'est une RuntimeException avec un message spécifique (ex: compte non validé, email existe)
         // On retourne le message tel quel
-        if (ex instanceof RuntimeException && ex.getMessage() != null && 
-            (ex.getMessage().contains("validé") || 
-             ex.getMessage().contains("suspendu") ||
-             ex.getMessage().contains("incorrect"))) {
-            ErrorResponse errorResponse = ErrorResponse.of(
-                    HttpStatus.UNAUTHORIZED.value(),
-                    "Authentication Failed",
-                    ex.getMessage(),
-                    request.getRequestURI()
-            );
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
+        if (ex instanceof RuntimeException && ex.getMessage() != null) {
+            String message = ex.getMessage();
+            
+            // Gestion spéciale pour email existant
+            if (message.startsWith("EMAIL_EXISTS:")) {
+                String cleanMessage = message.substring("EMAIL_EXISTS:".length());
+                ErrorResponse errorResponse = ErrorResponse.of(
+                        HttpStatus.CONFLICT.value(),
+                        "Email Already Exists",
+                        cleanMessage,
+                        request.getRequestURI()
+                );
+                return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
+            }
+            
+            // Gestion pour authentification échouée
+            if (message.contains("validé") || 
+                message.contains("suspendu") ||
+                message.contains("incorrect")) {
+                ErrorResponse errorResponse = ErrorResponse.of(
+                        HttpStatus.UNAUTHORIZED.value(),
+                        "Authentication Failed",
+                        message,
+                        request.getRequestURI()
+                );
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
+            }
         }
         
         ErrorResponse errorResponse = ErrorResponse.of(

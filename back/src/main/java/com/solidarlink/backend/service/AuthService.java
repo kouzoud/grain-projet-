@@ -30,9 +30,17 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final EmailService emailService;
 
-    private final Path rootLocation = Paths.get("uploads");
+    // Chemin absolu vers le dossier uploads
+    // Si on démarre depuis la racine du projet, utiliser ./uploads
+    // Si on démarre depuis back/, utiliser ./uploads
+    private final Path rootLocation = Paths.get(System.getProperty("user.dir")).resolve("uploads");
 
     public AuthDTOs.AuthenticationResponse register(AuthDTOs.RegisterRequest request) {
+        // Vérifier si l'email existe déjà
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new RuntimeException("EMAIL_EXISTS:Cet email est déjà utilisé. Essayez de vous connecter.");
+        }
+        
         var user = User.builder()
                 .nom(request.getNom())
                 .prenom(request.getPrenom())
@@ -115,10 +123,16 @@ public class AuthService {
         }
 
         if (!Files.exists(rootLocation)) {
-            Files.createDirectories(rootLocation);
+            boolean created = rootLocation.toFile().mkdirs();
+            log.info("📁 Dossier uploads créé : {} - Path: {}", created, rootLocation.toAbsolutePath());
         }
+        
         String filename = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
-        Files.copy(file.getInputStream(), this.rootLocation.resolve(filename));
+        Path destinationFile = rootLocation.resolve(filename).normalize();
+        
+        Files.copy(file.getInputStream(), destinationFile);
+        log.info("✅ Fichier sauvegardé : {} - Taille: {} bytes", filename, file.getSize());
+        
         return filename;
     }
 }

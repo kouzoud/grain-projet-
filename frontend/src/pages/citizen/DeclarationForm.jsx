@@ -324,7 +324,7 @@ const PhotoUploadZone = ({ files, existingPhotos, onFilesAdd, onFileRemove, onEx
 
     const getFullImageUrl = (filename) => {
         if (filename.startsWith('http')) return filename;
-        return `http://localhost:8080/api/uploads/${filename}`;
+        return `/api/uploads/${filename}`;
     };
 
     return (
