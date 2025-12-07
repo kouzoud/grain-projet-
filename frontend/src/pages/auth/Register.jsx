@@ -235,12 +235,7 @@ const Register = () => {
                                         icon={<Lock size={20} />}
                                         role={role}
                                         {...register('password', {
-                                            required: t('auth.errors.passwordRequired'),
-                                            minLength: { value: 8, message: t('auth.errors.weakPassword') },
-                                            pattern: {
-                                                value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                                                message: t('auth.errors.weakPassword')
-                                            }
+                                            required: t('auth.errors.passwordRequired')
                                         })}
                                         error={errors.password}
                                     />

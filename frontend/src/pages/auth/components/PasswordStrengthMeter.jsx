@@ -6,17 +6,19 @@ import { useTranslation } from 'react-i18next';
 const PasswordStrengthMeter = ({ password }) => {
     const { t } = useTranslation();
     
+    // Critères informatifs uniquement (non bloquants)
     const criteria = [
-        { label: t('auth.register.passwordCriteria.minLength') || "8 caractères min.", valid: password?.length >= 8 },
-        { label: t('auth.register.passwordCriteria.uppercase') || "1 majuscule", valid: /[A-Z]/.test(password || "") },
-        { label: t('auth.register.passwordCriteria.number') || "1 chiffre", valid: /[0-9]/.test(password || "") },
-        { label: t('auth.register.passwordCriteria.special') || "1 caractère spécial", valid: /[^A-Za-z0-9]/.test(password || "") },
+        { label: t('auth.register.passwordCriteria.minLength') || "8 caractères min. (recommandé)", valid: password?.length >= 8 },
+        { label: t('auth.register.passwordCriteria.uppercase') || "1 majuscule (recommandé)", valid: /[A-Z]/.test(password || "") },
+        { label: t('auth.register.passwordCriteria.number') || "1 chiffre (recommandé)", valid: /[0-9]/.test(password || "") },
+        { label: t('auth.register.passwordCriteria.special') || "1 caractère spécial (recommandé)", valid: /[^A-Za-z0-9]/.test(password || "") },
     ];
 
     const validCount = criteria.filter(c => c.valid).length;
     const strength = (validCount / criteria.length) * 100;
 
     const getColor = () => {
+        if (!password || password.length === 0) return "bg-gray-300";
         if (strength <= 25) return "bg-red-500";
         if (strength <= 50) return "bg-orange-500";
         if (strength <= 75) return "bg-yellow-500";
@@ -24,7 +26,7 @@ const PasswordStrengthMeter = ({ password }) => {
     };
 
     const getLabel = () => {
-        if (strength === 0) return t('auth.register.passwordStrength.empty') || "Vide";
+        if (!password || password.length === 0) return t('auth.register.passwordStrength.empty') || "Vide";
         if (strength <= 25) return t('auth.register.passwordStrength.weak') || "Faible";
         if (strength <= 50) return t('auth.register.passwordStrength.medium') || "Moyen";
         if (strength <= 75) return t('auth.register.passwordStrength.good') || "Bon";
@@ -36,7 +38,7 @@ const PasswordStrengthMeter = ({ password }) => {
     return (
         <div className="mt-2 space-y-2">
             <div className="flex justify-between items-center text-xs text-gray-500 mb-1">
-                <span>{t('auth.register.passwordStrengthLabel') || "Force du mot de passe"}</span>
+                <span className="italic">{t('auth.register.passwordStrengthLabel') || "Force du mot de passe"} (informatif)</span>
                 <span className="font-medium">{getLabel()}</span>
             </div>
 
@@ -63,6 +65,9 @@ const PasswordStrengthMeter = ({ password }) => {
                     </div>
                 ))}
             </div>
+            <p className="text-xs text-gray-400 italic mt-1">
+                ℹ️ Ces critères sont des recommandations. Tout mot de passe est accepté.
+            </p>
         </div>
     );
 };

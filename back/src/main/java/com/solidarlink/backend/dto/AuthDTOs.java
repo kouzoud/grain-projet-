@@ -24,8 +24,6 @@ public class AuthDTOs {
         private String email;
 
         @jakarta.validation.constraints.NotBlank(message = "Le mot de passe est obligatoire")
-        @jakarta.validation.constraints.Size(min = 8, message = "Le mot de passe doit contenir au moins 8 caractères")
-        @jakarta.validation.constraints.Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$", message = "Le mot de passe doit contenir au moins 8 caractères, une majuscule, un chiffre et un caractère spécial")
         private String password;
 
         @jakarta.validation.constraints.Pattern(regexp = "^(0[1-9])[0-9]{8}$", message = "Format téléphone invalide (ex: 0612345678)")
