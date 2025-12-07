@@ -94712,3 +94712,150 @@ org.springframework.http.converter.HttpMessageNotWritableException: No converter
 2025-12-07 16:36:49.091 [http-nio-8080-exec-10] INFO  c.s.b.config.RequestLoggingFilter - Incoming request: GET /api/notifications/stream from 0:0:0:0:0:0:0:1
 2025-12-07 16:36:49.104 [http-nio-8080-exec-10] INFO  c.s.b.service.NotificationService - New SSE connection created for user: 24
 2025-12-07 16:36:49.111 [http-nio-8080-exec-10] INFO  c.s.b.config.RequestLoggingFilter - Completed request: GET /api/notifications/stream - Status: 200 - Duration: 20ms
+2025-12-07 17:17:17.416 [main] INFO  c.s.backend.Link2ActApplication - Starting Link2ActApplication using Java 17.0.11 with PID 24556 (C:\Users\PC\Desktop\Grain\projet\back\target\classes started by PC in C:\Users\PC\Desktop\Grain\projet)
+2025-12-07 17:17:17.432 [main] INFO  c.s.backend.Link2ActApplication - No active profile set, falling back to 1 default profile: "default"
+2025-12-07 17:17:28.171 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-12-07 17:17:28.232 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-12-07 17:17:28.406 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-12-07 17:17:29.050 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-12-07 17:17:31.618 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-12-07 17:17:32.456 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@85ab964
+2025-12-07 17:17:32.840 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-12-07 17:17:33.034 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-12-07 17:17:54.408 [main] INFO  c.s.backend.service.AuthService - ? Dossier uploads existe: C:\Users\PC\Desktop\Grain\projet\uploads
+2025-12-07 17:17:54.497 [main] INFO  c.s.backend.service.AuthService - ? Permissions d'écriture OK sur: C:\Users\PC\Desktop\Grain\projet\uploads
+2025-12-07 17:17:56.455 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-12-07 17:18:03.820 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-12-07 17:18:04.291 [main] INFO  c.s.backend.Link2ActApplication - Started Link2ActApplication in 49.885 seconds (process running for 52.036)
+2025-12-07 17:18:05.435 [main] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.avatar_url,u1_0.competences,u1_0.disponibilite,u1_0.document_type,u1_0.document_url,u1_0.email,u1_0.hours_volunteered,u1_0.is_banned,u1_0.is_validated,u1_0.level,u1_0.missions_completed,u1_0.nom,u1_0.password,u1_0.points,u1_0.prenom,u1_0.role,u1_0.telephone,u1_0.zone_action from _user u1_0 where u1_0.email=?
+2025-12-07 17:18:17.390 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-07 17:18:17.584 [http-nio-8080-exec-1] WARN  o.s.w.s.h.HandlerMappingIntrospector - Cache miss for REQUEST dispatch to '/api/auth/login' (previous null). Performing MatchableHandlerMapping lookup. This is logged once only at WARN level, and every time at TRACE.
+2025-12-07 17:18:17.653 [http-nio-8080-exec-1] INFO  c.s.b.config.RequestLoggingFilter - Incoming request: POST /api/auth/login from 0:0:0:0:0:0:0:1
+2025-12-07 17:18:18.875 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.avatar_url,u1_0.competences,u1_0.disponibilite,u1_0.document_type,u1_0.document_url,u1_0.email,u1_0.hours_volunteered,u1_0.is_banned,u1_0.is_validated,u1_0.level,u1_0.missions_completed,u1_0.nom,u1_0.password,u1_0.points,u1_0.prenom,u1_0.role,u1_0.telephone,u1_0.zone_action from _user u1_0 where u1_0.email=?
+2025-12-07 17:18:19.117 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.avatar_url,u1_0.competences,u1_0.disponibilite,u1_0.document_type,u1_0.document_url,u1_0.email,u1_0.hours_volunteered,u1_0.is_banned,u1_0.is_validated,u1_0.level,u1_0.missions_completed,u1_0.nom,u1_0.password,u1_0.points,u1_0.prenom,u1_0.role,u1_0.telephone,u1_0.zone_action from _user u1_0 where u1_0.email=?
+2025-12-07 17:18:19.191 [http-nio-8080-exec-1] INFO  c.s.backend.service.AuthService - ? Connexion réussie pour : admin1@solidarlink.com (ADMIN)
+2025-12-07 17:18:20.402 [http-nio-8080-exec-1] INFO  c.s.b.config.RequestLoggingFilter - Completed request: POST /api/auth/login - Status: 200 - Duration: 2757ms
+2025-12-07 17:18:27.900 [http-nio-8080-exec-8] INFO  c.s.b.config.RequestLoggingFilter - Incoming request: GET /api/public/cases/resolved from 0:0:0:0:0:0:0:1
+2025-12-07 17:18:27.902 [http-nio-8080-exec-6] INFO  c.s.b.config.RequestLoggingFilter - Incoming request: GET /api/public/stats/impact from 0:0:0:0:0:0:0:1
+2025-12-07 17:18:28.099 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - select ch1_0.id,ch1_0.author_id,ch1_0.categorie,ch1_0.created_at,ch1_0.date_intervention,ch1_0.description,ch1_0.location,ch1_0.message_intervention,ch1_0.status,ch1_0.titre,ch1_0.updated_at,ch1_0.volunteer_id from cas_humanitaire ch1_0 where ch1_0.status=? order by ch1_0.updated_at desc fetch first ? rows only
+2025-12-07 17:18:28.211 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.avatar_url,u1_0.competences,u1_0.disponibilite,u1_0.document_type,u1_0.document_url,u1_0.email,u1_0.hours_volunteered,u1_0.is_banned,u1_0.is_validated,u1_0.level,u1_0.missions_completed,u1_0.nom,u1_0.password,u1_0.points,u1_0.prenom,u1_0.role,u1_0.telephone,u1_0.zone_action from _user u1_0 where u1_0.role=?
+2025-12-07 17:18:28.442 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - select count(ch1_0.id) from cas_humanitaire ch1_0 where ch1_0.status='RESOLU'
+2025-12-07 17:18:28.502 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.avatar_url,u1_0.competences,u1_0.disponibilite,u1_0.document_type,u1_0.document_url,u1_0.email,u1_0.hours_volunteered,u1_0.is_banned,u1_0.is_validated,u1_0.level,u1_0.missions_completed,u1_0.nom,u1_0.password,u1_0.points,u1_0.prenom,u1_0.role,u1_0.telephone,u1_0.zone_action from _user u1_0 where u1_0.id=?
+2025-12-07 17:18:28.662 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - select count(*) from cas_humanitaire ch1_0
+2025-12-07 17:18:29.133 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.avatar_url,u1_0.competences,u1_0.disponibilite,u1_0.document_type,u1_0.document_url,u1_0.email,u1_0.hours_volunteered,u1_0.is_banned,u1_0.is_validated,u1_0.level,u1_0.missions_completed,u1_0.nom,u1_0.password,u1_0.points,u1_0.prenom,u1_0.role,u1_0.telephone,u1_0.zone_action from _user u1_0 where u1_0.id=?
+2025-12-07 17:18:30.374 [http-nio-8080-exec-6] INFO  c.s.b.config.RequestLoggingFilter - Completed request: GET /api/public/stats/impact - Status: 200 - Duration: 2472ms
+2025-12-07 17:18:30.404 [http-nio-8080-exec-7] INFO  c.s.b.config.RequestLoggingFilter - Incoming request: GET /api/public/stats/impact from 0:0:0:0:0:0:0:1
+2025-12-07 17:18:30.863 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.avatar_url,u1_0.competences,u1_0.disponibilite,u1_0.document_type,u1_0.document_url,u1_0.email,u1_0.hours_volunteered,u1_0.is_banned,u1_0.is_validated,u1_0.level,u1_0.missions_completed,u1_0.nom,u1_0.password,u1_0.points,u1_0.prenom,u1_0.role,u1_0.telephone,u1_0.zone_action from _user u1_0 where u1_0.role=?
+2025-12-07 17:18:31.723 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select count(ch1_0.id) from cas_humanitaire ch1_0 where ch1_0.status='RESOLU'
+2025-12-07 17:18:32.011 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select count(*) from cas_humanitaire ch1_0
+2025-12-07 17:18:32.390 [http-nio-8080-exec-7] INFO  c.s.b.config.RequestLoggingFilter - Completed request: GET /api/public/stats/impact - Status: 200 - Duration: 1985ms
+2025-12-07 17:18:35.212 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.avatar_url,u1_0.competences,u1_0.disponibilite,u1_0.document_type,u1_0.document_url,u1_0.email,u1_0.hours_volunteered,u1_0.is_banned,u1_0.is_validated,u1_0.level,u1_0.missions_completed,u1_0.nom,u1_0.password,u1_0.points,u1_0.prenom,u1_0.role,u1_0.telephone,u1_0.zone_action from _user u1_0 where u1_0.id=?
+2025-12-07 17:18:35.232 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.avatar_url,u1_0.competences,u1_0.disponibilite,u1_0.document_type,u1_0.document_url,u1_0.email,u1_0.hours_volunteered,u1_0.is_banned,u1_0.is_validated,u1_0.level,u1_0.missions_completed,u1_0.nom,u1_0.password,u1_0.points,u1_0.prenom,u1_0.role,u1_0.telephone,u1_0.zone_action from _user u1_0 where u1_0.id=?
+2025-12-07 17:18:35.592 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - select p1_0.cas_humanitaire_id,p1_0.photos from cas_humanitaire_photos p1_0 where p1_0.cas_humanitaire_id = any (?)
+2025-12-07 17:18:35.658 [http-nio-8080-exec-8] INFO  c.s.b.config.RequestLoggingFilter - Completed request: GET /api/public/cases/resolved - Status: 200 - Duration: 7758ms
+2025-12-07 17:18:35.753 [http-nio-8080-exec-1] INFO  c.s.b.config.RequestLoggingFilter - Incoming request: GET /api/public/cases/resolved from 0:0:0:0:0:0:0:1
+2025-12-07 17:18:35.885 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select ch1_0.id,ch1_0.author_id,ch1_0.categorie,ch1_0.created_at,ch1_0.date_intervention,ch1_0.description,ch1_0.location,ch1_0.message_intervention,ch1_0.status,ch1_0.titre,ch1_0.updated_at,ch1_0.volunteer_id from cas_humanitaire ch1_0 where ch1_0.status=? order by ch1_0.updated_at desc fetch first ? rows only
+2025-12-07 17:18:36.161 [http-nio-8080-exec-3] INFO  c.s.b.config.RequestLoggingFilter - Incoming request: GET /api/uploads/f1c4ab81-db6e-4ecd-9330-b098568ad337_4df0b0ac9a7b52f1a4aa70855acd191d5a5e4317-3.jpg from 0:0:0:0:0:0:0:1
+2025-12-07 17:18:36.162 [http-nio-8080-exec-2] INFO  c.s.b.config.RequestLoggingFilter - Incoming request: GET /api/uploads/59ec9767-21f2-4f90-8df2-65038792d622_4df0b0ac9a7b52f1a4aa70855acd191d5a5e4317-3.jpg from 0:0:0:0:0:0:0:1
+2025-12-07 17:18:36.166 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.avatar_url,u1_0.competences,u1_0.disponibilite,u1_0.document_type,u1_0.document_url,u1_0.email,u1_0.hours_volunteered,u1_0.is_banned,u1_0.is_validated,u1_0.level,u1_0.missions_completed,u1_0.nom,u1_0.password,u1_0.points,u1_0.prenom,u1_0.role,u1_0.telephone,u1_0.zone_action from _user u1_0 where u1_0.id=?
+2025-12-07 17:18:36.629 [http-nio-8080-exec-3] INFO  c.s.b.controller.FileController - ? Serving file: f1c4ab81-db6e-4ecd-9330-b098568ad337_4df0b0ac9a7b52f1a4aa70855acd191d5a5e4317-3.jpg - Type: image/jpeg - Size: 197267 bytes
+2025-12-07 17:18:36.934 [http-nio-8080-exec-2] INFO  c.s.b.controller.FileController - ? Serving file: 59ec9767-21f2-4f90-8df2-65038792d622_4df0b0ac9a7b52f1a4aa70855acd191d5a5e4317-3.jpg - Type: image/jpeg - Size: 197267 bytes
+2025-12-07 17:18:36.972 [http-nio-8080-exec-4] INFO  c.s.b.config.RequestLoggingFilter - Incoming request: GET /api/uploads/83655970-e64b-4af4-ad33-855e6118101b_4df0b0ac9a7b52f1a4aa70855acd191d5a5e4317-3.jpg from 0:0:0:0:0:0:0:1
+2025-12-07 17:18:37.107 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.avatar_url,u1_0.competences,u1_0.disponibilite,u1_0.document_type,u1_0.document_url,u1_0.email,u1_0.hours_volunteered,u1_0.is_banned,u1_0.is_validated,u1_0.level,u1_0.missions_completed,u1_0.nom,u1_0.password,u1_0.points,u1_0.prenom,u1_0.role,u1_0.telephone,u1_0.zone_action from _user u1_0 where u1_0.id=?
+2025-12-07 17:18:37.562 [http-nio-8080-exec-3] INFO  c.s.b.config.RequestLoggingFilter - Completed request: GET /api/uploads/f1c4ab81-db6e-4ecd-9330-b098568ad337_4df0b0ac9a7b52f1a4aa70855acd191d5a5e4317-3.jpg - Status: 200 - Duration: 1407ms
+2025-12-07 17:18:37.769 [http-nio-8080-exec-2] INFO  c.s.b.config.RequestLoggingFilter - Completed request: GET /api/uploads/59ec9767-21f2-4f90-8df2-65038792d622_4df0b0ac9a7b52f1a4aa70855acd191d5a5e4317-3.jpg - Status: 200 - Duration: 1607ms
+2025-12-07 17:18:37.888 [http-nio-8080-exec-4] WARN  c.s.b.controller.FileController - ? Fichier introuvable ou illisible : 83655970-e64b-4af4-ad33-855e6118101b_4df0b0ac9a7b52f1a4aa70855acd191d5a5e4317-3.jpg
+2025-12-07 17:18:38.006 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.avatar_url,u1_0.competences,u1_0.disponibilite,u1_0.document_type,u1_0.document_url,u1_0.email,u1_0.hours_volunteered,u1_0.is_banned,u1_0.is_validated,u1_0.level,u1_0.missions_completed,u1_0.nom,u1_0.password,u1_0.points,u1_0.prenom,u1_0.role,u1_0.telephone,u1_0.zone_action from _user u1_0 where u1_0.id=?
+2025-12-07 17:18:39.200 [http-nio-8080-exec-4] INFO  c.s.b.config.RequestLoggingFilter - Completed request: GET /api/uploads/83655970-e64b-4af4-ad33-855e6118101b_4df0b0ac9a7b52f1a4aa70855acd191d5a5e4317-3.jpg - Status: 404 - Duration: 2228ms
+2025-12-07 17:18:39.447 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.avatar_url,u1_0.competences,u1_0.disponibilite,u1_0.document_type,u1_0.document_url,u1_0.email,u1_0.hours_volunteered,u1_0.is_banned,u1_0.is_validated,u1_0.level,u1_0.missions_completed,u1_0.nom,u1_0.password,u1_0.points,u1_0.prenom,u1_0.role,u1_0.telephone,u1_0.zone_action from _user u1_0 where u1_0.id=?
+2025-12-07 17:18:40.451 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select p1_0.cas_humanitaire_id,p1_0.photos from cas_humanitaire_photos p1_0 where p1_0.cas_humanitaire_id = any (?)
+2025-12-07 17:18:40.565 [http-nio-8080-exec-1] INFO  c.s.b.config.RequestLoggingFilter - Completed request: GET /api/public/cases/resolved - Status: 200 - Duration: 4813ms
+2025-12-07 17:20:54.253 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.avatar_url,u1_0.competences,u1_0.disponibilite,u1_0.document_type,u1_0.document_url,u1_0.email,u1_0.hours_volunteered,u1_0.is_banned,u1_0.is_validated,u1_0.level,u1_0.missions_completed,u1_0.nom,u1_0.password,u1_0.points,u1_0.prenom,u1_0.role,u1_0.telephone,u1_0.zone_action from _user u1_0 where u1_0.email=?
+2025-12-07 17:20:54.397 [http-nio-8080-exec-10] INFO  c.s.b.config.RequestLoggingFilter - Incoming request: GET /api/notifications/stream from 0:0:0:0:0:0:0:1
+2025-12-07 17:20:54.621 [http-nio-8080-exec-10] INFO  c.s.b.service.NotificationService - New SSE connection created for user: 1
+2025-12-07 17:20:54.821 [http-nio-8080-exec-10] INFO  c.s.b.config.RequestLoggingFilter - Completed request: GET /api/notifications/stream - Status: 200 - Duration: 425ms
+2025-12-07 17:27:52.845 [main] INFO  c.s.backend.Link2ActApplication - Starting Link2ActApplication using Java 17.0.11 with PID 24944 (C:\Users\PC\Desktop\Grain\projet\back\target\classes started by PC in C:\Users\PC\Desktop\Grain\projet)
+2025-12-07 17:27:52.946 [main] INFO  c.s.backend.Link2ActApplication - No active profile set, falling back to 1 default profile: "default"
+2025-12-07 17:28:00.243 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-12-07 17:28:00.344 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-12-07 17:28:00.476 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-12-07 17:28:01.063 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-12-07 17:28:02.987 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-12-07 17:28:03.756 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@2d74cbbd
+2025-12-07 17:28:03.777 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-12-07 17:28:04.000 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-12-07 17:28:13.767 [main] INFO  c.s.backend.service.AuthService - ? Dossier uploads existe: C:\Users\PC\Desktop\Grain\projet\uploads
+2025-12-07 17:28:13.827 [main] INFO  c.s.backend.service.AuthService - ? Permissions d'écriture OK sur: C:\Users\PC\Desktop\Grain\projet\uploads
+2025-12-07 17:28:14.730 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-12-07 17:28:18.889 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-12-07 17:28:19.117 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-12-07 17:28:19.206 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-12-07 17:28:19.355 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-12-07 17:28:19.499 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2025-12-07 17:35:51.543 [main] INFO  c.s.backend.Link2ActApplication - Starting Link2ActApplication using Java 17.0.11 with PID 19832 (C:\Users\PC\Desktop\Grain\projet\back\target\classes started by PC in C:\Users\PC\Desktop\Grain\projet)
+2025-12-07 17:35:51.557 [main] INFO  c.s.backend.Link2ActApplication - No active profile set, falling back to 1 default profile: "default"
+2025-12-07 17:35:57.739 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-12-07 17:35:57.746 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-12-07 17:35:57.748 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-12-07 17:35:58.071 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-12-07 17:35:59.152 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-12-07 17:35:59.450 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@23afc725
+2025-12-07 17:35:59.460 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-12-07 17:35:59.596 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-12-07 17:36:08.145 [main] INFO  c.s.backend.service.AuthService - ? Dossier uploads existe: C:\Users\PC\Desktop\Grain\projet\uploads
+2025-12-07 17:36:08.176 [main] INFO  c.s.backend.service.AuthService - ? Permissions d'écriture OK sur: C:\Users\PC\Desktop\Grain\projet\uploads
+2025-12-07 17:36:08.685 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-12-07 17:36:10.871 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-12-07 17:36:10.925 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-12-07 17:36:11.040 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-12-07 17:36:11.197 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-12-07 17:36:11.365 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2025-12-07 17:38:13.860 [main] INFO  c.s.backend.Link2ActApplication - Starting Link2ActApplication using Java 17.0.11 with PID 18376 (C:\Users\PC\Desktop\Grain\projet\back\target\classes started by PC in C:\Users\PC\Desktop\Grain\projet)
+2025-12-07 17:38:13.901 [main] INFO  c.s.backend.Link2ActApplication - No active profile set, falling back to 1 default profile: "default"
+2025-12-07 17:38:40.332 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-12-07 17:38:40.376 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-12-07 17:38:40.396 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-12-07 17:38:40.894 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-12-07 17:38:43.293 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-12-07 17:38:43.697 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@49cb5030
+2025-12-07 17:38:43.705 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-12-07 17:38:43.827 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-12-07 17:38:54.260 [main] INFO  c.s.backend.service.AuthService - ? Dossier uploads existe: C:\Users\PC\Desktop\Grain\projet\uploads
+2025-12-07 17:38:54.339 [main] INFO  c.s.backend.service.AuthService - ? Permissions d'écriture OK sur: C:\Users\PC\Desktop\Grain\projet\uploads
+2025-12-07 17:38:55.244 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-12-07 17:39:00.002 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-12-07 17:39:00.684 [main] INFO  c.s.backend.Link2ActApplication - Started Link2ActApplication in 48.774 seconds (process running for 50.502)
+2025-12-07 17:39:01.261 [main] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.avatar_url,u1_0.competences,u1_0.disponibilite,u1_0.document_type,u1_0.document_url,u1_0.email,u1_0.hours_volunteered,u1_0.is_banned,u1_0.is_validated,u1_0.level,u1_0.missions_completed,u1_0.nom,u1_0.password,u1_0.points,u1_0.prenom,u1_0.role,u1_0.telephone,u1_0.zone_action from _user u1_0 where u1_0.email=?
+2025-12-07 17:39:01.431 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-07 17:39:01.790 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.avatar_url,u1_0.competences,u1_0.disponibilite,u1_0.document_type,u1_0.document_url,u1_0.email,u1_0.hours_volunteered,u1_0.is_banned,u1_0.is_validated,u1_0.level,u1_0.missions_completed,u1_0.nom,u1_0.password,u1_0.points,u1_0.prenom,u1_0.role,u1_0.telephone,u1_0.zone_action from _user u1_0 where u1_0.email=?
+2025-12-07 17:39:01.843 [http-nio-8080-exec-1] WARN  o.s.w.s.h.HandlerMappingIntrospector - Cache miss for REQUEST dispatch to '/api/notifications/stream' (previous null). Performing MatchableHandlerMapping lookup. This is logged once only at WARN level, and every time at TRACE.
+2025-12-07 17:39:01.917 [http-nio-8080-exec-1] INFO  c.s.b.config.RequestLoggingFilter - Incoming request: GET /api/notifications/stream from 0:0:0:0:0:0:0:1
+2025-12-07 17:39:02.034 [http-nio-8080-exec-1] INFO  c.s.b.service.NotificationService - New SSE connection created for user: 1
+2025-12-07 17:39:02.099 [http-nio-8080-exec-1] INFO  c.s.b.config.RequestLoggingFilter - Completed request: GET /api/notifications/stream - Status: 200 - Duration: 184ms
+2025-12-07 17:40:49.537 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.avatar_url,u1_0.competences,u1_0.disponibilite,u1_0.document_type,u1_0.document_url,u1_0.email,u1_0.hours_volunteered,u1_0.is_banned,u1_0.is_validated,u1_0.level,u1_0.missions_completed,u1_0.nom,u1_0.password,u1_0.points,u1_0.prenom,u1_0.role,u1_0.telephone,u1_0.zone_action from _user u1_0 where u1_0.email=?

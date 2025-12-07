@@ -47,7 +47,7 @@ const AdminCases = () => {
 
     if (loading) {
         return (
-            <div className="flex justify-center items-center min-h-screen bg-gray-50 dark:bg-slate-950 transition-colors">
+            <div className="flex justify-center items-center min-h-dvh bg-gray-50 dark:bg-slate-950 transition-colors">
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500"></div>
             </div>
         );

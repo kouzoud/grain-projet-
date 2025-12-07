@@ -11,7 +11,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 /**
- * Service d'envoi d'emails pour SolidarLink.
+ * Service d'envoi d'emails pour Link2Act.
  * Utilise @Async pour ne pas bloquer l'interface utilisateur (Fire and Forget).
  */
 @Service
@@ -24,7 +24,7 @@ public class EmailService {
     @Value("${spring.mail.username}")
     private String fromEmail;
 
-    @Value("${app.mail.from-name:SolidarLink}")
+    @Value("${app.mail.from-name:Link2Act}")
     private String fromName;
 
     @Value("${app.frontend.url:http://localhost:5173}")
@@ -46,7 +46,7 @@ public class EmailService {
 
             helper.setFrom(fromEmail, fromName);
             helper.setTo(toEmail);
-            helper.setSubject("🎉 Votre compte SolidarLink a été validé !");
+            helper.setSubject("🎉 Votre compte Link2Act a été validé !");
 
             String roleDisplay = formatRole(role);
             String htmlContent = buildValidationEmailTemplate(firstName, roleDisplay);
@@ -99,7 +99,7 @@ public class EmailService {
                     <div style="background-color: white; padding: 40px 30px; border-radius: 0 0 16px 16px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
                         <p style="color: #334155; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
                             Nous avons le plaisir de vous informer que votre compte <strong style="color: #06b6d4;">%s</strong> 
-                            sur <strong>SolidarLink</strong> a été validé par nos administrateurs.
+                            sur <strong>Link2Act</strong> a été validé par nos administrateurs.
                         </p>
                         
                         <div style="background: linear-gradient(135deg, #f0fdfa 0%%, #f5f3ff 100%%); border-radius: 12px; padding: 24px; margin: 24px 0; border-left: 4px solid #06b6d4;">
@@ -121,13 +121,13 @@ public class EmailService {
                         <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 32px 0;">
                         
                         <p style="color: #64748b; font-size: 14px; line-height: 1.6; margin: 0;">
-                            Merci de faire partie de la communauté SolidarLink. Ensemble, nous pouvons faire la différence !
+                            Merci de faire partie de la communauté Link2Act. Ensemble, nous pouvons faire la différence !
                         </p>
                     </div>
                     
                     <!-- Footer -->
                     <div style="text-align: center; padding: 24px; color: #94a3b8; font-size: 12px;">
-                        <p style="margin: 0;">© 2025 SolidarLink - Plateforme Humanitaire</p>
+                        <p style="margin: 0;">© 2025 Link2Act - Plateforme Humanitaire</p>
                         <p style="margin: 8px 0 0 0;">Cet email a été envoyé automatiquement, merci de ne pas y répondre.</p>
                     </div>
                 </div>
@@ -147,7 +147,7 @@ public class EmailService {
 
             helper.setFrom(fromEmail, fromName);
             helper.setTo(toEmail);
-            helper.setSubject("Bienvenue sur SolidarLink ! 🤝");
+            helper.setSubject("Bienvenue sur Link2Act ! 🤝");
 
             String htmlContent = """
                 <!DOCTYPE html>
@@ -156,14 +156,14 @@ public class EmailService {
                     <div style="max-width: 600px; margin: 0 auto; background: white; border-radius: 16px; padding: 40px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
                         <h1 style="color: #0f172a; margin-bottom: 20px;">Bienvenue %s ! 👋</h1>
                         <p style="color: #475569; line-height: 1.6;">
-                            Merci de vous être inscrit sur <strong>SolidarLink</strong>.
+                            Merci de vous être inscrit sur <strong>Link2Act</strong>.
                         </p>
                         <p style="color: #475569; line-height: 1.6;">
                             Votre demande d'inscription est en cours de vérification par nos administrateurs. 
                             Vous recevrez un email de confirmation dès que votre compte sera validé.
                         </p>
                         <p style="color: #64748b; font-size: 14px; margin-top: 30px;">
-                            L'équipe SolidarLink
+                            L'équipe Link2Act
                         </p>
                     </div>
                 </body>

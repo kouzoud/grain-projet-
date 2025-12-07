@@ -22,7 +22,7 @@ const LatestMissions = ({ successStories }) => {
                         transition={{ duration: 0.6 }}
                     >
                         <div className="text-cyan-600 dark:text-cyan-500 font-bold tracking-wider uppercase mb-2 text-sm">{t('landing.missions.badge')}</div>
-                        <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">{t('landing.missions.title')}</h2>
+                        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white">{t('landing.missions.title')}</h2>
                     </motion.div>
                     <Link to="/register" className="group flex items-center gap-2 text-gray-600 dark:text-slate-300 hover:text-gray-900 dark:hover:text-white transition-colors">
                         {t('landing.missions.viewAll')} <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform rtl:rotate-180" />

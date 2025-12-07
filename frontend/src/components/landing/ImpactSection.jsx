@@ -36,7 +36,7 @@ const BentoCard = ({ title, value, icon, subtext, delay, loading, colSpan = "col
         </div>
 
         <div>
-            <div className="text-5xl font-bold text-gray-900 dark:text-white mb-2 tracking-tight">
+            <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-2 tracking-tight">
                 {loading ? (
                     <Skeleton className="w-32 h-12 mb-2" />
                 ) : (
@@ -85,7 +85,7 @@ const ImpactSection = () => {
 
             <div className="container mx-auto px-4 relative z-10">
                 <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">{t('landing.impact.title')}</h2>
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">{t('landing.impact.title')}</h2>
                     <p className="text-gray-600 dark:text-slate-400 text-lg max-w-2xl mx-auto">
                         {t('landing.impact.subtitle')}
                     </p>

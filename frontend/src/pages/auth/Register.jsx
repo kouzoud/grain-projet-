@@ -45,7 +45,7 @@ const Register = () => {
 
     if (isSuccess) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-slate-900 p-4">
+            <div className="min-h-dvh flex items-center justify-center bg-gray-50 dark:bg-slate-900 p-4 pb-20 md:pb-4">
                 <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -67,7 +67,7 @@ const Register = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-slate-900 py-12 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
+        <div className="min-h-dvh bg-gray-50 dark:bg-slate-900 py-12 px-4 sm:px-6 lg:px-8 pb-20 md:pb-12 flex items-center justify-center">
             {/* Theme & Language Toggle */}
             <div className="fixed top-4 right-4 rtl:right-auto rtl:left-4 z-50 flex items-center gap-2">
                 <LanguageSwitcher variant="icon" />

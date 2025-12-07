@@ -25,7 +25,7 @@ const Profile = lazy(() => import('./pages/common/Profile'));
 
 // Loading fallback component with enhanced skeleton
 const PageLoader = () => (
-  <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-slate-950 dark:to-slate-900">
+  <div className="flex justify-center items-center min-h-dvh bg-gradient-to-br from-gray-50 to-gray-100 dark:from-slate-950 dark:to-slate-900">
     <div className="flex flex-col items-center gap-6">
       <div className="relative">
         <div className="animate-spin rounded-full h-16 w-16 border-4 border-gray-200 dark:border-gray-800"></div>

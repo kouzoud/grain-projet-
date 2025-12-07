@@ -26,8 +26,8 @@ const Navbar = () => {
     }
 
     return (
-        <nav className="bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-800 shadow-sm transition-colors duration-200">
-            <div className="container mx-auto px-4">
+        <nav className="sticky top-0 z-50 bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-800 shadow-sm transition-colors duration-200">
+            <div className="container mx-auto px-4 md:px-8">
                 <div className="flex justify-between items-center h-16">
                     <Link to="/" className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2 shrink-0 ltr:mr-8 rtl:ml-8">
                         <img src="/logo.jpg" alt="Link2Act" className="h-8 w-auto rounded" />
@@ -142,7 +142,7 @@ const Navbar = () => {
 
             {/* Mobile Menu */}
             {isMenuOpen && (
-                <div className="md:hidden bg-white dark:bg-slate-900 border-t border-gray-200 dark:border-slate-800 p-4 space-y-3">
+                <div className="md:hidden bg-white dark:bg-slate-900 border-t border-gray-200 dark:border-slate-800 p-4 pb-6 space-y-3 max-h-[calc(100dvh-4rem)] overflow-y-auto">
                     {isAuthenticated ? (
                         <>
                             {role === 'CITOYEN' && (

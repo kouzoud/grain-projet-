@@ -134,12 +134,12 @@ const Profile = () => {
         }
     };
 
-    if (loading) return <div className="flex justify-center items-center h-screen"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div></div>;
+    if (loading) return <div className="flex justify-center items-center min-h-dvh"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div></div>;
 
     const roleColor = user?.role === 'ADMIN' ? 'bg-cyan-600' : user?.role === 'BENEVOLE' ? 'bg-blue-600' : 'bg-green-600';
 
     return (
-        <div className="min-h-screen bg-gray-50 pb-12">
+        <div className="min-h-dvh bg-gray-50 pb-20 md:pb-12">
             {/* Header / Banner */}
             <div className={`${roleColor} h-48 w-full relative`}>
                 <div className="absolute -bottom-16 left-8 flex items-end">

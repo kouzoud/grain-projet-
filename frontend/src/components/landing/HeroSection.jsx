@@ -25,9 +25,9 @@ const HeroSection = () => {
     };
 
     return (
-        <header className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-white via-cyan-50/30 to-purple-50/30 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-900 dark:to-gray-900">
+        <header className="relative min-h-dvh flex items-center justify-center overflow-hidden bg-gradient-to-br from-white via-cyan-50/30 to-purple-50/30 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 px-4 md:px-8 pb-20 md:pb-0">
             {/* Floating Navbar */}
-            <nav className="absolute top-0 left-0 right-0 z-50">
+            <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md">
                 <div className="container mx-auto px-4 py-4">
                     <div className="flex items-center justify-between">
                         {/* Logo */}
@@ -151,7 +151,7 @@ const HeroSection = () => {
                     </motion.div>
                     <motion.h1
                         variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8 } } }}
-                        className="text-5xl md:text-7xl font-black text-gray-900 dark:text-white mb-6 leading-tight tracking-tight"
+                        className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black text-gray-900 dark:text-white mb-6 leading-tight tracking-tight"
                     >
                         {t('hero.title.line1')} <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 dark:from-cyan-400 dark:via-blue-500 dark:to-purple-500 animate-gradient-x drop-shadow-[0_2px_10px_rgba(6,182,212,0.3)] dark:drop-shadow-none">
@@ -160,7 +160,7 @@ const HeroSection = () => {
                     </motion.h1>
                     <motion.p
                         variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8 } } }}
-                        className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 mb-10 max-w-3xl mx-auto leading-relaxed font-light"
+                        className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-700 dark:text-gray-300 mb-10 max-w-3xl mx-auto leading-relaxed font-light px-4"
                     >
                         {t('hero.subtitle')}
                     </motion.p>

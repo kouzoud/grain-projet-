@@ -1001,7 +1001,7 @@ const DeclarationForm = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-cyan-50/30 dark:from-slate-900 dark:via-slate-900 dark:to-cyan-900/10 py-8 px-4">
+        <div className="min-h-dvh bg-gradient-to-br from-slate-50 via-white to-cyan-50/30 dark:from-slate-900 dark:via-slate-900 dark:to-cyan-900/10 py-8 px-4 pb-20 md:pb-8">
             <div className="max-w-4xl mx-auto">
                 {/* Header */}
                 <motion.div

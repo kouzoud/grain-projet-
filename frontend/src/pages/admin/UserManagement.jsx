@@ -73,7 +73,7 @@ const UserManagement = () => {
     };
 
     return (
-        <div className={`p-6 space-y-6 min-h-screen bg-gray-50 dark:bg-slate-950 transition-colors ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
+        <div className={`p-6 space-y-6 min-h-dvh bg-gray-50 dark:bg-slate-950 pb-20 md:pb-6 transition-colors ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
                     <User className="text-cyan-500" /> {t('dashboard.admin.userManagement.title')}

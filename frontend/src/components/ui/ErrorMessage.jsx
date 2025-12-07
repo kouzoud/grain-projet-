@@ -128,7 +128,7 @@ export const ErrorPage = ({
     onGoHome
 }) => {
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-slate-950 flex items-center justify-center p-4">
+        <div className="min-h-dvh bg-gray-50 dark:bg-slate-950 flex items-center justify-center p-4">
             <div className="max-w-md w-full text-center">
                 <div className="mb-6">
                     <div className="w-20 h-20 mx-auto bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center">

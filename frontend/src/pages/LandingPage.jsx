@@ -32,7 +32,7 @@ const LandingPage = () => {
     }, []);
 
     return (
-        <div className="min-h-screen bg-page font-sans" dir={isRTL ? 'rtl' : 'ltr'}>
+        <div className="min-h-dvh bg-page font-sans" dir={isRTL ? 'rtl' : 'ltr'}>
             <HeroSection />
             <ImpactSection />
             <LatestMissions successStories={successStories} />

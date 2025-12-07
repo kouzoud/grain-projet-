@@ -58,7 +58,7 @@ const AdminDashboard = () => {
 
     if (loading) {
         return (
-            <div className="flex justify-center items-center min-h-screen bg-gray-50 dark:bg-slate-950 transition-colors">
+            <div className="flex justify-center items-center min-h-dvh bg-gray-50 dark:bg-slate-950 transition-colors">
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500"></div>
             </div>
         );
@@ -72,7 +72,7 @@ const AdminDashboard = () => {
     const gridColor = isDark ? '#334155' : '#e5e7eb';
 
     return (
-        <div className={`min-h-screen p-4 md:p-6 lg:p-8 font-sans bg-gray-50 dark:bg-slate-950 text-gray-900 dark:text-white transition-colors duration-200 ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
+        <div className={`min-h-dvh p-4 md:p-6 lg:p-8 pb-20 md:pb-8 font-sans bg-gray-50 dark:bg-slate-950 text-gray-900 dark:text-white transition-colors duration-200 ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
             <main className="max-w-7xl mx-auto space-y-8">
 
                 {/* Header */}

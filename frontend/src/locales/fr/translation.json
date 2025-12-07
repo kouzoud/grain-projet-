@@ -44,7 +44,7 @@
   "hero": {
     "badge": "Plateforme d'Entraide 2.0",
     "title": {
-      "line1": "Solidarité et Entraide",
+      "line1": "Chaque Action Compte",
       "line2": "Au Cœur de Nos Villes"
     },
     "subtitle": "Rejoignez Link2Act, la plateforme qui connecte ceux qui ont besoin d'aide avec ceux prêts à agir.",
@@ -55,7 +55,7 @@
   
   "landing": {
     "hero": {
-      "title": "Solidarité et Entraide",
+      "title": "Chaque Action Compte",
       "subtitle": "Au Cœur de Nos Villes",
       "description": "Rejoignez Link2Act, la plateforme qui connecte ceux qui ont besoin d'aide avec ceux prêts à agir.",
       "ctaPrimary": "Je veux aider",
@@ -113,7 +113,7 @@
     },
     "cta": {
       "title": "Prêt à faire la différence ?",
-      "subtitle": "Rejoignez notre communauté de solidarité",
+      "subtitle": "Rejoignez notre communauté d'entraide",
       "button": "Commencer maintenant"
     },
     "impact": {

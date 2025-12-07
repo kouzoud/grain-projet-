@@ -11,7 +11,7 @@ const Layout = () => {
     const isRTL = i18n.language === 'ar';
 
     return (
-        <div className={`min-h-screen flex flex-col bg-gray-50 dark:bg-slate-950 transition-colors duration-200 ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
+        <div className={`min-h-dvh flex flex-col bg-gray-50 dark:bg-slate-950 transition-colors duration-200 ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
             {role === 'BENEVOLE' ? <VolunteerNavBar /> : <Navbar />}
             <main className="flex-1">
                 <Outlet />
