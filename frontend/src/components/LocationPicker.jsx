@@ -25,7 +25,6 @@ L.Marker.prototype.options.icon = DefaultIcon;
 const MapControls = ({ onLocationFound }) => {
     const map = useMap();
     const controlsRef = useRef(null);
-    const [isLocating, setIsLocating] = useState(false);
 
     useEffect(() => {
         if (controlsRef.current) {
@@ -34,58 +33,31 @@ const MapControls = ({ onLocationFound }) => {
     }, []);
 
     const handleLocate = (e) => {
-        // 1. Empêcher le clic de traverser vers la carte
+        // 1. Bloquer la propagation pour ne pas cliquer sur la carte
         e.stopPropagation();
         e.preventDefault();
-        
-        setIsLocating(true);
 
-        if (!navigator.geolocation) {
-            alert("⚠️ Votre navigateur ne supporte pas la géolocalisation.\n\nVeuillez utiliser un navigateur moderne (Chrome, Firefox, Safari).");
-            setIsLocating(false);
-            return;
-        }
-
-        // 2. Options pour FORCER le navigateur à chercher le GPS
-        const options = {
-            enableHighAccuracy: true, // C'est CA qui force le GPS sur mobile
-            timeout: 10000,           // On attend 10 secondes max
-            maximumAge: 0             // Interdit d'utiliser une vieille position en cache
-        };
-
+        // 2. Déclenchement immédiat de la demande native
+        // C'est cette ligne qui fait apparaître la popup "Autoriser" du téléphone
         navigator.geolocation.getCurrentPosition(
-            // Succès
             (position) => {
-                const { latitude, longitude, accuracy } = position.coords;
-                console.log(`✅ Position trouvée avec précision de ${Math.round(accuracy)} mètres`);
+                // SUCCÈS : On a la position, on bouge la carte
+                const { latitude, longitude } = position.coords;
                 const latlng = { lat: latitude, lng: longitude };
-
-                // 3. Action : Bouger la carte et le marqueur (Zoom serré pour voir la rue)
-                map.flyTo([latitude, longitude], 18); // Zoom 18 = niveau rue très précis
-
-                // Notifier le parent pour mettre à jour le state et l'adresse
+                map.flyTo([latitude, longitude], 18); // Zoom très proche
                 onLocationFound(latlng);
-                setIsLocating(false);
             },
-            // Erreur
             (error) => {
-                setIsLocating(false);
-                console.error(`❌ Erreur géolocalisation (Code ${error.code}):`, error);
-                
-                if (error.code === 1) {
-                    // PERMISSION_DENIED
-                    alert("⚠️ Localisation bloquée !\n\nVeuillez cliquer sur le petit cadenas 🔒 ou l'icône 🚦 dans la barre d'adresse pour autoriser l'accès.\n\nSur mobile : Vérifiez les paramètres de localisation de votre navigateur.");
-                } else if (error.code === 2) {
-                    // POSITION_UNAVAILABLE
-                    alert("⚠️ Impossible de vous localiser.\n\nVérifiez que :\n\u2022 Votre GPS est activé\n\u2022 Vous êtes à l'extérieur ou près d'une fenêtre\n\u2022 Le signal GPS est disponible");
-                } else if (error.code === 3) {
-                    // TIMEOUT
-                    alert("⏱️ La localisation a pris trop de temps.\n\nLe signal GPS est trop faible. Essayez :\n\u2022 De vous rapprocher d'une fenêtre\n\u2022 De désactiver/réactiver votre GPS\n\u2022 De réessayer dans quelques instants");
-                } else {
-                    alert("❌ Erreur inconnue lors de la localisation.\n\nVeuillez cliquer manuellement sur la carte pour sélectionner votre position.");
-                }
+                // ERREUR : Seulement si l'utilisateur refuse ou si le GPS est cassé
+                console.error(error);
+                // On ne montre une alerte que si ça échoue vraiment
+                alert("Erreur : Impossible de vous localiser. Vérifiez que le GPS est activé.");
             },
-            options
+            {
+                enableHighAccuracy: true, // Force le mode GPS précis
+                timeout: 10000,
+                maximumAge: 0
+            }
         );
     };
 
@@ -115,20 +87,11 @@ const MapControls = ({ onLocationFound }) => {
 
             <button
                 onClick={handleLocate}
-                disabled={isLocating}
-                className={`bg-white p-3 rounded-full shadow-xl border border-gray-100 transition-colors ${
-                    isLocating 
-                        ? 'text-cyan-500 cursor-wait' 
-                        : 'text-primary hover:bg-gray-50 cursor-pointer'
-                }`}
-                title={isLocating ? "Recherche en cours..." : "Me localiser"}
+                className="bg-white p-3 rounded-full shadow-xl border border-gray-100 text-primary hover:bg-gray-50 transition-colors"
+                title="Me localiser"
                 type="button"
             >
-                {isLocating ? (
-                    <Loader2 className="w-5 h-5 animate-spin" />
-                ) : (
-                    <LocateFixed className="w-5 h-5" />
-                )}
+                <LocateFixed className="w-5 h-5" />
             </button>
         </div>
     );
