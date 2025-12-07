@@ -192,8 +192,8 @@ const IdentityVerification = () => {
                                                 <>
                                                     <img
                                                         src={selectedUser.documentUrl.startsWith('/')
-                                                            ? `http://localhost:8080${selectedUser.documentUrl}`
-                                                            : `http://localhost:8080/api/uploads/${selectedUser.documentUrl}`
+                                                            ? selectedUser.documentUrl
+                                                            : `/api/uploads/${selectedUser.documentUrl}`
                                                         }
                                                         alt="Document Officiel"
                                                         className="max-w-full max-h-full object-contain transition-transform duration-300"
@@ -234,8 +234,8 @@ const IdentityVerification = () => {
                     <div className="relative max-w-7xl max-h-full">
                         <img
                             src={selectedUser.documentUrl.startsWith('/')
-                                ? `http://localhost:8080${selectedUser.documentUrl}`
-                                : `http://localhost:8080/api/uploads/${selectedUser.documentUrl}`
+                                ? selectedUser.documentUrl
+                                : `/api/uploads/${selectedUser.documentUrl}`
                             }
                             alt="Document Fullscreen"
                             className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl border border-gray-700"
