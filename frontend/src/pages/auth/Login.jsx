@@ -72,8 +72,16 @@ const Login = () => {
             }
         } catch (error) {
             console.error('Login failed', error);
-            if (error.response && error.response.status === 403) {
+            
+            // Afficher le message d'erreur spécifique du serveur
+            const errorMessage = error.response?.data?.message || error.response?.data?.error;
+            
+            if (errorMessage) {
+                setLoginError(errorMessage);
+            } else if (error.response && error.response.status === 403) {
                 setLoginError(t('auth.errors.accessDenied'));
+            } else if (error.response && error.response.status === 401) {
+                setLoginError(t('auth.errors.invalidCredentials'));
             } else {
                 setLoginError(t('auth.errors.invalidCredentials'));
             }

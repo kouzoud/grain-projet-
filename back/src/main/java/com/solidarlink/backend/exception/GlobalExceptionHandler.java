@@ -139,6 +139,21 @@ public class GlobalExceptionHandler {
                 ex.getMessage(), 
                 ex);
         
+        // Si c'est une RuntimeException avec un message spécifique (ex: compte non validé)
+        // On retourne le message tel quel
+        if (ex instanceof RuntimeException && ex.getMessage() != null && 
+            (ex.getMessage().contains("validé") || 
+             ex.getMessage().contains("suspendu") ||
+             ex.getMessage().contains("incorrect"))) {
+            ErrorResponse errorResponse = ErrorResponse.of(
+                    HttpStatus.UNAUTHORIZED.value(),
+                    "Authentication Failed",
+                    ex.getMessage(),
+                    request.getRequestURI()
+            );
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
+        }
+        
         ErrorResponse errorResponse = ErrorResponse.of(
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 "Internal Server Error",

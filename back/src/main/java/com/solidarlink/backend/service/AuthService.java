@@ -69,21 +69,30 @@ public class AuthService {
     }
 
     public AuthDTOs.AuthenticationResponse login(AuthDTOs.AuthenticationRequest request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
-                        request.getPassword()));
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.getEmail(),
+                            request.getPassword()));
+        } catch (Exception e) {
+            log.warn("⚠️ Échec d'authentification pour l'email : {}", request.getEmail());
+            throw new RuntimeException("Email ou mot de passe incorrect");
+        }
+        
         var user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow();
+                .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
 
         if (user.isBanned()) {
-            throw new RuntimeException("User is banned");
+            log.warn("🚫 Tentative de connexion d'un compte banni : {}", user.getEmail());
+            throw new RuntimeException("Votre compte a été suspendu. Contactez l'administration.");
         }
 
         if (!user.isValidated()) {
-            throw new RuntimeException("Account not validated. Please wait for admin approval.");
+            log.info("⏳ Tentative de connexion d'un compte non validé : {}", user.getEmail());
+            throw new RuntimeException("Votre compte n'est pas encore validé. Un administrateur doit approuver votre inscription.");
         }
 
+        log.info("✅ Connexion réussie pour : {} ({})", user.getEmail(), user.getRole());
         var jwtToken = jwtService.generateToken(user);
         return AuthDTOs.AuthenticationResponse.builder()
                 .token(jwtToken)
