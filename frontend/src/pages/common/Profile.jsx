@@ -7,50 +7,18 @@ import { User, Lock, Activity, FileText, Camera, Save, AlertCircle, CheckCircle 
 import userService from '../../services/userService';
 import { getSingleImageUrl, defaultImage } from '../../utils/imageUtils';
 
-// Schéma de validation pour le changement de mot de passe
+// Schéma de validation pour le changement de mot de passe - SANS VALIDATION
 const passwordSchema = z.object({
     currentPassword: z.string().min(1, "Le mot de passe actuel est requis"),
-    newPassword: z.string()
-        .optional()
-        .or(z.literal(''))
-        .superRefine((val, ctx) => {
-            // Si le champ est vide, on arrête (valide, pas de changement de mdp)
-            if (!val) return;
-
-            // Si le champ contient quelque chose, on applique TOUTES les règles
-            if (val.length < 8) {
-                ctx.addIssue({
-                    code: z.ZodIssueCode.custom,
-                    message: "Le mot de passe doit contenir au moins 8 caractères",
-                });
-            }
-            if (!/[A-Z]/.test(val)) {
-                ctx.addIssue({
-                    code: z.ZodIssueCode.custom,
-                    message: "Le mot de passe doit contenir au moins une majuscule",
-                });
-            }
-            if (!/[a-z]/.test(val)) {
-                ctx.addIssue({
-                    code: z.ZodIssueCode.custom,
-                    message: "Le mot de passe doit contenir au moins une minuscule",
-                });
-            }
-            if (!/[0-9]/.test(val)) {
-                ctx.addIssue({
-                    code: z.ZodIssueCode.custom,
-                    message: "Le mot de passe doit contenir au moins un chiffre",
-                });
-            }
-            if (!/[!@#$%^&*(),.?":{}|<>]/.test(val)) {
-                ctx.addIssue({
-                    code: z.ZodIssueCode.custom,
-                    message: "Le mot de passe doit contenir au moins un caractère spécial",
-                });
-            }
-        }),
-    confirmPassword: z.string().min(1, "Veuillez confirmer le mot de passe"),
-}).refine((data) => data.newPassword === data.confirmPassword, {
+    newPassword: z.string().optional().or(z.literal('')), // Accepte tout, même 1 caractère
+    confirmPassword: z.string().optional().or(z.literal('')), // Accepte tout
+}).refine((data) => {
+    // Vérifier la correspondance seulement si un nouveau mot de passe est saisi
+    if (data.newPassword && data.confirmPassword) {
+        return data.newPassword === data.confirmPassword;
+    }
+    return true;
+}, {
     message: "Les mots de passe ne correspondent pas",
     path: ["confirmPassword"],
 });
@@ -318,7 +286,7 @@ const Profile = () => {
                                         <input 
                                             type="password" 
                                             {...registerPassword('newPassword')} 
-                                            className={`w-full px-4 py-2 rounded-lg border ${passwordErrors.newPassword ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-primary'} focus:ring-2 focus:border-transparent transition-colors`}
+                                            className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
                                             placeholder="Laissez vide pour ne pas changer"
                                         />
                                         {passwordErrors.newPassword && (
@@ -328,11 +296,11 @@ const Profile = () => {
                                             </p>
                                         )}
 
-                                        {/* Password Strength Indicator */}
+                                        {/* Password Strength Indicator - Informatif uniquement */}
                                         {newPassword && (
                                             <div className="mt-3 space-y-2">
                                                 <div className="flex items-center justify-between text-xs">
-                                                    <span className="text-gray-600">Force du mot de passe</span>
+                                                    <span className="text-gray-600">Force du mot de passe (indicatif)</span>
                                                     <span className={`font-semibold ${
                                                         passwordStrength.score <= 2 ? 'text-red-500' :
                                                         passwordStrength.score === 3 ? 'text-yellow-500' :
@@ -352,8 +320,9 @@ const Profile = () => {
                                                     ))}
                                                 </div>
                                                 
-                                                {/* Validation Checklist */}
+                                                {/* Validation Checklist - Informatif uniquement */}
                                                 <div className="space-y-1 pt-2">
+                                                    <p className="text-xs text-gray-500 italic">Recommandations (non obligatoires) :</p>
                                                     <div className={`flex items-center gap-2 text-xs ${newPassword.length >= 8 ? 'text-green-600' : 'text-gray-400'}`}>
                                                         <CheckCircle className="w-3 h-3" />
                                                         <span>8 caractères min.</span>
@@ -394,8 +363,7 @@ const Profile = () => {
                                     <div className="pt-4">
                                         <button 
                                             type="submit" 
-                                            className="bg-primary hover:bg-primary-dark text-white px-6 py-2 rounded-lg font-medium transition-colors flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                                            disabled={Object.keys(passwordErrors).length > 0}
+                                            className="bg-primary hover:bg-primary-dark text-white px-6 py-2 rounded-lg font-medium transition-colors flex items-center gap-2"
                                         >
                                             <Save className="w-4 h-4" /> {t('profile.buttons.update')}
                                         </button>
