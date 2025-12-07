@@ -59,7 +59,7 @@ const MapControls = ({ onLocationFound }) => {
                     case error.POSITION_UNAVAILABLE:
                         message = "📡 Signal GPS introuvable.\n\nEssayez de :\n• Activer le GPS dans vos paramètres\n• Vous déplacer près d'une fenêtre\n• Passer en extérieur\n\nVous pouvez cliquer sur la carte pour placer le marqueur manuellement.";
                         break;
-                    case error.TIMEOUT:
+                    case error.TIMEOUT:     
                         message = "⏱️ La recherche GPS a pris trop de temps.\n\nLe signal est trop faible.\n\nCliquez directement sur la carte pour placer le marqueur.";
                         break;
                     default:

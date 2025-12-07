@@ -60,7 +60,8 @@ public class SecurityConfig {
             "http://localhost:5174",
             "http://link2act.cloud",
             "https://link2act.cloud",
-            "http://www.link2act.cloud"
+            "http://www.link2act.cloud",
+            "https://www.link2act.cloud"
         ));
 
         // 2. Méthodes HTTP Autorisées
