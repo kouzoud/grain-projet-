@@ -9,6 +9,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import org.locationtech.jts.geom.Point;
 
 import java.time.LocalDateTime;
@@ -44,6 +46,7 @@ public class CasHumanitaire {
 
     @JsonIgnore
     @Column(columnDefinition = "geometry(Point,4326)")
+    @JdbcTypeCode(SqlTypes.GEOMETRY)
     private Point location;
 
     @ElementCollection(fetch = FetchType.LAZY)

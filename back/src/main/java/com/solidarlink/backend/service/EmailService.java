@@ -27,6 +27,9 @@ public class EmailService {
     @Value("${app.mail.from-name:SolidarLink}")
     private String fromName;
 
+    @Value("${app.frontend.url:http://localhost:5173}")
+    private String frontendUrl;
+
     /**
      * Envoie un email de confirmation de validation de compte.
      * Cette méthode est asynchrone pour ne pas bloquer l'interface admin.
@@ -107,7 +110,7 @@ public class EmailService {
                         
                         <!-- CTA Button -->
                         <div style="text-align: center; margin: 32px 0;">
-                            <a href="http://localhost:5173/login" 
+                            <a href="%s/login" 
                                style="display: inline-block; background: linear-gradient(135deg, #06b6d4 0%%, #8b5cf6 100%%); 
                                       color: white; text-decoration: none; padding: 14px 32px; border-radius: 10px; 
                                       font-weight: 600; font-size: 16px; box-shadow: 0 4px 14px rgba(6, 182, 212, 0.4);">
@@ -130,7 +133,7 @@ public class EmailService {
                 </div>
             </body>
             </html>
-            """.formatted(firstName, role);
+            """.formatted(firstName, role, frontendUrl);
     }
 
     /**

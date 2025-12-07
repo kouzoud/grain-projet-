@@ -75,14 +75,16 @@ public class NotificationService {
     public void sendNotificationToUser(Long userId, String eventName, Object data) {
         CopyOnWriteArrayList<SseEmitter> emitters = userEmitters.get(userId);
         if (emitters != null && !emitters.isEmpty()) {
+            // Iterate safely and catch any throwable to avoid bubbling errors to callers
             emitters.forEach(emitter -> {
                 try {
                     emitter.send(SseEmitter.event()
                             .name(eventName)
                             .data(data));
                     log.debug("Notification sent to user {} - Event: {}", userId, eventName);
-                } catch (IOException e) {
-                    log.error("Error sending notification to user: {}", userId, e);
+                } catch (Throwable t) {
+                    // Catch broad Throwable because underlying container may throw runtime errors
+                    log.warn("Error sending notification to user {} - removing emitter: {}", userId, t.toString());
                     removeEmitter(userId, emitter);
                 }
             });

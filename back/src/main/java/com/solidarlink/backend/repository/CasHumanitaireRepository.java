@@ -82,15 +82,15 @@ public interface CasHumanitaireRepository extends JpaRepository<CasHumanitaire, 
         Pageable pageable);
 
     // Explicit JPQL Counting Queries
-    @Query("SELECT COUNT(c) FROM CasHumanitaire c WHERE c.status = 'EN_ATTENTE'")
+    @Query("SELECT COUNT(c) FROM CasHumanitaire c WHERE c.status = com.solidarlink.backend.enums.CasStatut.EN_ATTENTE")
     long countEnAttente();
 
-    @Query("SELECT COUNT(c) FROM CasHumanitaire c WHERE c.status = 'VALIDE' OR c.status = 'EN_COURS'")
+    @Query("SELECT COUNT(c) FROM CasHumanitaire c WHERE c.status = com.solidarlink.backend.enums.CasStatut.VALIDE OR c.status = com.solidarlink.backend.enums.CasStatut.EN_COURS")
     long countEnCours();
 
-    @Query("SELECT COUNT(c) FROM CasHumanitaire c WHERE c.status = 'RESOLU'")
+    @Query("SELECT COUNT(c) FROM CasHumanitaire c WHERE c.status = com.solidarlink.backend.enums.CasStatut.RESOLU")
     long countResolus();
 
-    @Query("SELECT COUNT(c) FROM CasHumanitaire c WHERE c.status = 'REJETE'")
+    @Query("SELECT COUNT(c) FROM CasHumanitaire c WHERE c.status = com.solidarlink.backend.enums.CasStatut.REJETE")
     long countRejetes();
 }
