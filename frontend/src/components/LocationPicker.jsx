@@ -48,10 +48,25 @@ const MapControls = ({ onLocationFound }) => {
                 onLocationFound(latlng);
             },
             (error) => {
-                // ERREUR : Seulement si l'utilisateur refuse ou si le GPS est cassé
-                console.error(error);
-                // On ne montre une alerte que si ça échoue vraiment
-                alert("Erreur : Impossible de vous localiser. Vérifiez que le GPS est activé.");
+                // ERREUR : Messages différents selon le type d'erreur
+                console.error('Erreur géolocalisation:', error);
+                
+                let message = '';
+                switch(error.code) {
+                    case error.PERMISSION_DENIED:
+                        message = "🚫 Accès à la localisation refusé.\n\nPour activer :\n• Cliquez sur l'icône 🔒 dans la barre d'adresse\n• Autorisez la localisation pour ce site\n• Rechargez la page\n\nVous pouvez aussi cliquer directement sur la carte.";
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        message = "📡 Signal GPS introuvable.\n\nEssayez de :\n• Activer le GPS dans vos paramètres\n• Vous déplacer près d'une fenêtre\n• Passer en extérieur\n\nVous pouvez cliquer sur la carte pour placer le marqueur manuellement.";
+                        break;
+                    case error.TIMEOUT:
+                        message = "⏱️ La recherche GPS a pris trop de temps.\n\nLe signal est trop faible.\n\nCliquez directement sur la carte pour placer le marqueur.";
+                        break;
+                    default:
+                        message = "❌ Erreur de localisation.\n\nVeuillez cliquer sur la carte pour placer le marqueur manuellement.";
+                }
+                
+                alert(message);
             },
             {
                 enableHighAccuracy: true, // Force le mode GPS précis
