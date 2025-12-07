@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { MapContainer, TileLayer, Marker, useMap, useMapEvents, LayersControl } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { Search, X, Plus, Minus, LocateFixed, MapPin } from 'lucide-react';
+import { Search, X, Plus, Minus, LocateFixed, MapPin, Loader2 } from 'lucide-react';
 
 // Fix Leaflet marker icon
 import icon from 'leaflet/dist/images/marker-icon.png';
@@ -25,6 +25,7 @@ L.Marker.prototype.options.icon = DefaultIcon;
 const MapControls = ({ onLocationFound }) => {
     const map = useMap();
     const controlsRef = useRef(null);
+    const [isLocating, setIsLocating] = useState(false);
 
     useEffect(() => {
         if (controlsRef.current) {
@@ -36,23 +37,27 @@ const MapControls = ({ onLocationFound }) => {
         // 1. Empêcher le clic de traverser vers la carte
         e.stopPropagation();
         e.preventDefault();
+        
+        setIsLocating(true);
 
         if (!navigator.geolocation) {
-            alert("La géolocalisation n'est pas supportée par votre navigateur.");
+            alert("⚠️ Votre navigateur ne supporte pas la géolocalisation.\n\nVeuillez utiliser un navigateur moderne (Chrome, Firefox, Safari).");
+            setIsLocating(false);
             return;
         }
 
-        // 2. Options de haute précision
+        // 2. Options pour FORCER le navigateur à chercher le GPS
         const options = {
-            enableHighAccuracy: true, // CRUCIAL : Force le GPS ou le Wi-Fi précis
-            timeout: 10000,           // Attend jusqu'à 10s pour avoir un bon signal
-            maximumAge: 0             // Interdit d'utiliser une position mise en cache (vieille)
+            enableHighAccuracy: true, // C'est CA qui force le GPS sur mobile
+            timeout: 10000,           // On attend 10 secondes max
+            maximumAge: 0             // Interdit d'utiliser une vieille position en cache
         };
 
         navigator.geolocation.getCurrentPosition(
+            // Succès
             (position) => {
                 const { latitude, longitude, accuracy } = position.coords;
-                console.log(`✅ Position trouvée avec précision de ${accuracy} mètres`);
+                console.log(`✅ Position trouvée avec précision de ${Math.round(accuracy)} mètres`);
                 const latlng = { lat: latitude, lng: longitude };
 
                 // 3. Action : Bouger la carte et le marqueur (Zoom serré pour voir la rue)
@@ -60,14 +65,25 @@ const MapControls = ({ onLocationFound }) => {
 
                 // Notifier le parent pour mettre à jour le state et l'adresse
                 onLocationFound(latlng);
+                setIsLocating(false);
             },
+            // Erreur
             (error) => {
-                console.warn(`❌ ERREUR GÉOLOCALISATION (Code ${error.code}): ${error.message}`);
-                let msg = "Erreur de localisation.";
-                if (error.code === 1) msg = "Vous devez autoriser la géolocalisation dans les paramètres de votre navigateur.";
-                if (error.code === 2) msg = "Position indisponible (GPS introuvable). Vérifiez que votre GPS est activé.";
-                if (error.code === 3) msg = "Délai d'attente dépassé. Le signal GPS est trop faible.";
-                alert(msg);
+                setIsLocating(false);
+                console.error(`❌ Erreur géolocalisation (Code ${error.code}):`, error);
+                
+                if (error.code === 1) {
+                    // PERMISSION_DENIED
+                    alert("⚠️ Localisation bloquée !\n\nVeuillez cliquer sur le petit cadenas 🔒 ou l'icône 🚦 dans la barre d'adresse pour autoriser l'accès.\n\nSur mobile : Vérifiez les paramètres de localisation de votre navigateur.");
+                } else if (error.code === 2) {
+                    // POSITION_UNAVAILABLE
+                    alert("⚠️ Impossible de vous localiser.\n\nVérifiez que :\n\u2022 Votre GPS est activé\n\u2022 Vous êtes à l'extérieur ou près d'une fenêtre\n\u2022 Le signal GPS est disponible");
+                } else if (error.code === 3) {
+                    // TIMEOUT
+                    alert("⏱️ La localisation a pris trop de temps.\n\nLe signal GPS est trop faible. Essayez :\n\u2022 De vous rapprocher d'une fenêtre\n\u2022 De désactiver/réactiver votre GPS\n\u2022 De réessayer dans quelques instants");
+                } else {
+                    alert("❌ Erreur inconnue lors de la localisation.\n\nVeuillez cliquer manuellement sur la carte pour sélectionner votre position.");
+                }
             },
             options
         );
@@ -99,11 +115,20 @@ const MapControls = ({ onLocationFound }) => {
 
             <button
                 onClick={handleLocate}
-                className="bg-white p-3 rounded-full shadow-xl border border-gray-100 text-primary hover:bg-gray-50 transition-colors"
-                title="Me localiser"
+                disabled={isLocating}
+                className={`bg-white p-3 rounded-full shadow-xl border border-gray-100 transition-colors ${
+                    isLocating 
+                        ? 'text-cyan-500 cursor-wait' 
+                        : 'text-primary hover:bg-gray-50 cursor-pointer'
+                }`}
+                title={isLocating ? "Recherche en cours..." : "Me localiser"}
                 type="button"
             >
-                <LocateFixed className="w-5 h-5" />
+                {isLocating ? (
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                ) : (
+                    <LocateFixed className="w-5 h-5" />
+                )}
             </button>
         </div>
     );
