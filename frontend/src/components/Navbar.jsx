@@ -176,6 +176,9 @@ const Navbar = () => {
                                     <Link to="/admin/cases" className="block px-4 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">
                                         {t('dashboard.admin.requests')}
                                     </Link>
+                                    <Link to="/admin/users" className="block px-4 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">
+                                        {t('dashboard.admin.users')}
+                                    </Link>
                                     <Link to="/admin/verification" className="block px-4 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">
                                         {t('dashboard.admin.validation.title')}
                                     </Link>

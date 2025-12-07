@@ -94859,3 +94859,6 @@ Identify and stop the process that's listening on port 8080 or configure this ap
 2025-12-07 17:39:02.034 [http-nio-8080-exec-1] INFO  c.s.b.service.NotificationService - New SSE connection created for user: 1
 2025-12-07 17:39:02.099 [http-nio-8080-exec-1] INFO  c.s.b.config.RequestLoggingFilter - Completed request: GET /api/notifications/stream - Status: 200 - Duration: 184ms
 2025-12-07 17:40:49.537 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.avatar_url,u1_0.competences,u1_0.disponibilite,u1_0.document_type,u1_0.document_url,u1_0.email,u1_0.hours_volunteered,u1_0.is_banned,u1_0.is_validated,u1_0.level,u1_0.missions_completed,u1_0.nom,u1_0.password,u1_0.points,u1_0.prenom,u1_0.role,u1_0.telephone,u1_0.zone_action from _user u1_0 where u1_0.email=?
+2025-12-07 17:40:49.554 [http-nio-8080-exec-8] INFO  c.s.b.config.RequestLoggingFilter - Incoming request: GET /api/notifications/stream from 0:0:0:0:0:0:0:1
+2025-12-07 17:40:49.563 [http-nio-8080-exec-8] INFO  c.s.b.service.NotificationService - New SSE connection created for user: 1
+2025-12-07 17:40:49.565 [http-nio-8080-exec-8] INFO  c.s.b.config.RequestLoggingFilter - Completed request: GET /api/notifications/stream - Status: 200 - Duration: 11ms
