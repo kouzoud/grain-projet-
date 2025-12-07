@@ -13,6 +13,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -204,5 +205,57 @@ public class GlobalExceptionHandler {
         );
         
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+    }
+    
+    /**
+     * Gestion des erreurs d'entrée/sortie (fichiers)
+     */
+    @ExceptionHandler(IOException.class)
+    public ResponseEntity<ErrorResponse> handleIOException(
+            IOException ex, 
+            HttpServletRequest request) {
+        logger.error("IOException - Path: {} - Message: {}", 
+                request.getRequestURI(), 
+                ex.getMessage(), 
+                ex);
+        
+        String userMessage = "Erreur lors de la manipulation des fichiers.";
+        if (ex.getMessage() != null) {
+            if (ex.getMessage().contains("permissions") || ex.getMessage().contains("writable")) {
+                userMessage = "Erreur serveur : permissions d'écriture insuffisantes sur le dossier uploads.";
+            } else if (ex.getMessage().contains("uploads")) {
+                userMessage = "Erreur lors de la sauvegarde des fichiers. Veuillez réessayer.";
+            }
+        }
+        
+        ErrorResponse errorResponse = ErrorResponse.of(
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                "File Operation Failed",
+                userMessage,
+                request.getRequestURI()
+        );
+        
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+    }
+    
+    /**
+     * Gestion des erreurs d'arguments illégaux (validation personnalisée)
+     */
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorResponse> handleIllegalArgumentException(
+            IllegalArgumentException ex, 
+            HttpServletRequest request) {
+        logger.warn("Illegal argument - Path: {} - Message: {}", 
+                request.getRequestURI(), 
+                ex.getMessage());
+        
+        ErrorResponse errorResponse = ErrorResponse.of(
+                HttpStatus.BAD_REQUEST.value(),
+                "Invalid Argument",
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+        
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 }
