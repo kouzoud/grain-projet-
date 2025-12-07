@@ -8,6 +8,7 @@
     "save": "Enregistrer",
     "delete": "Supprimer",
     "edit": "Modifier",
+    "view": "Voir",
     "close": "Fermer",
     "search": "Rechercher",
     "filter": "Filtrer",
@@ -552,12 +553,23 @@
       "description": "Description détaillée",
       "descriptionPlaceholder": "Décrivez votre besoin en détail..."
     },
+    "customCategory": {
+      "label": "Spécifiez votre catégorie",
+      "placeholder": "Ex: Soutien scolaire, Réparation, Gardiennage...",
+      "hint": "Soyez précis pour aider les bénévoles à comprendre votre besoin"
+    },
     "templates": {
       "title": "Modèles de description",
       "alimentaire": "Aide alimentaire",
       "medical": "Assistance médicale",
       "logistique": "Aide logistique",
-      "custom": "Description libre"
+      "custom": "Description libre",
+      "content": {
+        "alimentaire": "🍽️ Type de besoin alimentaire :\n- Denrées de base (riz, pâtes, huile...)\n- Produits frais\n- Plats préparés\n\n👥 Nombre de personnes concernées : \n\n📅 Fréquence du besoin :\n- Ponctuel\n- Régulier (préciser)\n\n⚠️ Allergies ou restrictions alimentaires :",
+        "medical": "🏥 Type d'assistance médicale :\n- Accompagnement médical\n- Aide à la mobilité\n- Récupération de médicaments\n\n📋 Détails de la situation :\n\n🕐 Urgence :\n- Immédiate\n- Dans les 24h\n- Cette semaine\n\n📞 Contact d'urgence :",
+        "logistique": "🚗 Type d'aide logistique :\n- Transport de personnes\n- Transport de matériel\n- Aide au déménagement\n\n📦 Détails (poids, volume, distance) :\n\n📅 Date souhaitée :\n\n📍 Trajet prévu :\n- Départ :\n- Arrivée :",
+        "custom": ""
+      }
     },
     "location": {
       "title": "Où se situe le besoin ?",
@@ -585,11 +597,20 @@
       "update": "Mettre à jour",
       "preview": "Aperçu"
     },
+    "tips": {
+      "title": "Conseil",
+      "step1": "Un titre clair et précis attire plus de bénévoles. Mentionnez le type d'aide recherché.",
+      "step2": "Détaillez votre situation : nombre de personnes, urgence, contraintes particulières...",
+      "step3": "Indiquez précisément l'adresse où l'aide est nécessaire pour faciliter l'intervention.",
+      "step4": "Les photos aident les bénévoles à mieux comprendre votre situation et à se préparer."
+    },
     "suggestion": "Suggestion",
     "apply": "Appliquer",
     "errors": {
       "titleRequired": "Le titre est requis",
+      "titleMinLength": "Le titre doit contenir au moins 5 caractères",
       "categoryRequired": "La catégorie est requise",
+      "customCategoryRequired": "Veuillez spécifier votre catégorie personnalisée",
       "descriptionRequired": "La description est requise",
       "locationRequired": "Veuillez sélectionner une position sur la carte",
       "certificationsRequired": "Veuillez confirmer toutes les certifications"

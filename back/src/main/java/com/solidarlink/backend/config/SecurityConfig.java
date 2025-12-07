@@ -66,16 +66,8 @@ public class SecurityConfig {
         // 2. Méthodes HTTP Autorisées
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
 
-        // 3. Headers Autorisés (Explicites pour éviter les blocages navigateurs)
-        configuration.setAllowedHeaders(List.of(
-            "Authorization", 
-            "Content-Type", 
-            "X-Requested-With", 
-            "Accept", 
-            "Origin", 
-            "Access-Control-Request-Method", 
-            "Access-Control-Request-Headers"
-        ));
+        // 3. Headers Autorisés (tous les headers pour éviter les blocages)
+        configuration.setAllowedHeaders(List.of("*"));
 
         // 4. Headers Exposés (CRUCIAL pour que le Frontend puisse lire le nom du fichier PDF/CSV)
         configuration.setExposedHeaders(List.of(

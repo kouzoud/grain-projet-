@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { getSingleImageUrl, defaultImage } from '../../utils/imageUtils';
 import SocialShareButton from '../common/SocialShareButton';
 
-const RequestCard = ({ request, onEdit, onDelete, index = 0 }) => {
+const RequestCard = ({ request, onEdit, onDelete, onView, index = 0 }) => {
     const { t, i18n } = useTranslation();
     const [showMenu, setShowMenu] = useState(false);
     const [imageLoaded, setImageLoaded] = useState(false);
@@ -116,8 +116,7 @@ const RequestCard = ({ request, onEdit, onDelete, index = 0 }) => {
                 delay: index * 0.05
             }}
             whileHover={{ y: -6, scale: 1.02 }}
-            className="group relative bg-white dark:bg-slate-800/80 rounded-2xl border border-gray-100 dark:border-slate-700/50 shadow-sm hover:shadow-xl hover:shadow-gray-200/60 dark:hover:shadow-slate-900/50 transition-all duration-300 overflow-hidden flex flex-col h-full cursor-pointer backdrop-blur-sm"
-            onClick={() => onEdit && onEdit(request)}
+            className="group relative bg-white dark:bg-slate-800/80 rounded-2xl border border-gray-100 dark:border-slate-700/50 shadow-sm hover:shadow-xl hover:shadow-gray-200/60 dark:hover:shadow-slate-900/50 transition-all duration-300 overflow-hidden flex flex-col h-full backdrop-blur-sm"
         >
             {/* Cover Image */}
             <div className="relative aspect-video overflow-hidden bg-gray-100 dark:bg-slate-700">
@@ -207,12 +206,22 @@ const RequestCard = ({ request, onEdit, onDelete, index = 0 }) => {
 
             {/* Actions Bar */}
             <div className="px-5 pb-5">
-                <div className="flex gap-2" onClick={(e) => e.stopPropagation()}>
+                <div className="flex gap-2">
+                    <motion.button
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        onClick={() => onView && onView(request)}
+                        className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white text-sm font-medium transition-all duration-200 shadow-lg shadow-cyan-500/20"
+                    >
+                        <Eye className="w-4 h-4" />
+                        {t('dashboard.citizen.requestCard.view', 'Voir')}
+                    </motion.button>
+                    
                     <motion.button
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         onClick={() => onEdit && onEdit(request)}
-                        className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-gray-50 dark:bg-slate-700/50 hover:bg-cyan-50 dark:hover:bg-cyan-500/20 text-gray-700 dark:text-gray-300 hover:text-cyan-700 dark:hover:text-cyan-400 text-sm font-medium transition-all duration-200 border border-transparent hover:border-cyan-200 dark:hover:border-cyan-500/30"
+                        className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-gray-50 dark:bg-slate-700/50 hover:bg-gray-100 dark:hover:bg-slate-600 text-gray-700 dark:text-gray-300 text-sm font-medium transition-all duration-200 border border-gray-200 dark:border-slate-600"
                     >
                         <Edit3 className="w-4 h-4" />
                         {t('dashboard.citizen.requestCard.edit')}
@@ -225,7 +234,7 @@ const RequestCard = ({ request, onEdit, onDelete, index = 0 }) => {
                             description={request.description}
                             caseId={request.id}
                             showLabel={false}
-                            className="p-2.5 rounded-xl bg-gray-50 dark:bg-slate-700/50 hover:bg-blue-50 dark:hover:bg-blue-500/20 text-gray-400 dark:text-gray-500 hover:text-blue-500 dark:hover:text-blue-400 transition-all duration-200 border border-transparent hover:border-blue-200 dark:hover:border-blue-500/30"
+                            className="p-2.5 rounded-xl bg-gray-50 dark:bg-slate-700/50 hover:bg-blue-50 dark:hover:bg-blue-500/20 text-gray-400 dark:text-gray-500 hover:text-blue-500 dark:hover:text-blue-400 transition-all duration-200 border border-gray-200 dark:border-slate-600 hover:border-blue-200 dark:hover:border-blue-500/30"
                         />
                     )}
                     
@@ -233,7 +242,7 @@ const RequestCard = ({ request, onEdit, onDelete, index = 0 }) => {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={() => onDelete && onDelete(request.id)}
-                        className="p-2.5 rounded-xl bg-gray-50 dark:bg-slate-700/50 hover:bg-red-50 dark:hover:bg-red-500/20 text-gray-400 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-400 transition-all duration-200 border border-transparent hover:border-red-200 dark:hover:border-red-500/30"
+                        className="p-2.5 rounded-xl bg-gray-50 dark:bg-slate-700/50 hover:bg-red-50 dark:hover:bg-red-500/20 text-gray-400 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-400 transition-all duration-200 border border-gray-200 dark:border-slate-600 hover:border-red-200 dark:hover:border-red-500/30"
                         title={t('dashboard.citizen.requestCard.delete')}
                     >
                         <Trash2 className="w-4 h-4" />

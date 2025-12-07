@@ -4,6 +4,7 @@ import { Plus, Inbox, Sparkles, ChevronLeft, ChevronRight, RefreshCw } from 'luc
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import RequestCard from '../../components/dashboard/RequestCard';
+import RequestDetailModal from '../../components/dashboard/RequestDetailModal';
 import StatsOverview from '../../components/dashboard/StatsOverview';
 import FilterBar from '../../components/dashboard/FilterBar';
 import Button from '../../components/ui/Button';
@@ -170,6 +171,8 @@ const Dashboard = () => {
     const [requests, setRequests] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
+    const [selectedRequest, setSelectedRequest] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const navigate = useNavigate();
 
     const [searchQuery, setSearchQuery] = useState('');
@@ -227,6 +230,11 @@ const Dashboard = () => {
 
     const handleEdit = (request) => {
         navigate(`/citizen/edit/${request.id}`);
+    };
+
+    const handleView = (request) => {
+        setSelectedRequest(request);
+        setIsModalOpen(true);
     };
 
     const clearFilters = () => {
@@ -375,6 +383,7 @@ const Dashboard = () => {
                                             key={request.id}
                                             request={request}
                                             onEdit={handleEdit}
+                                            onView={handleView}
                                             onDelete={handleDelete}
                                             index={index}
                                         />
@@ -400,6 +409,14 @@ const Dashboard = () => {
                     />
                 )}
             </div>
+
+            {/* Modal de détails */}
+            <RequestDetailModal
+                request={selectedRequest}
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onEdit={handleEdit}
+            />
         </div>
     );
 };

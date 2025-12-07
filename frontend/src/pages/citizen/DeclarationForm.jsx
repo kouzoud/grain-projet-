@@ -15,7 +15,7 @@ import casService from '../../services/casService';
 import { useFormPersist } from '../../hooks/useFormPersist';
 
 // ==================== CONSTANTS ====================
-const MAX_TITLE_LENGTH = 100;
+const MAX_TITLE_LENGTH = 30;
 const MAX_DESCRIPTION_LENGTH = 1000;
 
 const getCategories = (t) => [
@@ -30,59 +30,25 @@ const getDescriptionTemplates = (t) => [
         id: 'alimentaire',
         title: t('declarationForm.templates.alimentaire'),
         icon: Package,
-        template: `🍽️ Type de besoin alimentaire :
-- Denrées de base (riz, pâtes, huile...)
-- Produits frais
-- Plats préparés
-
-👥 Nombre de personnes concernées : 
-
-📅 Fréquence du besoin :
-- Ponctuel
-- Régulier (préciser)
-
-⚠️ Allergies ou restrictions alimentaires :`
+        template: t('declarationForm.templates.content.alimentaire')
     },
     {
         id: 'medical',
         title: t('declarationForm.templates.medical'),
         icon: Stethoscope,
-        template: `🏥 Type d'assistance médicale :
-- Accompagnement médical
-- Aide à la mobilité
-- Récupération de médicaments
-
-📋 Détails de la situation :
-
-🕐 Urgence :
-- Immédiate
-- Dans les 24h
-- Cette semaine
-
-📞 Contact d'urgence :`
+        template: t('declarationForm.templates.content.medical')
     },
     {
         id: 'logistique',
         title: t('declarationForm.templates.logistique'),
         icon: Truck,
-        template: `🚗 Type d'aide logistique :
-- Transport de personnes
-- Transport de matériel
-- Aide au déménagement
-
-📦 Détails (poids, volume, distance) :
-
-📅 Date souhaitée :
-
-📍 Trajet prévu :
-- Départ :
-- Arrivée :`
+        template: t('declarationForm.templates.content.logistique')
     },
     {
         id: 'custom',
         title: t('declarationForm.templates.custom'),
         icon: FileText,
-        template: ''
+        template: t('declarationForm.templates.content.custom')
     }
 ];
 
@@ -524,6 +490,7 @@ const DeclarationForm = () => {
         currentStep: 1,
         location: null,
         selectedTemplate: null,
+        customCategory: '',
         certifications: {
             accuracy: false,
             realNeed: false,
@@ -538,6 +505,7 @@ const DeclarationForm = () => {
     const [selectedFiles, setSelectedFiles] = useState([]);
     const [existingPhotos, setExistingPhotos] = useState([]);
     const [selectedTemplate, setSelectedTemplate] = useState(persistedData.selectedTemplate || null);
+    const [customCategory, setCustomCategory] = useState(persistedData.customCategory || '');
     const [certifications, setCertifications] = useState(persistedData.certifications || {
         accuracy: false,
         realNeed: false,
@@ -573,6 +541,11 @@ const DeclarationForm = () => {
 
     useEffect(() => {
         setPersistField('category', watchCategory);
+        // Réinitialiser customCategory si l'utilisateur change de catégorie (et ce n'est plus "AUTRE")
+        if (watchCategory !== 'AUTRE' && customCategory) {
+            setCustomCategory('');
+            setPersistField('customCategory', '');
+        }
     }, [watchCategory]);
 
     // 🆕 Restaurer les valeurs persistées au chargement (uniquement en mode création)
@@ -604,7 +577,18 @@ const DeclarationForm = () => {
                     const data = await casService.getCaseById(id);
                     setValue('title', data.titre);
                     setValue('description', data.description);
-                    setValue('category', data.categorie);
+                    
+                    // Gérer les catégories personnalisées
+                    const standardCategories = ['ALIMENTAIRE', 'MEDICAL', 'LOGISTIQUE', 'AUTRE'];
+                    if (standardCategories.includes(data.categorie)) {
+                        setValue('category', data.categorie);
+                    } else {
+                        // C'est une catégorie personnalisée
+                        setValue('category', 'AUTRE');
+                        setCustomCategory(data.categorie);
+                        setPersistField('customCategory', data.categorie);
+                    }
+                    
                     setLocation({ lat: data.latitude, lng: data.longitude });
                     if (data.photos) setExistingPhotos(data.photos);
                     
@@ -622,7 +606,11 @@ const DeclarationForm = () => {
     // Handle template selection
     const handleTemplateSelect = (template) => {
         setSelectedTemplate(template.id);
-        if (template.template) {
+        if (template.id === 'custom') {
+            // Vider le champ description pour "Description libre"
+            setValue('description', '');
+        } else if (template.template) {
+            // Remplir avec le template pour les autres options
             setValue('description', template.template);
         }
     };
@@ -667,12 +655,23 @@ const DeclarationForm = () => {
             return;
         }
 
+        // Validation pour la catégorie personnalisée
+        if (data.category === 'AUTRE' && !customCategory.trim()) {
+            alert(t('declarationForm.errors.customCategoryRequired'));
+            return;
+        }
+
         setIsLoading(true);
         try {
+            // Utiliser customCategory si la catégorie sélectionnée est "AUTRE"
+            const finalCategory = data.category === 'AUTRE' && customCategory.trim() 
+                ? customCategory.trim() 
+                : data.category;
+
             const casRequest = {
                 titre: data.title,
                 description: data.description,
-                categorie: data.category,
+                categorie: finalCategory,
                 latitude: location.lat,
                 longitude: location.lng,
                 photos: selectedFiles,
@@ -735,7 +734,7 @@ const DeclarationForm = () => {
                                 maxLength={MAX_TITLE_LENGTH}
                                 {...register('title', { 
                                     required: t('declarationForm.errors.titleRequired'),
-                                    minLength: { value: 10, message: 'Le titre doit contenir au moins 10 caractères' }
+                                    minLength: { value: 5, message: t('declarationForm.errors.titleMinLength') }
                                 })}
                                 className={`w-full px-4 py-3 rounded-xl border-2 transition-all duration-300 bg-white dark:bg-slate-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-slate-500 ${errors.title
                                         ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20'
@@ -792,6 +791,40 @@ const DeclarationForm = () => {
                                     <AlertCircle className="w-4 h-4" /> {errors.category.message}
                                 </p>
                             )}
+
+                            {/* 🆕 Champ personnalisé pour la catégorie "Autre" */}
+                            <AnimatePresence>
+                                {watchCategory === 'AUTRE' && (
+                                    <motion.div
+                                        initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                                        animate={{ opacity: 1, height: 'auto', marginTop: 16 }}
+                                        exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                                        transition={{ duration: 0.3 }}
+                                        className="overflow-hidden"
+                                    >
+                                        <div className="p-4 bg-gradient-to-br from-violet-50 to-cyan-50 dark:from-violet-900/20 dark:to-cyan-900/20 rounded-xl border-2 border-violet-200 dark:border-violet-700">
+                                            <label className="block text-sm font-semibold text-violet-700 dark:text-violet-300 mb-2">
+                                                {t('declarationForm.customCategory.label')} *
+                                            </label>
+                                            <input
+                                                type="text"
+                                                placeholder={t('declarationForm.customCategory.placeholder')}
+                                                value={customCategory}
+                                                onChange={(e) => {
+                                                    setCustomCategory(e.target.value);
+                                                    setPersistField('customCategory', e.target.value);
+                                                }}
+                                                maxLength={50}
+                                                className="w-full px-4 py-3 rounded-lg border-2 border-violet-300 dark:border-violet-600 focus:border-violet-500 focus:ring-4 focus:ring-violet-500/20 focus:outline-none bg-white dark:bg-slate-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-slate-500 transition-all duration-300"
+                                            />
+                                            <p className="mt-2 text-xs text-violet-600 dark:text-violet-400 flex items-center gap-1">
+                                                <Sparkles className="w-3.5 h-3.5" />
+                                                {t('declarationForm.customCategory.hint')}
+                                            </p>
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                         </div>
                     </motion.div>
                 );
@@ -1107,12 +1140,12 @@ const DeclarationForm = () => {
                     <div className="flex items-start gap-3">
                         <Lightbulb className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
                         <div>
-                            <h4 className="font-medium text-amber-800 dark:text-amber-300 mb-1">Conseil</h4>
+                            <h4 className="font-medium text-amber-800 dark:text-amber-300 mb-1">{t('declarationForm.tips.title')}</h4>
                             <p className="text-sm text-amber-700 dark:text-amber-400">
-                                {currentStep === 1 && "Un titre clair et précis attire plus de bénévoles. Mentionnez le type d'aide recherché."}
-                                {currentStep === 2 && "Détaillez votre situation : nombre de personnes, urgence, contraintes particulières..."}
-                                {currentStep === 3 && "Indiquez précisément l'adresse où l'aide est nécessaire pour faciliter l'intervention."}
-                                {currentStep === 4 && "Les photos aident les bénévoles à mieux comprendre votre situation et à se préparer."}
+                                {currentStep === 1 && t('declarationForm.tips.step1')}
+                                {currentStep === 2 && t('declarationForm.tips.step2')}
+                                {currentStep === 3 && t('declarationForm.tips.step3')}
+                                {currentStep === 4 && t('declarationForm.tips.step4')}
                             </p>
                         </div>
                     </div>

@@ -130,8 +130,22 @@ const FloatingSearchBar = ({ onLocationFound }) => {
         setIsSearching(true);
         try {
             const response = await fetch(
-                `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&accept-language=fr&limit=1`
+                `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&accept-language=fr&limit=1`,
+                {
+                    headers: {
+                        'User-Agent': 'Link2ActApp/1.0'
+                    }
+                }
             );
+
+            if (!response.ok) {
+                if (response.status === 403) {
+                    alert("Service de recherche temporairement indisponible. Veuillez utiliser la carte directement.");
+                    return;
+                }
+                throw new Error("Erreur réseau");
+            }
+
             const results = await response.json();
 
             if (results && results.length > 0) {
@@ -144,7 +158,7 @@ const FloatingSearchBar = ({ onLocationFound }) => {
             }
         } catch (err) {
             console.error("Search error:", err);
-            alert("Erreur lors de la recherche");
+            alert("Erreur lors de la recherche. Veuillez utiliser la carte directement.");
         } finally {
             setIsSearching(false);
         }
@@ -268,12 +282,23 @@ const LocationPicker = ({ onLocationSelect, initialLocation }) => {
             try {
                 const response = await fetch(
                     `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latlng.lat}&lon=${latlng.lng}&accept-language=fr`,
-                    { signal: controller.signal }
+                    { 
+                        signal: controller.signal,
+                        headers: {
+                            'User-Agent': 'Link2ActApp/1.0'
+                        }
+                    }
                 );
 
                 if (!response.ok) {
                     if (response.status === 429) {
                         throw new Error("Trop de requêtes. Veuillez patienter.");
+                    }
+                    if (response.status === 403) {
+                        // CORS bloqué - continuer sans adresse
+                        setAddress(`Position: ${latlng.lat.toFixed(4)}, ${latlng.lng.toFixed(4)}`);
+                        onLocationSelect({ lat: latlng.lat, lng: latlng.lng, address: `Position: ${latlng.lat.toFixed(4)}, ${latlng.lng.toFixed(4)}` });
+                        return;
                     }
                     throw new Error("Erreur réseau");
                 }
@@ -292,7 +317,11 @@ const LocationPicker = ({ onLocationSelect, initialLocation }) => {
                     return;
                 }
                 console.error("Erreur geocoding:", error);
-                setAddress(error.message === "Trop de requêtes. Veuillez patienter." ? error.message : "Impossible de récupérer l'adresse");
+                
+                // En cas d'erreur CORS ou réseau, utiliser les coordonnées
+                const fallbackAddress = `Position: ${latlng.lat.toFixed(4)}, ${latlng.lng.toFixed(4)}`;
+                setAddress(error.message === "Trop de requêtes. Veuillez patienter." ? error.message : fallbackAddress);
+                onLocationSelect({ lat: latlng.lat, lng: latlng.lng, address: fallbackAddress });
             } finally {
                 setLoadingAddress(false);
             }
