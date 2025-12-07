@@ -54,11 +54,20 @@ public class RequestLoggingFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
 
             long duration = System.currentTimeMillis() - startTime;
-            logger.info("Completed request: {} {} - Status: {} - Duration: {}ms",
-                    request.getMethod(),
-                    request.getRequestURI(),
-                    response.getStatus(),
-                    duration);
+            
+            // Ne logger la réponse que si elle n'est pas committée (évite les erreurs SSE)
+            if (!response.isCommitted()) {
+                logger.info("Completed request: {} {} - Status: {} - Duration: {}ms",
+                        request.getMethod(),
+                        request.getRequestURI(),
+                        response.getStatus(),
+                        duration);
+            } else {
+                logger.info("Completed request: {} {} - Duration: {}ms (response already committed)",
+                        request.getMethod(),
+                        request.getRequestURI(),
+                        duration);
+            }
 
         } catch (Exception e) {
             logger.error("Error processing request: {} {}",
@@ -74,10 +83,12 @@ public class RequestLoggingFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        // Ne pas logger les requêtes vers les ressources statiques
+        // Ne pas logger les requêtes vers les ressources statiques et SSE
         String path = request.getRequestURI();
         return path.startsWith("/uploads/") || 
                path.startsWith("/static/") ||
-               path.startsWith("/favicon.ico");
+               path.startsWith("/favicon.ico") ||
+               path.contains("/notifications/stream") || // Exclure les SSE
+               path.contains("/actuator/"); // Exclure les health checks
     }
 }

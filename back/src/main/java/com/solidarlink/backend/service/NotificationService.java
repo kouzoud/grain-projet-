@@ -4,6 +4,7 @@ import com.solidarlink.backend.entity.User;
 import com.solidarlink.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
@@ -71,7 +72,9 @@ public class NotificationService {
 
     /**
      * Envoyer une notification à un utilisateur spécifique
+     * @Async pour éviter les conflits de thread avec le contexte HTTP
      */
+    @Async
     public void sendNotificationToUser(Long userId, String eventName, Object data) {
         CopyOnWriteArrayList<SseEmitter> emitters = userEmitters.get(userId);
         if (emitters != null && !emitters.isEmpty()) {
@@ -93,16 +96,40 @@ public class NotificationService {
 
     /**
      * Envoyer une notification à plusieurs utilisateurs
+     * @Async pour éviter les conflits de thread
      */
+    @Async
     public void sendNotificationToUsers(Iterable<Long> userIds, String eventName, Object data) {
-        userIds.forEach(userId -> sendNotificationToUser(userId, eventName, data));
+        userIds.forEach(userId -> sendNotificationToUserSync(userId, eventName, data));
     }
 
     /**
      * Envoyer une notification broadcast à tous les utilisateurs connectés
+     * @Async pour éviter les conflits de thread
      */
+    @Async
     public void broadcastNotification(String eventName, Object data) {
-        userEmitters.keySet().forEach(userId -> sendNotificationToUser(userId, eventName, data));
+        userEmitters.keySet().forEach(userId -> sendNotificationToUserSync(userId, eventName, data));
+    }
+
+    /**
+     * Version synchrone interne pour les appels déjà dans un contexte @Async
+     */
+    private void sendNotificationToUserSync(Long userId, String eventName, Object data) {
+        CopyOnWriteArrayList<SseEmitter> emitters = userEmitters.get(userId);
+        if (emitters != null && !emitters.isEmpty()) {
+            emitters.forEach(emitter -> {
+                try {
+                    emitter.send(SseEmitter.event()
+                            .name(eventName)
+                            .data(data));
+                    log.debug("Notification sent to user {} - Event: {}", userId, eventName);
+                } catch (Throwable t) {
+                    log.warn("Error sending notification to user {} - removing emitter: {}", userId, t.toString());
+                    removeEmitter(userId, emitter);
+                }
+            });
+        }
     }
 
     /**
