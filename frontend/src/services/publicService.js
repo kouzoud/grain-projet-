@@ -1,6 +1,11 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080/api/public';
+// Détection automatique de l'environnement
+const API_BASE_URL = import.meta.env.PROD 
+    ? "/api"                       // Production: chemin relatif
+    : "http://localhost:8080/api"; // Local: URL complète
+
+const API_URL = `${API_BASE_URL}/public`;
 
 const getStats = async () => {
     try {

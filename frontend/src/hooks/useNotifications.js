@@ -31,10 +31,13 @@ export const useNotifications = (enabled = true) => {
         eventSourceRef.current.close();
       }
 
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+      // Détection automatique de l'environnement
+      const BASE_URL = import.meta.env.PROD 
+        ? "/api"                       // Production: chemin relatif (Nginx gère le reste)
+        : "http://localhost:8080/api"; // Local: URL complète vers le serveur Java
       
       // EventSource ne supporte pas les headers custom, on passe le token dans l'URL
-      const eventSource = new EventSource(`${apiUrl}/api/notifications/stream?token=${encodeURIComponent(token)}`, {
+      const eventSource = new EventSource(`${BASE_URL}/notifications/stream?token=${encodeURIComponent(token)}`, {
         withCredentials: true,
       });
 
@@ -130,8 +133,12 @@ export const useNotifications = (enabled = true) => {
     const token = localStorage.getItem('token');
     if (token && enabled) {
       const connectSSE = () => {
-        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8080';
-        const eventSource = new EventSource(`${apiUrl}/api/notifications/stream`, {
+        // Détection automatique de l'environnement
+        const BASE_URL = import.meta.env.PROD 
+          ? "/api"                       // Production: chemin relatif
+          : "http://localhost:8080/api"; // Local: URL complète
+        
+        const eventSource = new EventSource(`${BASE_URL}/notifications/stream?token=${encodeURIComponent(token)}`, {
           withCredentials: true,
         });
         eventSourceRef.current = eventSource;

@@ -1,7 +1,4 @@
 import api from './api';
-import axios from 'axios';
-
-const API_URL = 'http://localhost:8080/api';
 
 const userService = {
     getProfile: async () => {
@@ -19,18 +16,16 @@ const userService = {
     },
 
     uploadAvatar: async (file) => {
-        const token = localStorage.getItem('token');
         const formData = new FormData();
         formData.append('file', file);
 
         const config = {
             headers: {
-                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'multipart/form-data'
             }
         };
 
-        const response = await axios.post(`${API_URL}/users/me/avatar`, formData, config);
+        const response = await api.post('/users/me/avatar', formData, config);
         return response.data;
     }
 };

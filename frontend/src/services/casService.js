@@ -1,11 +1,7 @@
 import api from './api';
-import axios from 'axios';
-
-const API_URL = 'http://localhost:8080/api';
 
 const casService = {
     createCase: async (caseData) => {
-        const token = localStorage.getItem('token');
         const formData = new FormData();
 
         // Debug log
@@ -41,15 +37,14 @@ const casService = {
             console.log(`  ${key}:`, value instanceof File ? `File(${value.name})` : value);
         }
 
-        // Force Headers
+        // Utiliser api.js qui a déjà la bonne baseURL et les intercepteurs
         const config = {
             headers: {
-                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'multipart/form-data' // CRUCIAL
             }
         };
 
-        return axios.post(`${API_URL}/cases`, formData, config);
+        return api.post('/cases', formData, config);
     },
 
     /**
@@ -104,7 +99,6 @@ const casService = {
     },
 
     updateCase: async (id, caseData) => {
-        const token = localStorage.getItem('token');
         const formData = new FormData();
 
         formData.append('titre', caseData.titre);
@@ -123,12 +117,11 @@ const casService = {
 
         const config = {
             headers: {
-                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'multipart/form-data'
             }
         };
 
-        return axios.post(`${API_URL}/cases/${id}`, formData, config);
+        return api.post(`/cases/${id}`, formData, config);
     },
 
     deleteCase: async (id) => {

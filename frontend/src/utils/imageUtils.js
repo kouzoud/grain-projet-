@@ -1,4 +1,7 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+// Détection automatique de l'environnement
+const API_BASE_URL = import.meta.env.PROD 
+    ? ""                       // Production: chemin relatif (Nginx gère le routing)
+    : "http://localhost:8080"; // Local: URL complète vers le serveur Java
 
 export const getSingleImageUrl = (filename) => {
     if (!filename) return null;
