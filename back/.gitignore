@@ -1,0 +1,29 @@
+# Build
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# Logs
+logs/
+*.log
+*.log.*
+
+# Uploads (dev)
+uploads/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+.classpath
+.project
+.settings/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env.local

@@ -19,12 +19,18 @@ FROM eclipse-temurin:17-jre-alpine
 
 WORKDIR /app
 
-# Créer un utilisateur non-root pour la sécurité
-RUN addgroup -S spring && adduser -S spring -G spring
-USER spring:spring
+# Créer le dossier uploads avec les bonnes permissions
+RUN mkdir -p /app/uploads && \
+    mkdir -p /app/logs && \
+    addgroup -S spring && \
+    adduser -S spring -G spring && \
+    chown -R spring:spring /app/uploads /app/logs
 
 # Copier le JAR depuis le stage builder
 COPY --from=builder /app/target/*.jar app.jar
+RUN chown spring:spring app.jar
+
+USER spring:spring
 
 # Exposer le port Spring Boot
 EXPOSE 8080
