@@ -25,7 +25,7 @@ const HeroSection = () => {
     };
 
     return (
-        <header className="relative min-h-dvh flex items-center justify-center overflow-hidden bg-gradient-to-br from-white via-cyan-50/30 to-purple-50/30 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 px-4 md:px-8 pb-20 md:pb-0">
+        <header className="relative min-h-dvh flex items-center justify-center overflow-hidden bg-gradient-to-br from-white via-cyan-50/30 to-purple-50/30 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 px-4 md:px-8 pt-24 md:pt-28 pb-20 md:pb-0">
             {/* Floating Navbar */}
             <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md">
                 <div className="container mx-auto px-4 py-4">
@@ -128,7 +128,7 @@ const HeroSection = () => {
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#06b6d440_1px,transparent_1px),linear-gradient(to_bottom,#06b6d440_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)] dark:opacity-0 opacity-30"></div>
             </div>
 
-            <div className="container mx-auto px-4 relative z-10 text-center">
+            <div className="container mx-auto px-4 relative z-10 text-center pt-10 md:pt-14 lg:pt-16">
                 <motion.div
                     initial="hidden"
                     animate="visible"
@@ -143,12 +143,14 @@ const HeroSection = () => {
                         }
                     }}
                 >
-                    <motion.div
-                        variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8 } } }}
-                        className="inline-block mb-4 px-6 py-2 rounded-full border-2 border-cyan-500 dark:border-cyan-400 bg-white/80 dark:bg-transparent backdrop-blur-sm text-cyan-700 dark:text-cyan-400 text-sm font-semibold tracking-wider uppercase shadow-lg shadow-cyan-500/20 dark:shadow-cyan-500/50"
-                    >
-                        {t('hero.badge')}
-                    </motion.div>
+                    <div className="flex justify-center pt-2 md:pt-4 lg:pt-6 pb-6 md:pb-8">
+                        <motion.div
+                            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8 } } }}
+                            className="inline-flex max-w-full items-center justify-center px-6 py-2 rounded-full border-2 border-cyan-500 dark:border-cyan-400 bg-white/80 dark:bg-transparent backdrop-blur-sm text-cyan-700 dark:text-cyan-400 text-sm font-semibold tracking-wider uppercase shadow-lg shadow-cyan-500/20 dark:shadow-cyan-500/50 whitespace-nowrap"
+                        >
+                            {t('hero.badge')}
+                        </motion.div>
+                    </div>
                     <motion.h1
                         variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8 } } }}
                         className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black text-gray-900 dark:text-white mb-6 leading-tight tracking-tight"
